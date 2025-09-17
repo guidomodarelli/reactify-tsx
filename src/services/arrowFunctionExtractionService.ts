@@ -9,6 +9,12 @@ import { HandlerNameFactory } from './handlerNameFactory';
 import { ParameterTextBuilder } from './parameterTextBuilder';
 import { ArrowBodyBuilder } from './arrowBodyBuilder';
 import { InsertionPlanner } from './insertionPlanner';
+import {
+  INSERTION_TARGET_ERROR_MESSAGE,
+  MISSING_COMPONENT_CONTEXT_MESSAGE,
+  SELECT_ARROW_FUNCTION_MESSAGE,
+  UNSUPPORTED_COMPONENT_CONTEXT_MESSAGE,
+} from '../constants/messages';
 
 export interface ExtractionError {
   readonly success: false;
@@ -50,16 +56,16 @@ export class ArrowFunctionExtractionService {
     const arrowContext = this.arrowFunctionLocator.locate(sourceFile, selectionStart, selectionEnd);
 
     if (!arrowContext) {
-      return { success: false, message: 'Select an arrow function inside a JSX property to extract it.' };
+      return { success: false, message: SELECT_ARROW_FUNCTION_MESSAGE };
     }
 
     const componentContext = this.componentContextResolver.resolve(arrowContext.attribute);
     if (!componentContext) {
-      return { success: false, message: 'No containing React component found.' };
+      return { success: false, message: MISSING_COMPONENT_CONTEXT_MESSAGE };
     }
 
     if (!this.isSupportedFunctionContext(componentContext)) {
-      return { success: false, message: 'Currently only functional components with block body are supported.' };
+      return { success: false, message: UNSUPPORTED_COMPONENT_CONTEXT_MESSAGE };
     }
 
     const handlerName = this.handlerNameFactory.createHandlerName(document, sourceFile, arrowContext.attribute, componentContext);
@@ -81,7 +87,7 @@ export class ArrowFunctionExtractionService {
     );
 
     if (!handlerInsertion) {
-      return { success: false, message: 'Could not determine where to insert the new function.' };
+      return { success: false, message: INSERTION_TARGET_ERROR_MESSAGE };
     }
 
     return {
