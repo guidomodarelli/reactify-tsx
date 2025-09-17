@@ -312,13 +312,15 @@ export class FunctionTransformationService {
       ? [ts.factory.createToken(ts.SyntaxKind.AsyncKeyword)]
       : undefined;
 
+    const arrowBody = ts.isBlock(fn.body) ? ts.factory.createBlock(fn.body.statements, true) : fn.body;
+
     const arrowFunction = ts.factory.createArrowFunction(
       modifiers,
       fn.typeParameters,
       fn.parameters,
       fn.type,
       ts.factory.createToken(ts.SyntaxKind.EqualsGreaterThanToken),
-      fn.body,
+      arrowBody,
     );
 
     const replacementText = printer.printNode(ts.EmitHint.Expression, arrowFunction, sourceFile);
