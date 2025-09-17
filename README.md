@@ -1,71 +1,59 @@
-# reactify-tsx README
+# Reactify TSX
 
-This is the README for your extension "reactify-tsx". After writing up a brief description, we recommend including the following sections.
+Reactify TSX is a VS Code extension that streamlines common React and TypeScript refactors. It automates event handler extraction and lets you convert functions between declarations, expressions, and arrows while preserving bodies, modifiers, and type information as much as possible.
 
 ## Features
 
-Describe specific features of your extension including screenshots of your extension in action. Image paths are relative to this README file.
+- **Extract Arrow Function to Handler** – Move inline JSX arrow functions into surrounding components and wire them up automatically.
+- **Convert Functions Between Forms** – Transform functions in either direction:
+  - Arrow ⇄ anonymous function expression
+  - Variable (arrow or anonymous expression) ⇄ named function declaration
+  - Function declaration ⇄ variable assigned to arrow or anonymous function expression
+- **Safety Nets** – The refactors preserve `async`, generators, exports, and type parameters. When conversion could change `this`/`arguments`/`super` binding, the extension prompts you before applying the edit. If a type annotation cannot be preserved, it emits `// FIXME: review types` and flags a follow-up warning.
 
-For example if there is an image subfolder under your extension project workspace:
+## Commands & Keybindings
 
-\!\[feature X\]\(images/feature-x.png\)
+| Command ID | Title | Default Shortcut |
+| --- | --- | --- |
+| `reactify-tsx.extractArrowFunction` | Reactify TSX: Extraer arrow function a handler | `Ctrl+Alt+Shift+E` (`Cmd+Alt+Shift+E` on macOS) |
+| `reactify-tsx.transformFunction` | Reactify TSX: Convertir función | `Ctrl+Alt+Shift+T` (`Cmd+Alt+Shift+T` on macOS) |
 
-> Tip: Many popular extensions utilize animations. This is an excellent way to show off your extension! We recommend short, focused animations that are easy to follow.
+Both commands are available from the editor context menu when editing JavaScript or TypeScript (including React variants).
 
-## Requirements
+## Function Transformation Options
 
-If you have any requirements or dependencies, add a section describing those and how to install and configure them.
+When you invoke **Transform Function** the extension analyses the selection and offers only the transformations that are valid in that context. Depending on the conversion it may ask for an explicit function name and will suggest a placeholder if one cannot be inferred. If you accept the placeholder, the generated code is annotated with `// FIXME: rename` so you can revisit it quickly.
 
-## Extension Settings
+## Warnings & Annotations
 
-Include if your extension adds any VS Code settings through the `contributes.configuration` extension point.
+- **Binding changes** – Converting between `function` and arrow syntax can change how `this`, `arguments`, or `super` behave. The extension displays a confirmation dialog whenever the target function references any of those.
+- **Type review** – If a variable declaration loses an explicit function type during conversion, the generated declaration receives `// FIXME: review types` and the command surfaces a follow-up warning.
 
-For example:
+## Development
 
-This extension contributes the following settings:
+Install dependencies and build artifacts:
 
-* `myExtension.enable`: Enable/disable this extension.
-* `myExtension.thing`: Set to `blah` to do something.
+```bash
+npm install
+npm run compile
+```
 
-## Known Issues
+### Testing
 
-Calling out known issues can help limit users opening duplicate issues against your extension.
+Compile the tests, run the automated suite, and lint the sources:
+
+```bash
+npm run compile-tests
+npm test
+npm run lint
+```
+
+The automated tests cover the transformation planner and verify that extension commands are registered.
 
 ## Release Notes
 
-Users appreciate release notes as you update your extension.
-
-### 1.0.0
-
-Initial release of ...
-
-### 1.0.1
-
-Fixed issue #.
-
-### 1.1.0
-
-Added features X, Y, and Z.
+- Initial release: arrow-function extraction command and function transformation tooling with safety checks and automated annotations.
 
 ---
 
-## Following extension guidelines
-
-Ensure that you've read through the extensions guidelines and follow the best practices for creating your extension.
-
-* [Extension Guidelines](https://code.visualstudio.com/api/references/extension-guidelines)
-
-## Working with Markdown
-
-You can author your README using Visual Studio Code. Here are some useful editor keyboard shortcuts:
-
-* Split the editor (`Cmd+\` on macOS or `Ctrl+\` on Windows and Linux).
-* Toggle preview (`Shift+Cmd+V` on macOS or `Shift+Ctrl+V` on Windows and Linux).
-* Press `Ctrl+Space` (Windows, Linux, macOS) to see a list of Markdown snippets.
-
-## For more information
-
-* [Visual Studio Code's Markdown Support](http://code.visualstudio.com/docs/languages/markdown)
-* [Markdown Syntax Reference](https://help.github.com/articles/markdown-basics/)
-
-**Enjoy!**
+Enjoy using Reactify TSX! Feel free to file issues or feature requests to help shape future iterations.
