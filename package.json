@@ -9,13 +9,32 @@
   "categories": [
     "Other"
   ],
-  "activationEvents": [],
+  "activationEvents": [
+    "onCommand:reactify-tsx.extractArrowFunction"
+  ],
   "main": "./dist/extension.js",
   "contributes": {
     "commands": [
       {
-        "command": "reactify-tsx.helloWorld",
-        "title": "Hello World"
+        "command": "reactify-tsx.extractArrowFunction",
+        "title": "Reactify TSX: Extraer arrow function a handler"
+      }
+    ],
+    "menus": {
+      "editor/context": [
+        {
+          "command": "reactify-tsx.extractArrowFunction",
+          "when": "editorLangId == typescriptreact || editorLangId == javascriptreact || editorLangId == typescript || editorLangId == javascript",
+          "group": "navigation@90"
+        }
+      ]
+    },
+    "keybindings": [
+      {
+        "command": "reactify-tsx.extractArrowFunction",
+        "key": "ctrl+alt+shift+e",
+        "mac": "cmd+alt+shift+e",
+        "when": "editorTextFocus && (editorLangId == typescriptreact || editorLangId == javascriptreact || editorLangId == typescript || editorLangId == javascript)"
       }
     ]
   },
