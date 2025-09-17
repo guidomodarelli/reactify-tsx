@@ -23,7 +23,7 @@ type ComponentContext = FunctionComponentContext | ClassComponentContext;
 export async function extractArrowFunctionCommand(): Promise<void> {
 	const editor = vscode.window.activeTextEditor;
 	if (!editor) {
-		vscode.window.showInformationMessage('No hay un editor activo.');
+		vscode.window.showInformationMessage('No active editor found.');
 		return;
 	}
 
@@ -42,18 +42,18 @@ export async function extractArrowFunctionCommand(): Promise<void> {
 	const arrowContext = findArrowFunction(sourceFile, selectionStart, selectionEnd);
 
 	if (!arrowContext) {
-		vscode.window.showErrorMessage('Selecciona una arrow function dentro de una propiedad JSX para extraerla.');
+		vscode.window.showErrorMessage('Select an arrow function inside a JSX property to extract it.');
 		return;
 	}
 
 	const componentContext = resolveComponentContext(arrowContext.attribute);
 	if (!componentContext) {
-		vscode.window.showErrorMessage('No se encontró un componente React contenedor.');
+		vscode.window.showErrorMessage('No containing React component found.');
 		return;
 	}
 
 	if (componentContext.kind === 'function' && !componentContext.block) {
-		vscode.window.showErrorMessage('Actualmente solo se soportan componentes funcionales con cuerpo en bloque.');
+		vscode.window.showErrorMessage('Currently only functional components with block body are supported.');
 		return;
 	}
 
@@ -74,7 +74,7 @@ export async function extractArrowFunctionCommand(): Promise<void> {
 		bodyDetails
 	);
 	if (!insertPosition) {
-		vscode.window.showErrorMessage('No se pudo determinar dónde insertar la nueva función.');
+		vscode.window.showErrorMessage('Could not determine where to insert the new function.');
 		return;
 	}
 
@@ -84,7 +84,7 @@ export async function extractArrowFunctionCommand(): Promise<void> {
 
 	const success = await vscode.workspace.applyEdit(edit);
 	if (!success) {
-		vscode.window.showErrorMessage('No se pudieron aplicar los cambios de refactor.');
+		vscode.window.showErrorMessage('Could not apply refactor changes.');
 		return;
 	}
 
@@ -98,12 +98,12 @@ export async function extractArrowFunctionCommand(): Promise<void> {
 			try {
 				await vscode.commands.executeCommand('editor.action.rename');
 			} catch (error) {
-				console.error('No se pudo iniciar la acción de renombrar:', error);
+				console.error('Could not initiate rename action:', error);
 			}
 		}
 	}
 
-	vscode.window.showInformationMessage(`Función '${handlerName}' extraída correctamente.`);
+	vscode.window.showInformationMessage(`Function '${handlerName}' extracted successfully.`);
 }
 
 function determineScriptKind(document: vscode.TextDocument): ts.ScriptKind {
@@ -272,7 +272,7 @@ function buildParameterString(
 	}
 
 	if (!ts.isIdentifier(parameter.name)) {
-		return `/* FIXME: agregar tipo manualmente */ ${originalText}`;
+		return `/* FIXME: add type manually */ ${originalText}`;
 	}
 
 	const inferred = index === 0 ? inferEventType(attribute, sourceFile) : undefined;
@@ -287,7 +287,7 @@ function buildParameterString(
 		return `${rest}${name}${optional}: ${inferred}${initializer}`;
 	}
 
-	return `/* FIXME: agregar tipo manualmente */ ${originalText}`;
+	return `/* FIXME: add type manually */ ${originalText}`;
 }
 
 interface EventTypeMapping {
