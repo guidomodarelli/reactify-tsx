@@ -9,5 +9,39 @@ export const UNSUPPORTED_COMPONENT_CONTEXT_MESSAGE =
   'Currently only functional components with block body are supported.';
 export const INSERTION_TARGET_ERROR_MESSAGE = 'Could not determine where to insert the new function.';
 
+export const NO_FUNCTION_IN_SELECTION_MESSAGE = 'No function found at the current selection.';
+export const NO_AVAILABLE_TRANSFORMATIONS_MESSAGE =
+  'No compatible transformations are available for the selected function.';
+export const SELECT_TRANSFORMATION_PLACEHOLDER = 'Select a function transformation target';
+export const TRANSFORMATION_SUCCESS_MESSAGE = 'Function transformed successfully.';
+export const TRANSFORMATION_APPLY_FAILURE_MESSAGE = 'Could not apply transformation changes.';
+export const TRANSFORMATION_BINDING_WARNING_MESSAGE =
+  'This conversion may change how "this", "arguments" or "super" behave. Continue?';
+export const TRANSFORMATION_CONTINUE_ACTION = 'Continue';
+export const TRANSFORMATION_CANCEL_ACTION = 'Cancel';
+export const TRANSFORMATION_TYPES_REVIEW_MESSAGE = 'Review the generated // FIXME: review types annotations.';
+export const REQUEST_FUNCTION_NAME_PROMPT = 'Provide a name for the generated function.';
+export const INVALID_IDENTIFIER_MESSAGE = 'Enter a valid JavaScript identifier.';
+
+export const TRANSFORMATION_NOT_IMPLEMENTED_MESSAGE = 'Transformation not implemented.';
+export const NOT_AN_ARROW_FUNCTION_MESSAGE = 'Selected node is not an arrow function.';
+export const NOT_A_FUNCTION_EXPRESSION_MESSAGE = 'Selected node is not a function expression.';
+export const NOT_A_FUNCTION_DECLARATION_MESSAGE = 'Selected node is not a function declaration.';
+export const GENERATOR_ARROW_UNSUPPORTED_MESSAGE = 'Cannot convert generator functions to arrow functions.';
+export const ONLY_ANONYMOUS_FUNCTION_SUPPORTED_MESSAGE =
+  'Only anonymous function expressions are supported for this conversion.';
+export const NOT_IN_VARIABLE_DECLARATION_MESSAGE = 'Function is not part of a variable declaration.';
+export const ONLY_IDENTIFIER_DECLARATIONS_SUPPORTED_MESSAGE =
+  'Only simple identifier declarations are supported.';
+export const DECLARATION_MISSING_INITIALIZER_MESSAGE = 'Variable declaration has no initializer.';
+export const EXPECTED_ARROW_INITIALIZER_MESSAGE = 'Expected arrow function initializer for conversion.';
+export const EXPECTED_FUNCTION_EXPRESSION_INITIALIZER_MESSAGE =
+  'Expected function expression initializer for conversion.';
+export const FUNCTION_MISSING_IMPLEMENTATION_MESSAGE =
+  'Function declaration without implementation cannot be transformed.';
+export const FUNCTION_NAME_REQUIRED_MESSAGE = 'Function declaration must have a name for this conversion.';
+export const FUNCTION_UNSUPPORTED_MODIFIER_MESSAGE =
+  'Function has modifiers that are not supported for conversion.';
+
 export const extractionSuccessMessage = (handlerName: string): string =>
   `Function '${handlerName}' extracted successfully.`;

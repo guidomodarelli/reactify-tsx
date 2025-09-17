@@ -10,7 +10,8 @@
     "Other"
   ],
   "activationEvents": [
-    "onCommand:reactify-tsx.extractArrowFunction"
+    "onCommand:reactify-tsx.extractArrowFunction",
+    "onCommand:reactify-tsx.transformFunction"
   ],
   "main": "./dist/extension.js",
   "contributes": {
@@ -18,6 +19,10 @@
       {
         "command": "reactify-tsx.extractArrowFunction",
         "title": "Reactify TSX: Extraer arrow function a handler"
+      },
+      {
+        "command": "reactify-tsx.transformFunction",
+        "title": "Reactify TSX: Convertir función"
       }
     ],
     "menus": {
@@ -26,6 +31,11 @@
           "command": "reactify-tsx.extractArrowFunction",
           "when": "editorLangId == typescriptreact || editorLangId == javascriptreact || editorLangId == typescript || editorLangId == javascript",
           "group": "navigation@90"
+        },
+        {
+          "command": "reactify-tsx.transformFunction",
+          "when": "editorLangId == typescriptreact || editorLangId == javascriptreact || editorLangId == typescript || editorLangId == javascript",
+          "group": "navigation@91"
         }
       ]
     },
@@ -34,6 +44,12 @@
         "command": "reactify-tsx.extractArrowFunction",
         "key": "ctrl+alt+shift+e",
         "mac": "cmd+alt+shift+e",
+        "when": "editorTextFocus && (editorLangId == typescriptreact || editorLangId == javascriptreact || editorLangId == typescript || editorLangId == javascript)"
+      },
+      {
+        "command": "reactify-tsx.transformFunction",
+        "key": "ctrl+alt+shift+t",
+        "mac": "cmd+alt+shift+t",
         "when": "editorTextFocus && (editorLangId == typescriptreact || editorLangId == javascriptreact || editorLangId == typescript || editorLangId == javascript)"
       }
     ]
