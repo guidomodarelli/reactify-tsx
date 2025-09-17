@@ -64,7 +64,15 @@ export async function extractArrowFunctionCommand(): Promise<void> {
 	const replacementText = componentContext.kind === 'class' ? `this.${handlerName}` : handlerName;
 	const arrowRange = getRangeFromNode(document, sourceFile, arrowContext.arrow);
 
-	const { insertPosition, insertText } = buildInsertion(document, sourceFile, arrowContext.arrow, componentContext, handlerName, parameterText, bodyDetails);
+	const { insertPosition, insertText, handlerDefinitionOffset } = buildInsertion(
+		document,
+		sourceFile,
+		arrowContext.arrow,
+		componentContext,
+		handlerName,
+		parameterText,
+		bodyDetails
+	);
 	if (!insertPosition) {
 		vscode.window.showErrorMessage('No se pudo determinar dónde insertar la nueva función.');
 		return;
@@ -78,6 +86,21 @@ export async function extractArrowFunctionCommand(): Promise<void> {
 	if (!success) {
 		vscode.window.showErrorMessage('No se pudieron aplicar los cambios de refactor.');
 		return;
+	}
+
+	if (typeof handlerDefinitionOffset === 'number') {
+		const renameStart = document.positionAt(handlerDefinitionOffset);
+		const renameEnd = renameStart.translate(0, handlerName.length);
+		const activeEditor = vscode.window.activeTextEditor;
+		if (activeEditor && activeEditor.document.uri.toString() === document.uri.toString()) {
+			activeEditor.selection = new vscode.Selection(renameStart, renameEnd);
+			activeEditor.revealRange(new vscode.Range(renameStart, renameEnd), vscode.TextEditorRevealType.Default);
+			try {
+				await vscode.commands.executeCommand('editor.action.rename');
+			} catch (error) {
+				console.error('No se pudo iniciar la acción de renombrar:', error);
+			}
+		}
 	}
 
 	vscode.window.showInformationMessage(`Función '${handlerName}' extraída correctamente.`);
@@ -407,7 +430,7 @@ function buildInsertion(
 	handlerName: string,
 	parameterText: string,
 	body: BodyBuildResult
-): { insertPosition?: vscode.Position; insertText: string } {
+): { insertPosition?: vscode.Position; insertText: string; handlerDefinitionOffset?: number } {
 	const paramsWrapped = parameterText ? `(${parameterText})` : '()';
 	if (componentContext.kind === 'function') {
 		const { block } = componentContext;
@@ -420,14 +443,16 @@ function buildInsertion(
 		const indent = getLineIndent(document, insertPosition.line);
 		const indentUnit = getIndentUnit();
 		const handlerText = buildConstHandlerText(indent, indentUnit, handlerName, paramsWrapped, body);
-		return { insertPosition, insertText: handlerText };
+		const handlerNameOffset = insertOffset + indent.length + 'const '.length;
+		return { insertPosition, insertText: handlerText, handlerDefinitionOffset: handlerNameOffset };
 	}
 	const insertOffset = componentContext.containingMember.getStart(sourceFile);
 	const insertPosition = document.positionAt(insertOffset);
 	const indent = getLineIndent(document, insertPosition.line);
 	const indentUnit = getIndentUnit();
 	const methodText = buildMethodText(indent, indentUnit, handlerName, paramsWrapped, body);
-	return { insertPosition, insertText: methodText };
+	const handlerNameOffset = insertOffset + indent.length;
+	return { insertPosition, insertText: methodText, handlerDefinitionOffset: handlerNameOffset };
 }
 
 function buildConstHandlerText(
