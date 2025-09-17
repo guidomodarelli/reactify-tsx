@@ -9,6 +9,13 @@ import { ArrowBodyBuilder } from '../services/arrowBodyBuilder';
 import { IndentationService } from '../utils/indentationService';
 import { InsertionPlanner } from '../services/insertionPlanner';
 import { ArrowFunctionExtractionService } from '../services/arrowFunctionExtractionService';
+import {
+  EXTRACTION_FAILED_MESSAGE,
+  NO_ACTIVE_EDITOR_MESSAGE,
+  RENAME_ACTION_ERROR,
+  RENAME_COMMAND_ID,
+  extractionSuccessMessage,
+} from '../constants/messages';
 
 const scriptKindResolver = new ScriptKindResolver();
 const arrowFunctionLocator = new ArrowFunctionLocator();
@@ -36,7 +43,7 @@ const extractionService = new ArrowFunctionExtractionService(
 export async function extractArrowFunctionCommand(): Promise<void> {
   const editor = vscode.window.activeTextEditor;
   if (!editor) {
-    vscode.window.showInformationMessage('No active editor found.');
+    vscode.window.showInformationMessage(NO_ACTIVE_EDITOR_MESSAGE);
     return;
   }
 
@@ -54,13 +61,13 @@ export async function extractArrowFunctionCommand(): Promise<void> {
 
   const success = await vscode.workspace.applyEdit(edit);
   if (!success) {
-    vscode.window.showErrorMessage('Could not apply refactor changes.');
+    vscode.window.showErrorMessage(EXTRACTION_FAILED_MESSAGE);
     return;
   }
 
   await selectHandlerName(editor, result.plan.handlerInsertion.handlerDefinitionOffset, result.plan.handlerName);
 
-  vscode.window.showInformationMessage(`Function '${result.plan.handlerName}' extracted successfully.`);
+  vscode.window.showInformationMessage(extractionSuccessMessage(result.plan.handlerName));
 }
 
 async function selectHandlerName(
@@ -79,8 +86,8 @@ async function selectHandlerName(
   editor.revealRange(new vscode.Range(renameStart, renameEnd), vscode.TextEditorRevealType.Default);
 
   try {
-    await vscode.commands.executeCommand('editor.action.rename');
+    await vscode.commands.executeCommand(RENAME_COMMAND_ID);
   } catch (error) {
-    console.error('Could not initiate rename action:', error);
+    console.error(RENAME_ACTION_ERROR, error);
   }
 }
