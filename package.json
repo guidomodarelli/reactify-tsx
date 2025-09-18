@@ -6,6 +6,10 @@
   "engines": {
     "vscode": "^1.104.0"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/guidomodarelli/reactify-tsx"
+  },
   "categories": [
     "Other"
   ],
