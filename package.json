@@ -11,7 +11,8 @@
   ],
   "activationEvents": [
     "onCommand:reactify-tsx.extractArrowFunction",
-    "onCommand:reactify-tsx.transformFunction"
+    "onCommand:reactify-tsx.transformFunction",
+    "onCommand:reactify-tsx.flipIfElse"
   ],
   "main": "./dist/extension.js",
   "contributes": {
@@ -23,6 +24,10 @@
       {
         "command": "reactify-tsx.transformFunction",
         "title": "Reactify TSX: Convertir función"
+      },
+      {
+        "command": "reactify-tsx.flipIfElse",
+        "title": "Reactify TSX: Invertir if/else"
       }
     ],
     "menus": {
@@ -36,6 +41,11 @@
           "command": "reactify-tsx.transformFunction",
           "when": "editorLangId == typescriptreact || editorLangId == javascriptreact || editorLangId == typescript || editorLangId == javascript",
           "group": "navigation@91"
+        },
+        {
+          "command": "reactify-tsx.flipIfElse",
+          "when": "editorLangId == typescriptreact || editorLangId == javascriptreact || editorLangId == typescript || editorLangId == javascript",
+          "group": "navigation@92"
         }
       ]
     },
@@ -50,6 +60,12 @@
         "command": "reactify-tsx.transformFunction",
         "key": "ctrl+alt+shift+t",
         "mac": "cmd+alt+shift+t",
+        "when": "editorTextFocus && (editorLangId == typescriptreact || editorLangId == javascriptreact || editorLangId == typescript || editorLangId == javascript)"
+      },
+      {
+        "command": "reactify-tsx.flipIfElse",
+        "key": "ctrl+alt+shift+i",
+        "mac": "cmd+alt+shift+i",
         "when": "editorTextFocus && (editorLangId == typescriptreact || editorLangId == javascriptreact || editorLangId == typescript || editorLangId == javascript)"
       }
     ]

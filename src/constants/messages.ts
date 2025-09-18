@@ -45,3 +45,9 @@ export const FUNCTION_UNSUPPORTED_MODIFIER_MESSAGE =
 
 export const extractionSuccessMessage = (handlerName: string): string =>
   `Function '${handlerName}' extracted successfully.`;
+
+export const NO_IF_STATEMENT_IN_SELECTION_MESSAGE = 'No if/else statement found at the current selection.';
+export const IF_STATEMENT_REQUIRES_ELSE_MESSAGE = 'Selected if statement must include an else branch to flip it.';
+export const IF_ELSE_FLIP_UNSUPPORTED_MESSAGE = 'Selected if statement is not supported for flipping.';
+export const IF_ELSE_FLIP_APPLY_FAILURE_MESSAGE = 'Could not apply flip changes.';
+export const IF_ELSE_FLIP_SUCCESS_MESSAGE = 'If/else logic flipped successfully.';

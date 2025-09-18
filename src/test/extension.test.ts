@@ -7,9 +7,10 @@ suite('Command Registration', () => {
 		const context = { subscriptions: [] as vscode.Disposable[] } as unknown as vscode.ExtensionContext;
 		activate(context);
 	});
-	test('registers extract and transform commands', async () => {
+	test('registers extension commands', async () => {
 		const commands = await vscode.commands.getCommands(true);
 		assert.ok(commands.includes('reactify-tsx.extractArrowFunction'));
 		assert.ok(commands.includes('reactify-tsx.transformFunction'));
+		assert.ok(commands.includes('reactify-tsx.flipIfElse'));
 	});
 });
