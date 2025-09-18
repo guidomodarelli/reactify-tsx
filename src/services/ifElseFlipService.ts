@@ -41,22 +41,37 @@ export class IfElseFlipService {
     const selectionEnd = document.offsetAt(selection.end);
 
     const ifStatement = this.locateIfStatement(sourceFile, selectionStart, selectionEnd);
-    if (!ifStatement) {
+    if (ifStatement) {
+      if (!ifStatement.elseStatement) {
+        return { success: false, reason: 'no-else' } satisfies FlipPlanFailure;
+      }
+
+      const flippedIf = this.buildFlippedStatement(ifStatement);
+      if (!flippedIf) {
+        return { success: false, reason: 'unsupported' } satisfies FlipPlanFailure;
+      }
+
+      const range = getRangeFromNode(document, sourceFile, ifStatement);
+      const rawText = this.printer.printNode(ts.EmitHint.Unspecified, flippedIf, sourceFile);
+      const newText = this.normalizePrintedIfStatement(rawText);
+
+      return {
+        success: true,
+        plan: {
+          range,
+          newText,
+        },
+      } satisfies FlipPlanSuccess;
+    }
+
+    const conditionalExpression = this.locateConditionalExpression(sourceFile, selectionStart, selectionEnd);
+    if (!conditionalExpression) {
       return { success: false, reason: 'not-found' } satisfies FlipPlanFailure;
     }
 
-    if (!ifStatement.elseStatement) {
-      return { success: false, reason: 'no-else' } satisfies FlipPlanFailure;
-    }
-
-    const flipped = this.buildFlippedStatement(ifStatement);
-    if (!flipped) {
-      return { success: false, reason: 'unsupported' } satisfies FlipPlanFailure;
-    }
-
-    const range = getRangeFromNode(document, sourceFile, ifStatement);
-    const rawText = this.printer.printNode(ts.EmitHint.Unspecified, flipped, sourceFile);
-    const newText = this.normalizePrintedIfStatement(rawText);
+    const flippedConditional = this.buildFlippedConditionalExpression(conditionalExpression);
+    const range = getRangeFromNode(document, sourceFile, conditionalExpression);
+    const newText = this.printer.printNode(ts.EmitHint.Unspecified, flippedConditional, sourceFile);
 
     return {
       success: true,
@@ -92,6 +107,31 @@ export class IfElseFlipService {
     return bestMatch;
   }
 
+  private locateConditionalExpression(
+    sourceFile: ts.SourceFile,
+    selectionStart: number,
+    selectionEnd: number,
+  ): ts.ConditionalExpression | undefined {
+    let bestMatch: ts.ConditionalExpression | undefined;
+
+    const visit = (node: ts.Node) => {
+      const nodeStart = node.getStart(sourceFile);
+      const nodeEnd = node.getEnd();
+      if (selectionStart < nodeStart || selectionEnd > nodeEnd) {
+        return;
+      }
+
+      if (ts.isConditionalExpression(node)) {
+        bestMatch = node;
+      }
+
+      ts.forEachChild(node, visit);
+    };
+
+    visit(sourceFile);
+    return bestMatch;
+  }
+
   private buildFlippedStatement(ifStatement: ts.IfStatement): ts.IfStatement | undefined {
     if (!ifStatement.elseStatement) {
       return undefined;
@@ -102,6 +142,20 @@ export class IfElseFlipService {
     const elseStatement = this.prepareElseStatement(ifStatement.thenStatement);
 
     return ts.factory.createIfStatement(negatedCondition, thenStatement, elseStatement);
+  }
+
+  private buildFlippedConditionalExpression(
+    expression: ts.ConditionalExpression,
+  ): ts.ConditionalExpression {
+    const negatedCondition = this.negateExpression(expression.condition);
+
+    return ts.factory.createConditionalExpression(
+      negatedCondition,
+      ts.factory.createToken(ts.SyntaxKind.QuestionToken),
+      expression.whenFalse,
+      ts.factory.createToken(ts.SyntaxKind.ColonToken),
+      expression.whenTrue,
+    );
   }
 
   private prepareThenStatement(statement: ts.Statement): ts.Statement {

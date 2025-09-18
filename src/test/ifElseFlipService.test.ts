@@ -50,6 +50,21 @@ suite('IfElseFlipService', () => {
     );
   });
 
+  test('flips ternary expression', async () => {
+    const content = "const result = value > 0 ? 'positive' : 'nonPositive';";
+    const document = await createDocument(content);
+    const selection = selectSubstring(document, "value > 0 ? 'positive' : 'nonPositive'");
+
+    const result = service.createFlipPlan(document, selection);
+    assert.ok(result.success, 'Expected flip plan to succeed');
+
+    const updated = applyPlan(document, result.plan);
+    assert.strictEqual(
+      updated,
+      "const result = value <= 0 ? 'nonPositive' : 'positive';"
+    );
+  });
+
   test('fails when else branch is missing', async () => {
     const content = "if (value > 0) {\n    handlePositive();\n}";
     const document = await createDocument(content);
