@@ -69,28 +69,28 @@ export class FunctionTransformationService {
 
     switch (context.kind) {
       case 'arrow':
-        transformations.push({
-          id: FunctionTransformationId.ArrowToFunctionExpression,
-          label: 'Arrow → Function expression',
-        });
         if (this.canConvertVariableToDeclaration(context.variableContext)) {
           transformations.push({
             id: FunctionTransformationId.ArrowVariableToFunctionDeclaration,
             label: 'Arrow (variable) → Function declaration',
           });
         }
+        transformations.push({
+          id: FunctionTransformationId.ArrowToFunctionExpression,
+          label: 'Arrow → Function expression',
+        });
         break;
       case 'functionExpression':
-        transformations.push({
-          id: FunctionTransformationId.FunctionExpressionToArrow,
-          label: 'Function expression → Arrow',
-        });
         if (this.canConvertVariableToDeclaration(context.variableContext)) {
           transformations.push({
             id: FunctionTransformationId.FunctionExpressionVariableToFunctionDeclaration,
             label: 'Function expression (variable) → Function declaration',
           });
         }
+        transformations.push({
+          id: FunctionTransformationId.FunctionExpressionToArrow,
+          label: 'Function expression → Arrow',
+        });
         break;
       case 'functionDeclaration':
         transformations.push({
