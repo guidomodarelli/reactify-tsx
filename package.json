@@ -12,7 +12,11 @@
   "activationEvents": [
     "onCommand:reactify-tsx.extractArrowFunction",
     "onCommand:reactify-tsx.transformFunction",
-    "onCommand:reactify-tsx.flipIfElse"
+    "onCommand:reactify-tsx.flipIfElse",
+    "onLanguage:typescriptreact",
+    "onLanguage:javascriptreact",
+    "onLanguage:typescript",
+    "onLanguage:javascript"
   ],
   "main": "./dist/extension.js",
   "contributes": {
@@ -46,6 +50,23 @@
           "command": "reactify-tsx.flipIfElse",
           "when": "editorLangId == typescriptreact || editorLangId == javascriptreact || editorLangId == typescript || editorLangId == javascript",
           "group": "navigation@92"
+        }
+      ],
+      "editor/codeAction": [
+        {
+          "command": "reactify-tsx.extractArrowFunction",
+          "when": "editorTextFocus && editorHasSelection && (editorLangId == typescriptreact || editorLangId == javascriptreact || editorLangId == typescript || editorLangId == javascript)",
+          "group": "refactor@10"
+        },
+        {
+          "command": "reactify-tsx.transformFunction",
+          "when": "editorTextFocus && editorHasSelection && (editorLangId == typescriptreact || editorLangId == javascriptreact || editorLangId == typescript || editorLangId == javascript)",
+          "group": "refactor@11"
+        },
+        {
+          "command": "reactify-tsx.flipIfElse",
+          "when": "editorTextFocus && editorHasSelection && (editorLangId == typescriptreact || editorLangId == javascriptreact || editorLangId == typescript || editorLangId == javascript)",
+          "group": "refactor@12"
         }
       ]
     },
