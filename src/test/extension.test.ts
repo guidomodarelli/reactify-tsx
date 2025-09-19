@@ -23,6 +23,8 @@ suite('Command Registration', () => {
     assert.ok(commands.includes('reactify-tsx.extractArrowFunction'));
     assert.ok(commands.includes('reactify-tsx.transformFunction'));
     assert.ok(commands.includes('reactify-tsx.flipIfElse'));
+    assert.ok(commands.includes('reactify-tsx.moveBlockUp'));
+    assert.ok(commands.includes('reactify-tsx.moveBlockDown'));
   });
 
   test('allows repeated activation without duplicate registration', () => {

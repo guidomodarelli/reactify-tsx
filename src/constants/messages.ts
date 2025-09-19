@@ -51,3 +51,7 @@ export const IF_STATEMENT_REQUIRES_ELSE_MESSAGE = 'Selected if statement must in
 export const IF_ELSE_FLIP_UNSUPPORTED_MESSAGE = 'Selected if statement is not supported for flipping.';
 export const IF_ELSE_FLIP_APPLY_FAILURE_MESSAGE = 'Could not apply flip changes.';
 export const IF_ELSE_FLIP_SUCCESS_MESSAGE = 'If/else logic flipped successfully.';
+export const NO_MOVABLE_BLOCK_MESSAGE = 'No movable block found at the current selection.';
+export const BLOCK_MOVE_AT_TOP_MESSAGE = 'Block is already at the top of its scope.';
+export const BLOCK_MOVE_AT_BOTTOM_MESSAGE = 'Block is already at the bottom of its scope.';
+export const BLOCK_MOVE_APPLY_FAILURE_MESSAGE = 'Could not apply block movement.';

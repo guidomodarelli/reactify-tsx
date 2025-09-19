@@ -21,7 +21,9 @@
     "onLanguage:typescriptreact",
     "onLanguage:javascriptreact",
     "onLanguage:typescript",
-    "onLanguage:javascript"
+    "onLanguage:javascript",
+    "onCommand:reactify-tsx.moveBlockUp",
+    "onCommand:reactify-tsx.moveBlockDown"
   ],
   "main": "./dist/extension.js",
   "contributes": {
@@ -37,6 +39,14 @@
       {
         "command": "reactify-tsx.flipIfElse",
         "title": "Reactify TSX: Flip If/Else Branches"
+      },
+      {
+        "command": "reactify-tsx.moveBlockUp",
+        "title": "Reactify TSX: Move Block Up"
+      },
+      {
+        "command": "reactify-tsx.moveBlockDown",
+        "title": "Reactify TSX: Move Block Down"
       }
     ],
     "menus": {
@@ -92,6 +102,18 @@
         "command": "reactify-tsx.flipIfElse",
         "key": "ctrl+alt+shift+i",
         "mac": "cmd+alt+shift+i",
+        "when": "editorTextFocus && (editorLangId == typescriptreact || editorLangId == javascriptreact || editorLangId == typescript || editorLangId == javascript)"
+      },
+      {
+        "command": "reactify-tsx.moveBlockUp",
+        "key": "ctrl+up",
+        "mac": "cmd+ctrl+up",
+        "when": "editorTextFocus && (editorLangId == typescriptreact || editorLangId == javascriptreact || editorLangId == typescript || editorLangId == javascript)"
+      },
+      {
+        "command": "reactify-tsx.moveBlockDown",
+        "key": "ctrl+down",
+        "mac": "cmd+ctrl+down",
         "when": "editorTextFocus && (editorLangId == typescriptreact || editorLangId == javascriptreact || editorLangId == typescript || editorLangId == javascript)"
       }
     ]
