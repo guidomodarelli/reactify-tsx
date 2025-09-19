@@ -8,6 +8,7 @@ import { BlockMovementService, MoveBlockDirection, MovePlanFailure } from '../se
  * 2. Confirm movement swaps preserve formatting and remain inside the parent scope.
  * 3. Ensure attempts at boundary crossings produce informative failures.
  * 4. Confirm collapsed selections on leading indentation still resolve the intended statement.
+ * 5. Ensure class members and similar nested constructs can be reordered without moving their parent declarations.
  */
 
 suite('BlockMovementService', () => {
@@ -128,6 +129,92 @@ suite('BlockMovementService', () => {
     );
   });
 
+  test('moves class method downward while keeping the class declaration in place', async () => {
+    const content = [
+      'class Example {',
+      '    public first(): void {',
+      '        firstAction();',
+      '    }',
+      '',
+      '    public second(): void {',
+      '        secondAction();',
+      '    }',
+      '}',
+      '',
+      'const tail = true;',
+    ].join('\n');
+
+    const document = await createDocument(content);
+    const selection = placeCursorAt(document, '    public first(): void {');
+
+    const result = service.createMovePlan(document, selection, direction('down'));
+    assert.ok(result.success, 'Expected movement plan to target the class method');
+
+    const updated = applyPlan(document, result.plan);
+    assert.strictEqual(
+      updated,
+      [
+        'class Example {',
+        '    public second(): void {',
+        '        secondAction();',
+        '    }',
+        '',
+        '    public first(): void {',
+        '        firstAction();',
+        '    }',
+        '}',
+        '',
+        'const tail = true;',
+      ].join('\n'),
+    );
+  });
+
+  test('moves class property upward when cursor rests on the declaration line', async () => {
+    const content = [
+      'const beforeMarker = 0;',
+      '',
+      'class Config {',
+      "    public readonly label = 'alpha';",
+      "    public readonly order = 1;",
+      '',
+      '    public describe(): string {',
+      "        return `${this.label}-${this.order}`;",
+      '    }',
+      '}',
+      '',
+      'function after(): void {',
+      "    console.log('done');",
+      '}',
+    ].join('\n');
+
+    const document = await createDocument(content);
+    const selection = placeCursorAt(document, "    public readonly order = 1;");
+
+    const result = service.createMovePlan(document, selection, direction('up'));
+    assert.ok(result.success, 'Expected the property to move within the class body');
+
+    const updated = applyPlan(document, result.plan);
+    assert.strictEqual(
+      updated,
+      [
+        'const beforeMarker = 0;',
+        '',
+        'class Config {',
+        "    public readonly order = 1;",
+        "    public readonly label = 'alpha';",
+        '',
+        '    public describe(): string {',
+        "        return `${this.label}-${this.order}`;",
+        '    }',
+        '}',
+        '',
+        'function after(): void {',
+        "    console.log('done');",
+        '}',
+      ].join('\n'),
+    );
+  });
+
   test('prevents moving past the top boundary of the containing block', async () => {
     const content = [
       'function demo() {',
@@ -185,7 +272,7 @@ function direction(value: MoveBlockDirection): MoveBlockDirection {
 }
 
 /*
-Coverage commentary: These tests validate upward and downward swaps for representative blocks (if/else, function declarations), ensure scope boundaries stop movement, and cover indentation-only cursor placements that should still resolve the enclosing block. Future enhancements could cover nested class methods and ensure comment adjacency is preserved.
+Coverage commentary: These tests validate upward and downward swaps for representative blocks (if/else, function declarations), exercise class member reordering, ensure scope boundaries stop movement, and cover indentation-only cursor placements that must resolve the intended block. Future enhancements could cover namespace member ordering and preserving adjacent comment groupings.
 */
 
 // Validation: Tests rely on VS Code in-memory documents and deterministic text swapping, exercising the BlockMovementService contract without external IO.

@@ -25,10 +25,19 @@ export interface MovePlanFailure {
 export type MovePlanResult = MovePlanSuccess | MovePlanFailure;
 
 type StatementContainer = ts.SourceFile | ts.Block | ts.ModuleBlock;
+type ClassContainer = ts.ClassDeclaration | ts.ClassExpression;
+type TypeElementContainer = ts.InterfaceDeclaration | ts.TypeLiteralNode;
+type MovableNode = ts.Statement | ts.ClassElement | ts.TypeElement | ts.EnumMember;
 
-interface MovableStatementContext {
-  readonly statement: ts.Statement;
-  readonly container: StatementContainer;
+type MovableContainer =
+  | { readonly kind: 'statement'; readonly node: StatementContainer }
+  | { readonly kind: 'class'; readonly node: ClassContainer }
+  | { readonly kind: 'type-element'; readonly node: TypeElementContainer }
+  | { readonly kind: 'enum'; readonly node: ts.EnumDeclaration };
+
+interface MovableContext {
+  readonly node: MovableNode;
+  readonly container: MovableContainer;
 }
 
 export class BlockMovementService {
@@ -55,9 +64,8 @@ export class BlockMovementService {
       document.offsetAt(selection.end),
     );
 
-    const context = this.locateMovableStatement(
+    const context = this.locateMovableNode(
       sourceFile,
-      sourceText,
       selectionOffsets.start,
       selectionOffsets.end,
     );
@@ -66,25 +74,25 @@ export class BlockMovementService {
       return { success: false, reason: 'not-found' } satisfies MovePlanFailure;
     }
 
-    const statements = Array.from(context.container.statements);
-    const currentIndex = statements.indexOf(context.statement);
+    const candidates = Array.from(this.getContainerMembers(context.container));
+    const currentIndex = candidates.indexOf(context.node);
     if (currentIndex === -1) {
       return { success: false, reason: 'not-found' } satisfies MovePlanFailure;
     }
 
     const neighborIndex = direction === 'up' ? currentIndex - 1 : currentIndex + 1;
-    if (neighborIndex < 0 || neighborIndex >= statements.length) {
+    if (neighborIndex < 0 || neighborIndex >= candidates.length) {
       return { success: false, reason: 'at-boundary' } satisfies MovePlanFailure;
     }
 
-    const neighborStatement = statements[neighborIndex]!;
+    const neighborNode = candidates[neighborIndex]!;
 
     const movement = this.buildMovementPlan(
       document,
       sourceFile,
       sourceText,
-      context.statement,
-      neighborStatement,
+      context.node,
+      neighborNode,
       direction,
     );
 
@@ -98,8 +106,8 @@ export class BlockMovementService {
     document: vscode.TextDocument,
     sourceFile: ts.SourceFile,
     sourceText: string,
-    target: ts.Statement,
-    neighbor: ts.Statement,
+    target: MovableNode,
+    neighbor: MovableNode,
     direction: MoveBlockDirection,
   ): MovePlan {
     const firstNode = direction === 'up' ? neighbor : target;
@@ -132,12 +140,11 @@ export class BlockMovementService {
     } satisfies MovePlan;
   }
 
-  private locateMovableStatement(
+  private locateMovableNode(
     sourceFile: ts.SourceFile,
-    sourceText: string,
     start: number,
     end: number,
-  ): MovableStatementContext | undefined {
+  ): MovableContext | undefined {
     const innermostNode = this.findInnermostNodeContainingRange(sourceFile, sourceFile, start, end);
     if (!innermostNode) {
       return undefined;
@@ -145,16 +152,83 @@ export class BlockMovementService {
 
     let current: ts.Node | undefined = innermostNode;
     while (current) {
-      if (this.isMovableStatement(current) && this.enclosesRange(current, sourceFile, start, end)) {
-        const container = current.parent;
-        if (container && this.isStatementContainer(container)) {
-          return { statement: current, container } satisfies MovableStatementContext;
-        }
+      const parent: ts.Node | undefined = current.parent;
+      if (!parent) {
+        current = parent;
+        continue;
       }
-      current = current.parent;
+
+      const container = this.resolveMovableContainer(parent);
+      if (
+        container &&
+        this.isMovableWithinContainer(current, container) &&
+        this.enclosesRange(current, sourceFile, start, end)
+      ) {
+        return { node: current as MovableNode, container };
+      }
+
+      current = parent;
     }
 
     return undefined;
+  }
+
+  private resolveMovableContainer(node: ts.Node): MovableContainer | undefined {
+    if (this.isStatementContainer(node)) {
+      return { kind: 'statement', node };
+    }
+
+    if (ts.isClassDeclaration(node) || ts.isClassExpression(node)) {
+      return { kind: 'class', node };
+    }
+
+    if (ts.isInterfaceDeclaration(node) || ts.isTypeLiteralNode(node)) {
+      return { kind: 'type-element', node };
+    }
+
+    if (ts.isEnumDeclaration(node)) {
+      return { kind: 'enum', node };
+    }
+
+    return undefined;
+  }
+
+  private getContainerMembers(container: MovableContainer): readonly MovableNode[] {
+    switch (container.kind) {
+      case 'statement':
+        return container.node.statements as readonly MovableNode[];
+      case 'class':
+        return container.node.members as readonly MovableNode[];
+      case 'type-element':
+        return container.node.members as readonly MovableNode[];
+      case 'enum':
+        return container.node.members as readonly MovableNode[];
+      default:
+        return [] as readonly MovableNode[];
+    }
+  }
+
+  private isMovableWithinContainer(node: ts.Node, container: MovableContainer): node is MovableNode {
+    switch (container.kind) {
+      case 'statement':
+        return this.isMovableStatement(node);
+      case 'class':
+        return this.isMovableClassElement(node);
+      case 'type-element':
+        return this.isMovableTypeElement(node);
+      case 'enum':
+        return ts.isEnumMember(node);
+      default:
+        return false;
+    }
+  }
+
+  private isMovableClassElement(node: ts.Node): node is ts.ClassElement {
+    return ts.isClassElement(node) && !ts.isSemicolonClassElement(node);
+  }
+
+  private isMovableTypeElement(node: ts.Node): node is ts.TypeElement {
+    return ts.isTypeElement(node);
   }
 
   private findInnermostNodeContainingRange(
