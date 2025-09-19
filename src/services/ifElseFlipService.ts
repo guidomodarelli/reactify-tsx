@@ -22,6 +22,11 @@ export interface FlipPlanFailure {
 
 export type FlipPlanResult = FlipPlanSuccess | FlipPlanFailure;
 
+interface FlippedStatementResult {
+  readonly guard: ts.IfStatement;
+  readonly trailingStatements: readonly ts.Statement[];
+}
+
 export class IfElseFlipService {
   private readonly scriptKindResolver = new ScriptKindResolver();
   private readonly printer = ts.createPrinter({ newLine: ts.NewLineKind.LineFeed });
@@ -46,14 +51,13 @@ export class IfElseFlipService {
         return { success: false, reason: 'no-else' } satisfies FlipPlanFailure;
       }
 
-      const flippedIf = this.buildFlippedStatement(ifStatement);
-      if (!flippedIf) {
+      const flipped = this.buildFlippedStatement(ifStatement);
+      if (!flipped) {
         return { success: false, reason: 'unsupported' } satisfies FlipPlanFailure;
       }
 
       const range = getRangeFromNode(document, sourceFile, ifStatement);
-      const rawText = this.printer.printNode(ts.EmitHint.Unspecified, flippedIf, sourceFile);
-      const newText = this.normalizePrintedIfStatement(rawText);
+      const newText = this.renderFlippedStatement(sourceFile, flipped);
 
       return {
         success: true,
@@ -132,16 +136,43 @@ export class IfElseFlipService {
     return bestMatch;
   }
 
-  private buildFlippedStatement(ifStatement: ts.IfStatement): ts.IfStatement | undefined {
-    if (!ifStatement.elseStatement) {
+  private buildFlippedStatement(ifStatement: ts.IfStatement): FlippedStatementResult | undefined {
+    const { elseStatement } = ifStatement;
+    if (!elseStatement) {
       return undefined;
     }
 
     const negatedCondition = this.negateExpression(ifStatement.expression);
-    const thenStatement = this.prepareThenStatement(ifStatement.elseStatement);
-    const elseStatement = this.prepareElseStatement(ifStatement.thenStatement);
+    const preparedThen = this.prepareThenStatement(elseStatement);
+    const preparedElse = this.prepareElseStatement(ifStatement.thenStatement);
 
-    return ts.factory.createIfStatement(negatedCondition, thenStatement, elseStatement);
+    if (this.shouldDropElseBranch(elseStatement)) {
+      return {
+        guard: ts.factory.createIfStatement(negatedCondition, preparedThen, undefined),
+        trailingStatements: this.toStatementList(preparedElse),
+      } satisfies FlippedStatementResult;
+    }
+
+    return {
+      guard: ts.factory.createIfStatement(negatedCondition, preparedThen, preparedElse),
+      trailingStatements: [],
+    } satisfies FlippedStatementResult;
+  }
+
+  private renderFlippedStatement(sourceFile: ts.SourceFile, flipped: FlippedStatementResult): string {
+    const guardText = this.normalizePrintedIfStatement(
+      this.printer.printNode(ts.EmitHint.Unspecified, flipped.guard, sourceFile),
+    );
+
+    if (flipped.trailingStatements.length === 0) {
+      return guardText;
+    }
+
+    const trailingText = flipped.trailingStatements
+      .map((statement) => this.printer.printNode(ts.EmitHint.Unspecified, statement, sourceFile))
+      .join('\n\n');
+
+    return `${guardText}\n\n${trailingText}`;
   }
 
   private buildFlippedConditionalExpression(
@@ -225,6 +256,41 @@ export class IfElseFlipService {
 
   private normalizePrintedIfStatement(text: string): string {
     return text.replace(/}\s*\r?\n\s*else/g, '} else');
+  }
+
+  private shouldDropElseBranch(statement: ts.Statement): boolean {
+    return this.isTerminatingStatement(statement);
+  }
+
+  private isTerminatingStatement(statement: ts.Statement): boolean {
+    if (ts.isReturnStatement(statement) || ts.isThrowStatement(statement)) {
+      return true;
+    }
+
+    if (ts.isContinueStatement(statement) || ts.isBreakStatement(statement)) {
+      return true;
+    }
+
+    if (ts.isBlock(statement)) {
+      if (statement.statements.length === 0) {
+        return false;
+      }
+      const last = statement.statements[statement.statements.length - 1];
+      return this.isTerminatingStatement(last);
+    }
+
+    if (ts.isIfStatement(statement) && statement.elseStatement) {
+      return (
+        this.isTerminatingStatement(statement.thenStatement) &&
+        this.isTerminatingStatement(statement.elseStatement)
+      );
+    }
+
+    return false;
+  }
+
+  private toStatementList(statement: ts.Statement): ts.Statement[] {
+    return [statement];
   }
   private stripParentheses(expression: ts.Expression): ts.Expression {
     let current = expression;

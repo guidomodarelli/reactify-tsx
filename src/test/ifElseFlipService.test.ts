@@ -35,6 +35,21 @@ suite('IfElseFlipService', () => {
     );
   });
 
+  test('removes redundant else when guard returns', async () => {
+    const content = "if (isLoading) {\n    return <Spinner />;\n} else {\n    return <TaskList />;\n}";
+    const document = await createDocument(content);
+    const selection = selectSubstring(document, 'if (isLoading)');
+
+    const result = service.createFlipPlan(document, selection);
+    assert.ok(result.success, 'Expected flip plan to succeed');
+
+    const updated = applyPlan(document, result.plan);
+    assert.strictEqual(
+      updated,
+      "if (!isLoading) {\n    return <TaskList />;\n}\n\nreturn <Spinner />;",
+    );
+  });
+
   test('removes double negation', async () => {
     const content = "if (!ready) {\n    wait();\n} else {\n    proceed();\n}";
     const document = await createDocument(content);
