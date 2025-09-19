@@ -2,21 +2,18 @@
 
 Reactify TSX is a VS Code extension that streamlines common React and TypeScript refactors. It automates event handler extraction and lets you convert functions between declarations, expressions, and arrows while preserving bodies, modifiers, and type information as much as possible.
 
-## Features
+## Feature Index
 
-- **Extract Arrow Function to Handler** – Move inline JSX arrow functions into surrounding components and wire them up automatically.
-- **Convert Functions Between Forms** – Transform functions in either direction:
-  - Arrow ⇄ anonymous function expression
-  - Variable (arrow or anonymous expression) ⇄ named function declaration
-  - Function declaration ⇄ variable assigned to arrow or anonymous function expression
-- **Safety Nets** – The refactors preserve `async`, generators, exports, and type parameters. When conversion could change `this`/`arguments`/`super` binding, the extension prompts you before applying the edit. If a type annotation cannot be preserved, it emits `// FIXME: review types` and flags a follow-up warning.
+- [Extract Arrow Function to Handler](docs/feature/ExtractArrowFunction/README.md) – Lift inline JSX arrow functions into named handlers and keep wiring intact.
+- [Function Transformation](docs/feature/TransformFunction/README.md) – Convert between arrow functions, function expressions, and declarations with guardrails.
+- [Flip If/Else Branches](docs/feature/FlipIfElse/README.md) – Negate the condition and swap `if`/`else` bodies while keeping control-flow intact.
 
 ## Commands & Keybindings
 
 | Command ID | Title | Default Shortcut |
 | --- | --- | --- |
-| `reactify-tsx.extractArrowFunction` | Reactify TSX: Extraer arrow function a handler | `Ctrl+Alt+Shift+E` (`Cmd+Alt+Shift+E` on macOS) |
-| `reactify-tsx.transformFunction` | Reactify TSX: Convertir función | `Ctrl+Alt+Shift+T` (`Cmd+Alt+Shift+T` on macOS) |
+| `reactify-tsx.extractArrowFunction` | Reactify TSX: Extract Arrow Function to Handler | `Ctrl+Alt+Shift+E` (`Cmd+Alt+Shift+E` on macOS) |
+| `reactify-tsx.transformFunction` | Reactify TSX: Transform Function | `Ctrl+Alt+Shift+T` (`Cmd+Alt+Shift+T` on macOS) |
 
 Both commands are available from the editor context menu when editing JavaScript or TypeScript (including React variants).
 
