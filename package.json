@@ -2,7 +2,7 @@
   "name": "reactify-tsx",
   "displayName": "reactify-tsx",
   "description": "Reactify TSX is a VS Code extension that delivers WebStorm-inspired refactors for React and TypeScript, providing advanced visual tools and code assistance to make development faster and more convenient.",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "engines": {
     "vscode": "^1.104.0"
   },
