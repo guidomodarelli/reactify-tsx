@@ -2,7 +2,7 @@
   "name": "reactify-tsx",
   "displayName": "reactify-tsx",
   "description": "Advanced plugin for VsCode with visual tools and code assistance making development faster and more convenient.",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "engines": {
     "vscode": "^1.104.0"
   },
