@@ -28,15 +28,15 @@
     "commands": [
       {
         "command": "reactify-tsx.extractArrowFunction",
-        "title": "Reactify TSX: Extraer arrow function a handler"
+        "title": "Reactify TSX: Extract Arrow Function to Handler"
       },
       {
         "command": "reactify-tsx.transformFunction",
-        "title": "Reactify TSX: Convertir función"
+        "title": "Reactify TSX: Transform Function"
       },
       {
         "command": "reactify-tsx.flipIfElse",
-        "title": "Reactify TSX: Invertir if/else"
+        "title": "Reactify TSX: Flip If/Else Branches"
       }
     ],
     "menus": {

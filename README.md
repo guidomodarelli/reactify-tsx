@@ -14,8 +14,9 @@ Reactify TSX is a VS Code extension that streamlines common React and TypeScript
 | --- | --- | --- |
 | `reactify-tsx.extractArrowFunction` | Reactify TSX: Extract Arrow Function to Handler | `Ctrl+Alt+Shift+E` (`Cmd+Alt+Shift+E` on macOS) |
 | `reactify-tsx.transformFunction` | Reactify TSX: Transform Function | `Ctrl+Alt+Shift+T` (`Cmd+Alt+Shift+T` on macOS) |
+| `reactify-tsx.flipIfElse` | Reactify TSX: Flip If/Else Branches | `Ctrl+Alt+Shift+I` (`Cmd+Alt+Shift+I` on macOS) |
 
-Both commands are available from the editor context menu when editing JavaScript or TypeScript (including React variants).
+All commands are available from the editor context menu and refactor sub-menu when editing JavaScript or TypeScript (including React variants).
 
 ## Function Transformation Options
 
