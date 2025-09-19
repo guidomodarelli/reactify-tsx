@@ -70,6 +70,55 @@ suite('ArrowFunctionExtractionService', () => {
     );
   });
 
+
+  test('respects tab indentation when inserting handler', async () => {
+    const content = [
+      "import React from 'react';",
+      '',
+      'type Props = {',
+      '  onToggle: (id: string, event: React.MouseEvent<HTMLButtonElement>) => void;',
+      '  todo: { id: string; label: string };',
+      '};',
+      '',
+      'export function TodoItem({ onToggle, todo }: Props) {',
+      '	// keep comment aligned with return',
+      '	return (',
+      '		<button onClick={(event) => onToggle(todo.id, event)}> {todo.label} </button>',
+      '	);',
+      '}',
+      '',
+    ].join('\n');
+
+    const document = await createDocument(content);
+    const selection = selectSubstring(document, '(event) => onToggle(todo.id, event)');
+
+    const result = extractionService.createExtractionPlan(document, selection, { insertSpaces: false, tabSize: 4 });
+    assert.ok(result.success, 'expected extraction to succeed');
+
+    const updated = applyPlan(document, result.plan);
+    assert.strictEqual(
+      updated,
+      [
+        "import React from 'react';",
+        '',
+        'type Props = {',
+        '  onToggle: (id: string, event: React.MouseEvent<HTMLButtonElement>) => void;',
+        '  todo: { id: string; label: string };',
+        '};',
+        '',
+        'export function TodoItem({ onToggle, todo }: Props) {',
+        '	const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => onToggle(todo.id, event);',
+        '',
+        '	// keep comment aligned with return',
+        '	return (',
+        '		<button onClick={handleClick}> {todo.label} </button>',
+        '	);',
+        '}',
+        '',
+      ].join('\n'),
+    );
+  });
+
   test('creates unique handler name when base name already exists', async () => {
     const content = [
       'export function Example({ onClick }: { onClick: (event: React.MouseEvent<HTMLButtonElement>) => void }) {',

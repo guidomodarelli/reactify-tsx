@@ -30,11 +30,47 @@ export class InsertionPlanner {
       }
 
       const targetStatement = this.findContainingStatement(block, arrow);
-      const insertOffset = targetStatement ? targetStatement.getStart(sourceFile) : block.getEnd() - 1;
-      const insertPosition = document.positionAt(insertOffset);
-      const indent = this.indentationService.getLineIndent(document, insertPosition.line);
+      let insertOffset: number;
+      let insertPosition: vscode.Position;
+      let indentLine: number;
+      let shouldTrimTrailingBlank = false;
+
+      if (targetStatement) {
+        const statementStartPosition = document.positionAt(targetStatement.getStart(sourceFile));
+        const blockStartLine = document.positionAt(block.getStart(sourceFile)).line;
+        let insertLine = statementStartPosition.line;
+
+        for (let candidateLine = insertLine - 1; candidateLine > blockStartLine; candidateLine -= 1) {
+          const candidateText = document.lineAt(candidateLine).text.trim();
+          if (candidateText.length === 0 || this.isCommentLine(candidateText)) {
+            insertLine = candidateLine;
+            continue;
+          }
+
+          break;
+        }
+
+        const lineStartPosition = document.lineAt(insertLine).range.start;
+        insertOffset = document.offsetAt(lineStartPosition);
+        insertPosition = lineStartPosition;
+        indentLine = statementStartPosition.line;
+        shouldTrimTrailingBlank = document.lineAt(insertLine).text.trim().length === 0;
+      } else {
+        insertOffset = block.getEnd() - 1;
+        insertPosition = document.positionAt(insertOffset);
+        indentLine = insertPosition.line;
+      }
+
+      const indent = this.indentationService.getLineIndent(document, indentLine);
       const indentUnit = this.indentationService.resolveIndentUnit(editorOptions);
-      const insertText = this.buildConstHandlerText(indent, indentUnit, handlerName, paramsWrapped, body);
+      let insertText = this.buildConstHandlerText(indent, indentUnit, handlerName, paramsWrapped, body);
+      if (shouldTrimTrailingBlank) {
+        if (insertText.endsWith('\r\n\r\n')) {
+          insertText = insertText.slice(0, -2);
+        } else if (insertText.endsWith('\n\n')) {
+          insertText = insertText.slice(0, -1);
+        }
+      }
       const handlerDefinitionOffset = insertOffset + indent.length + 'const '.length;
 
       return { insertPosition, insertText, handlerDefinitionOffset };
@@ -82,6 +118,10 @@ export class InsertionPlanner {
 
     const returnLine = `${indent + indentUnit}return ${body.text};`;
     return `${indent}${handlerName}${paramsWrapped} {\n${returnLine}\n${indent}}\n\n`;
+  }
+
+  private isCommentLine(text: string): boolean {
+    return text.startsWith('//') || text.startsWith('/*') || text.startsWith('*') || text.startsWith('*/');
   }
 
   private findContainingStatement(block: ts.Block, arrow: ts.ArrowFunction): ts.Statement | undefined {

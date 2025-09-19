@@ -50,6 +50,38 @@ suite('IfElseFlipService', () => {
     );
   });
 
+
+  test('unwraps block statements when dropping else', async () => {
+    const content = [
+      'if (isLoading) {',
+      '    return <Spinner />;',
+      '} else {',
+      '    logLoad();',
+      '    finalize();',
+      '    return <TaskList />;',
+      '}',
+    ].join('\n');
+    const document = await createDocument(content);
+    const selection = selectSubstring(document, 'if (isLoading)');
+
+    const result = service.createFlipPlan(document, selection);
+    assert.ok(result.success, 'Expected flip plan to succeed');
+
+    const updated = applyPlan(document, result.plan);
+    assert.strictEqual(
+      updated,
+      [
+        'if (!isLoading) {',
+        '    logLoad();',
+        '    finalize();',
+        '    return <TaskList />;',
+        '}',
+        '',
+        'return <Spinner />;',
+      ].join('\n'),
+    );
+  });
+
   test('removes double negation', async () => {
     const content = "if (!ready) {\n    wait();\n} else {\n    proceed();\n}";
     const document = await createDocument(content);

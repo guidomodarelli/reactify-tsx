@@ -75,7 +75,9 @@ export class IfElseFlipService {
 
     const flippedConditional = this.buildFlippedConditionalExpression(conditionalExpression);
     const range = getRangeFromNode(document, sourceFile, conditionalExpression);
-    const newText = this.printer.printNode(ts.EmitHint.Unspecified, flippedConditional, sourceFile);
+    const newText = this.normalizeJsxSelfClosingSpacing(
+      this.printer.printNode(ts.EmitHint.Unspecified, flippedConditional, sourceFile),
+    );
 
     return {
       success: true,
@@ -160,8 +162,10 @@ export class IfElseFlipService {
   }
 
   private renderFlippedStatement(sourceFile: ts.SourceFile, flipped: FlippedStatementResult): string {
-    const guardText = this.normalizePrintedIfStatement(
-      this.printer.printNode(ts.EmitHint.Unspecified, flipped.guard, sourceFile),
+    const guardText = this.normalizeJsxSelfClosingSpacing(
+      this.normalizePrintedIfStatement(
+        this.printer.printNode(ts.EmitHint.Unspecified, flipped.guard, sourceFile),
+      ),
     );
 
     if (flipped.trailingStatements.length === 0) {
@@ -169,7 +173,11 @@ export class IfElseFlipService {
     }
 
     const trailingText = flipped.trailingStatements
-      .map((statement) => this.printer.printNode(ts.EmitHint.Unspecified, statement, sourceFile))
+      .map((statement) =>
+        this.normalizeJsxSelfClosingSpacing(
+          this.printer.printNode(ts.EmitHint.Unspecified, statement, sourceFile),
+        ),
+      )
       .join('\n\n');
 
     return `${guardText}\n\n${trailingText}`;
@@ -191,30 +199,30 @@ export class IfElseFlipService {
 
   private prepareThenStatement(statement: ts.Statement): ts.Statement {
     if (ts.isBlock(statement)) {
-      return statement;
+      return this.cloneBlock(statement);
     }
 
     if (ts.isIfStatement(statement)) {
-      return ts.factory.createBlock([statement], true);
+      return ts.factory.createBlock([this.cloneStatement(statement)], true);
     }
 
     if (ts.isEmptyStatement(statement)) {
       return ts.factory.createBlock([], true);
     }
 
-    return statement;
+    return this.cloneStatement(statement);
   }
 
   private prepareElseStatement(statement: ts.Statement): ts.Statement {
     if (ts.isBlock(statement)) {
-      return statement;
+      return this.cloneBlock(statement);
     }
 
     if (ts.isEmptyStatement(statement)) {
       return ts.factory.createBlock([], true);
     }
 
-    return statement;
+    return this.cloneStatement(statement);
   }
 
   private negateExpression(expression: ts.Expression): ts.Expression {
@@ -258,6 +266,10 @@ export class IfElseFlipService {
     return text.replace(/}\s*\r?\n\s*else/g, '} else');
   }
 
+  private normalizeJsxSelfClosingSpacing(text: string): string {
+    return text.replace(/>\/>/g, ' />');
+  }
+
   private shouldDropElseBranch(statement: ts.Statement): boolean {
     return this.isTerminatingStatement(statement);
   }
@@ -290,8 +302,23 @@ export class IfElseFlipService {
   }
 
   private toStatementList(statement: ts.Statement): ts.Statement[] {
+    if (ts.isBlock(statement)) {
+      return statement.statements.map((current) => this.cloneStatement(current));
+    }
+
     return [statement];
   }
+
+  private cloneStatement<T extends ts.Statement>(statement: T): T {
+    const factory = ts.factory as unknown as { cloneNode<U extends ts.Node>(node: U): U };
+    return factory.cloneNode(statement) as T;
+  }
+
+  private cloneBlock(block: ts.Block): ts.Block {
+    const statements = block.statements.map((current) => this.cloneStatement(current));
+    return ts.factory.createBlock(statements, true);
+  }
+
   private stripParentheses(expression: ts.Expression): ts.Expression {
     let current = expression;
     while (ts.isParenthesizedExpression(current)) {
