@@ -1,6 +1,6 @@
-# AGENTS.md — Master Prompt (TDD‐first)
+# AGENTS.md — Master Prompt (TDD-first)
 
-> **Purpose**: Configure the agent/LLM to **work strictly with TDD** (Test‐Driven Development) in *every* task (feature, bugfix, significant refactor, or functional change), always writing the failing test first and then the minimal code to make it pass. Additionally, maintain **living documentation**: organize the documentation such that the **main README** provides a global explanation of the Visual Studio Code extension, serving as an **index or glossary** referencing the specific documentation for each important feature (see structure below). Update the README only when **new features** are introduced or when **non‐trivial logic/design decisions** need to be explained for better code comprehension. **Additionally, always update and maintain the table of commands & keybindings in the README whenever commands or shortcuts change, are added, or removed. When updating this table, review the `package.json` file under `contributes.keybindings` to ensure all entries are current and complete.**
+> **Purpose**: Configure the agent/LLM to **work strictly with TDD** (Test-Driven Development) in *every* task (feature, bugfix, significant refactor, or functional change), always writing the failing test first and then the minimal code to make it pass. Additionally, maintain **living documentation**: organize the documentation such that the **main README** provides a global explanation of the Visual Studio Code extension, serving as an **index or glossary** referencing the specific documentation for each important feature (see structure below). Update the README only when **new features** are introduced or when **non-trivial logic/design decisions** need to be explained for better code comprehension. **Additionally, always update and maintain the table of commands & keybindings in the README whenever commands or shortcuts change, are added, or removed. When updating this table, review the `package.json` file under `contributes.keybindings` to ensure all entries are current and complete.**
 
 > **Important**: All code, tests, documentation, comments, and README content must be written **exclusively in English**.
 
@@ -41,37 +41,56 @@
    * **Refactor** as needed, keeping all tests green.
    * Repeat until acceptance criteria are met.
 
-2. **Scope**:
+2. **Testing Expert Process & Best Practices**:
 
-   * Applies to **features**, **bugfixes**, **public‐facing refactors** (APIs/interfaces), and **relevant architectural changes**.
+   * Begin each testing task by outlining a concise preparation checklist (3–7 items) covering conceptual steps for test design, with emphasis on clarity and coverage.
+   * Select an appropriate testing framework for the project, such as Jest, and configure necessary mocks and stubs for isolation.
+   * When creating mocks, place them inside a `__mocks__` sibling folder to the file being mocked.
+   * Achieve coverage for happy paths, error cases, and edge conditions, defensively validating atypical scenarios.
+   * Place test files near their corresponding implementation files, using `.test` in the filename, and use clear naming conventions for files and test cases. Structure suites with `describe` and `it`/`test` blocks with expressive comments.
+   * Ensure tests are independent, reproducible, and minimize shared state. Employ mocks and spies for all external dependencies (APIs, databases, etc.), using the `__mocks__` structure as described above.
+   * Avoid complex logic inside test code and adopt TDD/BDD styles and explicit code examples where feasible.
+   * For TypeScript projects, do not use `any` types. Define precise types as needed, but import existing types from libraries directly. All code, identifiers, comments, and docs must be in English only.
+   * Deliver fully runnable, functional test code. Accompany each testing block with a brief explanation and suggest future enhancements for coverage. After delivering, validate that all requirements (coverage, quality, setup, structure) have been satisfied. If any part can't be automated (due to dependencies or infrastructure), clearly document the limitation and suggest a manual workaround in an `Error` section.
+
+3. **Scope**:
+
+   * Applies to **features**, **bugfixes**, **public-facing refactors** (APIs/interfaces), and **relevant architectural changes**.
    * **Trivial fixes** (e.g., undefined variable access, typos, minor messages) **do not require documentation** beyond the test itself (if applicable).
 
-3. **Documentation**:
+4. **Documentation**:
 
    * **README.md**: Must serve as a high-level overview of the extension and an index to feature documentation. **It must also have a current, clear, and complete table of commands & keybindings, updated with each change to these commands or shortcuts. To accurately maintain this table, inspect `package.json`'s `contributes.keybindings` section.**
    * **Feature documentation**: Place in `docs/feature/{FeatureName}/README.md`, covering purpose, use cases, code examples, and technical considerations of each feature.
    * **Do not** use the README for bugfix history or issue tracking. Those must live in the **tests**.
 
-4. **Expected output per task** (in order):
+5. **Expected output per task** (in order):
 
-   1. **New or updated test(s)** (initially failing) with a short explanation.
+   1. **New or updated test(s)** (initially failing) with short explanation and, when authoring new tests (as a testing expert), following the outlined process checklist for design and implementation.
    2. **Minimal implementation** to pass the test(s).
    3. **Test execution** (all green) and, if needed, **refactor**.
    4. **README update** (only if applicable, always for new/changed commands/keybindings based on `package.json`'s `contributes.keybindings`).
    5. **Concise summary** of major changes (1–3 bullets) and rationale.
 
-5. **Acceptance checklist**:
+6. **Acceptance checklist**:
 
    *
 
-6. **Test conventions**:
+7. **Test conventions**:
 
    * Descriptive names: *“should do X when Y”.*
-   * Follow *Arrange‐Act‐Assert* or *Given‐When‐Then*.
+   * Follow *Arrange–Act–Assert* or *Given–When–Then*.
    * Include **happy path** and **significant edge cases**.
    * For regressions, include a **regression test** that fails before the fix.
+   * Use TypeScript types precisely; import types from libraries, avoid `any`.
+   * Organize mocks in `__mocks__` as appropriate.
+   * Structure blocks as `describe`/`it` or `describe`/`test` with explanatory comments.
+   * Ensure all tests are independent and avoid shared state.
+   * Place test files adjacent to the code (e.g., `example.test.ts` next to `example.ts`).
+   * Include a brief commentary block to explain test coverage and suggest further enhancements.
+   * Include a validation paragraph at the end to confirm coverage, correctness, and to call out any gaps or manual steps required. If some code cannot be tested automatically, document it in an Error section with a suggested manual workaround.
 
-7. **Commit/PR policy (summary)**:
+8. **Commit/PR policy (summary)**:
 
    * Small commits with messages: *"test: …"*, *"feat: …"*, *"fix: …"*, *"docs: …"*.
    * PR must show: red tests → implementation → green tests → docs (if applicable).
@@ -164,7 +183,7 @@ src/
 tests/
   unit/              # unit tests (1:1 with src)
   integration/       # integration tests
-  e2e/               # end‑to‑end tests (optional)
+  e2e/               # end–to–end tests (optional)
 
 docs/
   feature/
