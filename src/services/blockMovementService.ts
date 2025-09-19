@@ -113,9 +113,9 @@ export class BlockMovementService {
     const firstNode = direction === 'up' ? neighbor : target;
     const secondNode = direction === 'up' ? target : neighbor;
 
-    const firstStart = firstNode.getStart(sourceFile);
+    const firstStart = this.getMovementBlockStart(firstNode, sourceFile, sourceText);
     const firstEnd = firstNode.getEnd();
-    const secondStart = secondNode.getStart(sourceFile);
+    const secondStart = this.getMovementBlockStart(secondNode, sourceFile, sourceText);
     const secondEnd = secondNode.getEnd();
 
     const middleText = sourceText.slice(firstEnd, secondStart);
@@ -331,6 +331,50 @@ export class BlockMovementService {
       start: adjustedStart,
       end: normalizedEnd,
     };
+  }
+
+  private getMovementBlockStart(
+    node: MovableNode,
+    sourceFile: ts.SourceFile,
+    sourceText: string,
+  ): number {
+    let blockStart = node.getStart(sourceFile);
+    const commentRanges = ts.getLeadingCommentRanges(sourceText, node.pos) ?? [];
+
+    for (let index = commentRanges.length - 1; index >= 0; index -= 1) {
+      const range = commentRanges[index]!;
+      const lineStart = this.findLineStart(sourceText, range.pos);
+      const linePrefix = sourceText.slice(lineStart, range.pos);
+      if (linePrefix.trim().length > 0) {
+        continue;
+      }
+
+      const gap = sourceText.slice(range.end, blockStart);
+      if (!this.isWhitespaceOnly(gap) || this.containsBlankLine(gap)) {
+        continue;
+      }
+
+      blockStart = lineStart;
+    }
+
+    return blockStart;
+  }
+
+  private findLineStart(sourceText: string, position: number): number {
+    const lastLineBreak = sourceText.lastIndexOf('\n', position - 1);
+    if (lastLineBreak === -1) {
+      return 0;
+    }
+    return lastLineBreak + 1;
+  }
+
+  private isWhitespaceOnly(value: string): boolean {
+    return value.trim().length === 0;
+  }
+
+  private containsBlankLine(value: string): boolean {
+    const normalized = value.replace(/\r\n/g, '\n');
+    return normalized.includes('\n\n');
   }
 }
 

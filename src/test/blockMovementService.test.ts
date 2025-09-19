@@ -9,6 +9,8 @@ import { BlockMovementService, MoveBlockDirection, MovePlanFailure } from '../se
  * 3. Ensure attempts at boundary crossings produce informative failures.
  * 4. Confirm collapsed selections on leading indentation still resolve the intended statement.
  * 5. Ensure class members and similar nested constructs can be reordered without moving their parent declarations.
+ * 6. Preserve leading comments or annotations when the owning statement moves.
+ * 7. Support reversed selection ranges so users dragging bottom-to-top still trigger movement.
  */
 
 suite('BlockMovementService', () => {
@@ -215,6 +217,63 @@ suite('BlockMovementService', () => {
     );
   });
 
+  test('keeps leading line comment attached when moving statement downward', async () => {
+    const content = [
+      'const alpha = computeAlpha();',
+      '// This comment describes beta',
+      'const beta = computeBeta();',
+      'const gamma = computeGamma();',
+    ].join('\n');
+
+    const document = await createDocument(content);
+    const selection = selectSubstring(document, 'const beta = computeBeta();');
+
+    const result = service.createMovePlan(document, selection, direction('down'));
+    assert.ok(result.success, 'Expected comment-carrying statement to move successfully');
+
+    const updated = applyPlan(document, result.plan);
+    assert.strictEqual(
+      updated,
+      [
+        'const alpha = computeAlpha();',
+        'const gamma = computeGamma();',
+        '// This comment describes beta',
+        'const beta = computeBeta();',
+      ].join('\n'),
+    );
+  });
+
+  test('supports reversed selection offsets when moving block upward', async () => {
+    const content = [
+      'const first = 1;',
+      'const second = 2;',
+      'const third = 3;',
+    ].join('\n');
+
+    const document = await createDocument(content);
+    const targetText = 'const second = 2;';
+    const fullText = document.getText();
+    const startIndex = fullText.indexOf(targetText);
+    assert.ok(startIndex >= 0, 'Expected to locate reversed selection target');
+    const selection = new vscode.Selection(
+      document.positionAt(startIndex + targetText.length),
+      document.positionAt(startIndex),
+    );
+
+    const result = service.createMovePlan(document, selection, direction('up'));
+    assert.ok(result.success, 'Expected reversed selection to be normalized for movement');
+
+    const updated = applyPlan(document, result.plan);
+    assert.strictEqual(
+      updated,
+      [
+        'const second = 2;',
+        'const first = 1;',
+        'const third = 3;',
+      ].join('\n'),
+    );
+  });
+
   test('prevents moving past the top boundary of the containing block', async () => {
     const content = [
       'function demo() {',
@@ -272,7 +331,7 @@ function direction(value: MoveBlockDirection): MoveBlockDirection {
 }
 
 /*
-Coverage commentary: These tests validate upward and downward swaps for representative blocks (if/else, function declarations), exercise class member reordering, ensure scope boundaries stop movement, and cover indentation-only cursor placements that must resolve the intended block. Future enhancements could cover namespace member ordering and preserving adjacent comment groupings.
+Coverage commentary: These tests validate upward and downward swaps for representative blocks (if/else, function declarations), exercise class member reordering, ensure scope boundaries stop movement, cover indentation-only cursor placements, preserve leading comments alongside their statements, and normalize reversed selection offsets. Future enhancements could cover namespace or module member ordering and multiline comment clusters shared across sibling statements.
 */
 
 // Validation: Tests rely on VS Code in-memory documents and deterministic text swapping, exercising the BlockMovementService contract without external IO.
