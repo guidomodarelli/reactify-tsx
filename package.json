@@ -16,15 +16,16 @@
     "Other"
   ],
   "activationEvents": [
+    "onCommand:reactify-tsx.enumToConst",
     "onCommand:reactify-tsx.extractArrowFunction",
-    "onCommand:reactify-tsx.transformFunction",
     "onCommand:reactify-tsx.flipIfElse",
-    "onLanguage:typescriptreact",
+    "onCommand:reactify-tsx.moveBlockDown",
+    "onCommand:reactify-tsx.moveBlockUp",
+    "onCommand:reactify-tsx.transformFunction",
+    "onLanguage:javascript",
     "onLanguage:javascriptreact",
     "onLanguage:typescript",
-    "onLanguage:javascript",
-    "onCommand:reactify-tsx.moveBlockUp",
-    "onCommand:reactify-tsx.moveBlockDown"
+    "onLanguage:typescriptreact"
   ],
   "main": "./dist/extension.js",
   "contributes": {
@@ -48,6 +49,10 @@
       {
         "command": "reactify-tsx.moveBlockDown",
         "title": "Reactify TSX: Move Block Down"
+      },
+      {
+        "command": "reactify-tsx.enumToConst",
+        "title": "Reactify TSX: Convert Enum to Const"
       }
     ],
     "menus": {
@@ -66,6 +71,11 @@
           "command": "reactify-tsx.flipIfElse",
           "when": "editorLangId == typescriptreact || editorLangId == javascriptreact || editorLangId == typescript || editorLangId == javascript",
           "group": "navigation@92"
+        },
+        {
+          "command": "reactify-tsx.enumToConst",
+          "when": "editorLangId == typescriptreact || editorLangId == javascriptreact || editorLangId == typescript || editorLangId == javascript",
+          "group": "navigation@93"
         }
       ],
       "editor/codeAction": [
@@ -115,6 +125,12 @@
         "command": "reactify-tsx.moveBlockDown",
         "key": "ctrl+down",
         "mac": "cmd+ctrl+down",
+        "when": "editorTextFocus && (editorLangId == typescriptreact || editorLangId == javascriptreact || editorLangId == typescript || editorLangId == javascript)"
+      },
+      {
+        "command": "reactify-tsx.enumToConst",
+        "key": "ctrl+alt+shift+c",
+        "mac": "cmd+alt+shift+c",
         "when": "editorTextFocus && (editorLangId == typescriptreact || editorLangId == javascriptreact || editorLangId == typescript || editorLangId == javascript)"
       }
     ]

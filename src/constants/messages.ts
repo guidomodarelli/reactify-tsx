@@ -55,3 +55,7 @@ export const NO_MOVABLE_BLOCK_MESSAGE = 'No movable block found at the current s
 export const BLOCK_MOVE_AT_TOP_MESSAGE = 'Block is already at the top of its scope.';
 export const BLOCK_MOVE_AT_BOTTOM_MESSAGE = 'Block is already at the bottom of its scope.';
 export const BLOCK_MOVE_APPLY_FAILURE_MESSAGE = 'Could not apply block movement.';
+export const NO_ENUM_IN_SELECTION_MESSAGE = 'No enum declaration found at the current selection.';
+export const ENUM_CONVERSION_UNSUPPORTED_MESSAGE = 'Selected enum cannot be converted to a const object.';
+export const ENUM_CONVERSION_APPLY_FAILURE_MESSAGE = 'Could not apply enum conversion changes.';
+export const ENUM_CONVERSION_SUCCESS_MESSAGE = 'Enum converted to const object successfully.';
