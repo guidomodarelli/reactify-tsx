@@ -2,6 +2,7 @@ import * as vscode from 'vscode';
 import { extractArrowFunctionCommand } from './commands/extractArrowFunctionCommand';
 import { transformFunctionCommand } from './commands/transformFunctionCommand';
 import { flipIfElseCommand } from './commands/flipIfElseCommand';
+import { enumToConstCommand } from './commands/enumToConstCommand';
 import { moveBlockDownCommand, moveBlockUpCommand } from './commands/moveBlockCommand';
 
 const commandRegistrations: vscode.Disposable[] = [];
@@ -15,6 +16,7 @@ export function activate(context: vscode.ExtensionContext): void {
       ['reactify-tsx.extractArrowFunction', () => extractArrowFunctionCommand()],
       ['reactify-tsx.transformFunction', () => transformFunctionCommand()],
       ['reactify-tsx.flipIfElse', () => flipIfElseCommand()],
+      ['reactify-tsx.enumToConst', () => enumToConstCommand()],
       ['reactify-tsx.moveBlockUp', () => moveBlockUpCommand()],
       ['reactify-tsx.moveBlockDown', () => moveBlockDownCommand()],
     ];

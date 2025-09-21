@@ -7,6 +7,7 @@ Reactify TSX is a VS Code extension that streamlines common React and TypeScript
 - [Extract Arrow Function to Handler](docs/feature/ExtractArrowFunction/README.md) - Lift inline JSX arrow functions into named handlers and keep wiring intact.
 - [Function Transformation](docs/feature/TransformFunction/README.md) - Convert between arrow functions, function expressions, and declarations with guardrails.
 - [Flip If/Else Branches](docs/feature/FlipIfElse/README.md) - Negate the condition and swap `if`/`else` bodies while keeping control-flow intact.
+- [Enum To Const](docs/feature/EnumToConst/README.md) - Convert enums into immutable const objects plus union types for safer tree-shaken builds.
 - [Scoped Block Movement](docs/feature/ScopedBlockMovement/README.md) - Move compound statements within their parent scope without crossing boundaries.
 
 ## Commands & Keybindings
@@ -18,6 +19,7 @@ Reactify TSX is a VS Code extension that streamlines common React and TypeScript
 | `reactify-tsx.flipIfElse` | Reactify TSX: Flip If/Else Branches | `Ctrl+Alt+Shift+I` (`Cmd+Alt+Shift+I` on macOS) |
 | `reactify-tsx.moveBlockUp` | Reactify TSX: Move Block Up | `Ctrl+Up` (`Cmd+Ctrl+Up` on macOS) |
 | `reactify-tsx.moveBlockDown` | Reactify TSX: Move Block Down | `Ctrl+Down` (`Cmd+Ctrl+Down` on macOS) |
+| `reactify-tsx.enumToConst` | Reactify TSX: Convert Enum to Const | `Ctrl+Alt+Shift+C` (`Cmd+Alt+Shift+C` on macOS) |
 
 All commands are available from the editor context menu and refactor sub-menu when editing JavaScript or TypeScript (including React variants).
 
