@@ -5,6 +5,7 @@ import { flipIfElseCommand } from './commands/flipIfElseCommand';
 import { enumToConstCommand } from './commands/enumToConstCommand';
 import { moveBlockDownCommand, moveBlockUpCommand } from './commands/moveBlockCommand';
 import { toggleJsxAttributeValueCommand } from './commands/toggleJsxAttributeValueCommand';
+import { createRefactorCodeActionsRegistration } from './code-actions';
 
 const commandRegistrations: vscode.Disposable[] = [];
 let commandsInitialized = false;
@@ -33,6 +34,8 @@ export function activate(context: vscode.ExtensionContext): void {
         }
       }
     }
+
+    commandRegistrations.push(createRefactorCodeActionsRegistration());
   }
 
   for (const disposable of commandRegistrations) {
