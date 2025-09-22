@@ -22,6 +22,7 @@
     "onCommand:reactify-tsx.moveBlockDown",
     "onCommand:reactify-tsx.moveBlockUp",
     "onCommand:reactify-tsx.transformFunction",
+    "onCommand:reactify-tsx.toggleJsxAttributeValue",
     "onLanguage:javascript",
     "onLanguage:javascriptreact",
     "onLanguage:typescript",
@@ -53,6 +54,10 @@
       {
         "command": "reactify-tsx.enumToConst",
         "title": "Reactify TSX: Convert Enum to Const"
+      },
+      {
+        "command": "reactify-tsx.toggleJsxAttributeValue",
+        "title": "Reactify TSX: Toggle JSX Attribute Braces"
       }
     ],
     "menus": {
@@ -76,6 +81,11 @@
           "command": "reactify-tsx.enumToConst",
           "when": "editorLangId == typescriptreact || editorLangId == javascriptreact || editorLangId == typescript || editorLangId == javascript",
           "group": "navigation@93"
+        },
+        {
+          "command": "reactify-tsx.toggleJsxAttributeValue",
+          "when": "editorLangId == typescriptreact || editorLangId == javascriptreact || editorLangId == typescript || editorLangId == javascript",
+          "group": "navigation@94"
         }
       ],
       "editor/codeAction": [
@@ -131,6 +141,12 @@
         "command": "reactify-tsx.enumToConst",
         "key": "ctrl+alt+shift+c",
         "mac": "cmd+alt+shift+c",
+        "when": "editorTextFocus && (editorLangId == typescriptreact || editorLangId == javascriptreact || editorLangId == typescript || editorLangId == javascript)"
+      },
+      {
+        "command": "reactify-tsx.toggleJsxAttributeValue",
+        "key": "ctrl+alt+shift+b",
+        "mac": "cmd+alt+shift+b",
         "when": "editorTextFocus && (editorLangId == typescriptreact || editorLangId == javascriptreact || editorLangId == typescript || editorLangId == javascript)"
       }
     ]

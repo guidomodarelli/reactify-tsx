@@ -9,6 +9,7 @@ Reactify TSX is a VS Code extension that streamlines common React and TypeScript
 - [Flip If/Else Branches](docs/feature/FlipIfElse/README.md) - Negate the condition and swap `if`/`else` bodies while keeping control-flow intact.
 - [Enum To Const](docs/feature/EnumToConst/README.md) - Convert enums into immutable const objects plus union types for safer tree-shaken builds.
 - [Scoped Block Movement](docs/feature/ScopedBlockMovement/README.md) - Move compound statements within their parent scope without crossing boundaries.
+- [Toggle JSX Attribute Braces](docs/feature/ToggleJsxAttributeBraces/README.md) - Toggle string literal attribute values between bare literals and brace expressions.
 
 ## Commands & Keybindings
 
@@ -20,6 +21,7 @@ Reactify TSX is a VS Code extension that streamlines common React and TypeScript
 | `reactify-tsx.moveBlockUp` | Reactify TSX: Move Block Up | `Ctrl+Up` (`Cmd+Ctrl+Up` on macOS) |
 | `reactify-tsx.moveBlockDown` | Reactify TSX: Move Block Down | `Ctrl+Down` (`Cmd+Ctrl+Down` on macOS) |
 | `reactify-tsx.enumToConst` | Reactify TSX: Convert Enum to Const | `Ctrl+Alt+Shift+C` (`Cmd+Alt+Shift+C` on macOS) |
+| `reactify-tsx.toggleJsxAttributeValue` | Reactify TSX: Toggle JSX Attribute Braces | `Ctrl+Alt+Shift+B` (`Cmd+Alt+Shift+B` on macOS) |
 
 All commands are available from the editor context menu and refactor sub-menu when editing JavaScript or TypeScript (including React variants).
 
