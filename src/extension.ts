@@ -4,6 +4,7 @@ import { transformFunctionCommand } from './commands/transformFunctionCommand';
 import { flipIfElseCommand } from './commands/flipIfElseCommand';
 import { enumToConstCommand } from './commands/enumToConstCommand';
 import { moveBlockDownCommand, moveBlockUpCommand } from './commands/moveBlockCommand';
+import { toggleJsxAttributeValueCommand } from './commands/toggleJsxAttributeValueCommand';
 
 const commandRegistrations: vscode.Disposable[] = [];
 let commandsInitialized = false;
@@ -19,6 +20,7 @@ export function activate(context: vscode.ExtensionContext): void {
       ['reactify-tsx.enumToConst', () => enumToConstCommand()],
       ['reactify-tsx.moveBlockUp', () => moveBlockUpCommand()],
       ['reactify-tsx.moveBlockDown', () => moveBlockDownCommand()],
+      ['reactify-tsx.toggleJsxAttributeValue', () => toggleJsxAttributeValueCommand()],
     ];
 
     for (const [commandId, handler] of definitions) {
