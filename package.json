@@ -103,6 +103,26 @@
           "command": "reactify-tsx.flipIfElse",
           "when": "editorTextFocus && editorHasSelection && (editorLangId == typescriptreact || editorLangId == javascriptreact || editorLangId == typescript || editorLangId == javascript)",
           "group": "refactor@12"
+        },
+        {
+          "command": "reactify-tsx.enumToConst",
+          "when": "editorTextFocus && editorHasSelection && (editorLangId == typescriptreact || editorLangId == javascriptreact || editorLangId == typescript || editorLangId == javascript)",
+          "group": "refactor@13"
+        },
+        {
+          "command": "reactify-tsx.toggleJsxAttributeValue",
+          "when": "editorTextFocus && editorHasSelection && (editorLangId == typescriptreact || editorLangId == javascriptreact || editorLangId == typescript || editorLangId == javascript)",
+          "group": "refactor@14"
+        },
+        {
+          "command": "reactify-tsx.moveBlockUp",
+          "when": "editorTextFocus && (editorLangId == typescriptreact || editorLangId == javascriptreact || editorLangId == typescript || editorLangId == javascript)",
+          "group": "refactor@15"
+        },
+        {
+          "command": "reactify-tsx.moveBlockDown",
+          "when": "editorTextFocus && (editorLangId == typescriptreact || editorLangId == javascriptreact || editorLangId == typescript || editorLangId == javascript)",
+          "group": "refactor@16"
         }
       ]
     },

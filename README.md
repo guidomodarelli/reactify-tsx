@@ -23,7 +23,7 @@ Reactify TSX is a VS Code extension that streamlines common React and TypeScript
 | `reactify-tsx.enumToConst` | Reactify TSX: Convert Enum to Const | `Ctrl+Alt+Shift+C` (`Cmd+Alt+Shift+C` on macOS) |
 | `reactify-tsx.toggleJsxAttributeValue` | Reactify TSX: Toggle JSX Attribute Braces | `Ctrl+Alt+Shift+B` (`Cmd+Alt+Shift+B` on macOS) |
 
-All commands are available from the editor context menu and refactor sub-menu when editing JavaScript or TypeScript (including React variants).
+All commands are available from the editor context menu, the Quick Fix (Ctrl+.) panel, and the refactor sub-menu when editing JavaScript or TypeScript (including React variants). Commands that operate on selections still require you to highlight the target code before invoking Quick Fix.
 
 ## Function Transformation Options
 
