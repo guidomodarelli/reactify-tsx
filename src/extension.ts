@@ -10,6 +10,7 @@ import { toggleJsxAttributeValueCommand } from './commands/toggleJsxAttributeVal
 import { toggleStringTemplateCommand } from './commands/toggleStringTemplateCommand';
 import { toggleArrowBodyCommand } from './commands/toggleArrowBodyCommand';
 import { splitIntoMultipleDeclarationsCommand } from './commands/splitIntoMultipleDeclarationsCommand';
+import { addParensToSingleArrowParamCommand } from './commands/addParensToSingleArrowParamCommand';
 import { splitDeclarationAndInitializationCommand } from './commands/splitDeclarationAndInitializationCommand';
 import { createRefactorCodeActionsRegistration } from './code-actions';
 import { splitOrMergeStringCommand } from './commands/splitOrMergeStringCommand';
@@ -34,6 +35,7 @@ export function activate(context: vscode.ExtensionContext): void {
       ['reactify-tsx.toggleJsxAttributeValue', () => toggleJsxAttributeValueCommand()],
       ['reactify-tsx.toggleStringTemplate', () => toggleStringTemplateCommand()],
       ['reactify-tsx.toggleArrowBody', () => toggleArrowBodyCommand()],
+      ['reactify-tsx.addParensToSingleArrowParam', () => addParensToSingleArrowParamCommand()],
       ['reactify-tsx.splitIntoMultipleDeclarations', () => splitIntoMultipleDeclarationsCommand()],
       ['reactify-tsx.splitDeclarationAndInitialization', () => splitDeclarationAndInitializationCommand()],
       ['reactify-tsx.mergeDeclarationAndInitialization', () => mergeDeclarationAndInitializationCommand()],

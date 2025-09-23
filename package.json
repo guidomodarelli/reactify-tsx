@@ -27,6 +27,7 @@
     "onCommand:reactify-tsx.toggleJsxAttributeValue",
     "onCommand:reactify-tsx.toggleStringTemplate",
     "onCommand:reactify-tsx.toggleArrowBody",
+    "onCommand:reactify-tsx.addParensToSingleArrowParam",
     "onLanguage:javascript",
     "onLanguage:javascriptreact",
     "onLanguage:typescript",
@@ -96,6 +97,10 @@
         "title": "Reactify TSX: Toggle Arrow Body (Expression -> Block)"
       },
       {
+        "command": "reactify-tsx.addParensToSingleArrowParam",
+        "title": "Reactify TSX: Add Parens to Single Arrow Parameter"
+      },
+      {
         "command": "reactify-tsx.splitOrMergeString",
         "title": "Reactify TSX: Split String at Caret / Merge String Literals"
       }
@@ -151,6 +156,11 @@
           "command": "reactify-tsx.mergeDeclarationAndInitialization",
           "when": "editorLangId == typescriptreact || editorLangId == javascriptreact || editorLangId == typescript || editorLangId == javascript",
           "group": "navigation@94.3"
+        },
+        {
+          "command": "reactify-tsx.addParensToSingleArrowParam",
+          "when": "editorLangId == typescriptreact || editorLangId == javascriptreact || editorLangId == typescript || editorLangId == javascript",
+          "group": "navigation@94.4"
         }
       ],
       "editor/codeAction": [
@@ -213,6 +223,11 @@
           "command": "reactify-tsx.mergeDeclarationAndInitialization",
           "when": "editorTextFocus && (editorLangId == typescriptreact || editorLangId == javascriptreact || editorLangId == typescript || editorLangId == javascript)",
           "group": "refactor@16.3"
+        },
+        {
+          "command": "reactify-tsx.addParensToSingleArrowParam",
+          "when": "editorTextFocus && editorHasSelection && (editorLangId == typescriptreact || editorLangId == javascriptreact || editorLangId == typescript || editorLangId == javascript)",
+          "group": "refactor@16.4"
         }
       ]
     },
@@ -305,6 +320,12 @@
         "command": "reactify-tsx.splitOrMergeString",
         "key": "ctrl+alt+shift+s",
         "mac": "cmd+alt+shift+s",
+        "when": "editorTextFocus && (editorLangId == typescriptreact || editorLangId == javascriptreact || editorLangId == typescript || editorLangId == javascript)"
+      },
+      {
+        "command": "reactify-tsx.addParensToSingleArrowParam",
+        "key": "ctrl+alt+shift+p",
+        "mac": "cmd+alt+shift+p",
         "when": "editorTextFocus && (editorLangId == typescriptreact || editorLangId == javascriptreact || editorLangId == typescript || editorLangId == javascript)"
       }
     ]
