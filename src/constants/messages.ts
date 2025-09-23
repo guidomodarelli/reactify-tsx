@@ -83,6 +83,15 @@ export const ARROW_BODY_TOGGLE_APPLY_FAILURE_MESSAGE = 'Could not apply arrow bo
 export const ARROW_TO_BLOCK_SUCCESS_MESSAGE = 'Converted shorthand arrow to block with return.';
 export const ARROW_TO_EXPRESSION_SUCCESS_MESSAGE = 'Converted block-bodied arrow to shorthand expression.';
 
+// Arrow parameter parentheses
+export const NO_ARROW_FOR_PARAM_PARENS_MESSAGE =
+  'Place the caret inside an arrow function to add parentheses to its parameter.';
+export const ARROW_PARAM_PARENS_UNSUPPORTED_MESSAGE =
+  'Only single identifier parameter arrows are supported.';
+export const ARROW_PARAM_ALREADY_PARENTHESIZED_MESSAGE = 'Arrow parameter already has parentheses.';
+export const ARROW_PARAM_PARENS_APPLY_FAILURE_MESSAGE = 'Could not apply arrow parameter parentheses edit.';
+export const ARROW_PARAM_PARENS_SUCCESS_MESSAGE = 'Added parentheses to arrow parameter.';
+
 // String split/merge
 export const NO_STRING_FOR_SPLIT_OR_MERGE_MESSAGE =
   'Place the caret inside a string to split, or select a + chain of string literals to merge.';

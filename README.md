@@ -17,6 +17,7 @@ Reactify TSX is a VS Code extension that streamlines common React and TypeScript
 - [Merge Declaration and Initialization](docs/feature/MergeDeclarationAndInitialization/README.md) - Combine a standalone declaration and the immediately following assignment into a single initialized declaration.
 - [Split or Merge String](docs/feature/SplitOrMergeString/README.md) - Split a quoted string at the caret or merge a + chain of adjacent string literals.
 - [Toggle Arrow Body](docs/feature/ToggleArrowBody/README.md) - Convert between shorthand expression and block bodies for arrow functions.
+- [Add Parens to Single Arrow Parameter](docs/feature/AddParensToSingleArrowParam/README.md) - Wrap single arrow parameter identifiers with parentheses.
 
 ## Commands & Keybindings
 
@@ -33,6 +34,7 @@ Reactify TSX is a VS Code extension that streamlines common React and TypeScript
 | `reactify-tsx.toggleJsxAttributeValue` | Reactify TSX: Toggle JSX Attribute Braces | `Ctrl+Alt+Shift+B` (`Cmd+Alt+Shift+B` on macOS) |
 | `reactify-tsx.toggleStringTemplate` | Reactify TSX: Toggle String <-> Template Literal | `Ctrl+Alt+Shift+Q` (`Cmd+Alt+Shift+Q` on macOS) |
 | `reactify-tsx.toggleArrowBody` | Reactify TSX: Toggle Arrow Body (Expression -> Block) | `Ctrl+Alt+Shift+A` (`Cmd+Alt+Shift+A` on macOS) |
+| `reactify-tsx.addParensToSingleArrowParam` | Reactify TSX: Add Parens to Single Arrow Parameter | `Ctrl+Alt+Shift+P` (`Cmd+Alt+Shift+P` on macOS) |
 | `reactify-tsx.splitIntoMultipleDeclarations` | Reactify TSX: Split Into Multiple Declarations | `Ctrl+Alt+Shift+M` (`Cmd+Alt+Shift+M` on macOS) |
 | `reactify-tsx.splitDeclarationAndInitialization` | Reactify TSX: Split Declaration and Initialization | `Ctrl+Alt+Shift+D` (`Cmd+Alt+Shift+D` on macOS) |
 | `reactify-tsx.mergeDeclarationAndInitialization` | Reactify TSX: Merge Declaration and Initialization | `Ctrl+Alt+Shift+G` (`Cmd+Alt+Shift+G` on macOS) |
