@@ -24,6 +24,7 @@
     "onCommand:reactify-tsx.removeRedundantElse",
     "onCommand:reactify-tsx.moveBlockDown",
     "onCommand:reactify-tsx.moveBlockUp",
+    "onCommand:reactify-tsx.parallelizeAwaitSelection",
     "onCommand:reactify-tsx.transformFunction",
     "onCommand:reactify-tsx.toggleJsxAttributeValue",
     "onCommand:reactify-tsx.toggleStringTemplate",
@@ -76,6 +77,10 @@
       {
         "command": "reactify-tsx.enumToConst",
         "title": "Reactify TSX: Convert Enum to Const"
+      },
+      {
+        "command": "reactify-tsx.parallelizeAwaitSelection",
+        "title": "Reactify TSX: Parallelize Await Selection"
       },
       {
         "command": "reactify-tsx.toggleJsxAttributeValue",
@@ -131,6 +136,11 @@
           "command": "reactify-tsx.removeRedundantElse",
           "when": "editorLangId == typescriptreact || editorLangId == javascriptreact || editorLangId == typescript || editorLangId == javascript",
           "group": "navigation@92.05"
+        },
+        {
+          "command": "reactify-tsx.parallelizeAwaitSelection",
+          "when": "editorLangId == typescriptreact || editorLangId == javascriptreact || editorLangId == typescript || editorLangId == javascript",
+          "group": "navigation@92.06"
         },
         {
           "command": "reactify-tsx.convertToLet",
@@ -193,6 +203,11 @@
           "command": "reactify-tsx.removeRedundantElse",
           "when": "editorTextFocus && editorHasSelection && (editorLangId == typescriptreact || editorLangId == javascriptreact || editorLangId == typescript || editorLangId == javascript)",
           "group": "refactor@12.05"
+        },
+        {
+          "command": "reactify-tsx.parallelizeAwaitSelection",
+          "when": "editorTextFocus && editorHasSelection && (editorLangId == typescriptreact || editorLangId == javascriptreact || editorLangId == typescript || editorLangId == javascript)",
+          "group": "refactor@12.06"
         },
         {
           "command": "reactify-tsx.convertToLet",
@@ -311,6 +326,12 @@
         "command": "reactify-tsx.toggleStringTemplate",
         "key": "ctrl+alt+shift+q",
         "mac": "cmd+alt+shift+q",
+        "when": "editorTextFocus && (editorLangId == typescriptreact || editorLangId == javascriptreact || editorLangId == typescript || editorLangId == javascript)"
+      },
+      {
+        "command": "reactify-tsx.parallelizeAwaitSelection",
+        "key": "ctrl+alt+shift+w",
+        "mac": "cmd+alt+shift+w",
         "when": "editorTextFocus && (editorLangId == typescriptreact || editorLangId == javascriptreact || editorLangId == typescript || editorLangId == javascript)"
       },
       {
