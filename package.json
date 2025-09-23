@@ -25,6 +25,7 @@
     "onCommand:reactify-tsx.moveBlockUp",
     "onCommand:reactify-tsx.transformFunction",
     "onCommand:reactify-tsx.toggleJsxAttributeValue",
+    "onCommand:reactify-tsx.toggleStringTemplate",
     "onLanguage:javascript",
     "onLanguage:javascriptreact",
     "onLanguage:typescript",
@@ -71,6 +72,10 @@
       {
         "command": "reactify-tsx.toggleJsxAttributeValue",
         "title": "Reactify TSX: Toggle JSX Attribute Braces"
+      },
+      {
+        "command": "reactify-tsx.toggleStringTemplate",
+        "title": "Reactify TSX: Toggle String ⇄ Template Literal"
       },
       {
         "command": "reactify-tsx.splitIntoMultipleDeclarations",
@@ -254,6 +259,12 @@
         "command": "reactify-tsx.toggleJsxAttributeValue",
         "key": "ctrl+alt+shift+b",
         "mac": "cmd+alt+shift+b",
+        "when": "editorTextFocus && (editorLangId == typescriptreact || editorLangId == javascriptreact || editorLangId == typescript || editorLangId == javascript)"
+      },
+      {
+        "command": "reactify-tsx.toggleStringTemplate",
+        "key": "ctrl+alt+shift+q",
+        "mac": "cmd+alt+shift+q",
         "when": "editorTextFocus && (editorLangId == typescriptreact || editorLangId == javascriptreact || editorLangId == typescript || editorLangId == javascript)"
       },
       {
