@@ -45,6 +45,9 @@ suite("Quick fix menu contributions", () => {
       "reactify-tsx.moveBlockUp",
       "reactify-tsx.moveBlockDown",
       "reactify-tsx.toggleJsxAttributeValue",
+      "reactify-tsx.splitIntoMultipleDeclarations",
+      "reactify-tsx.splitDeclarationAndInitialization",
+      "reactify-tsx.mergeDeclarationAndInitialization",
     ];
 
     const missingCommands = expectedCommands.filter(

@@ -72,3 +72,16 @@ export const VARIABLE_CONVERSION_UNSUPPORTED_MESSAGE =
 export const VARIABLE_CONVERSION_APPLY_FAILURE_MESSAGE = 'Could not apply variable kind conversion.';
 export const VARIABLE_CONVERSION_TO_LET_SUCCESS_MESSAGE = 'Converted declaration to let.';
 export const VARIABLE_CONVERSION_TO_CONST_SUCCESS_MESSAGE = 'Converted declaration to const.';
+
+// Variable split
+export const VARIABLE_SPLIT_UNSUPPORTED_MESSAGE =
+  'Selected declaration cannot be split (requires simple identifiers and compatible kind).';
+export const VARIABLE_SPLIT_APPLY_FAILURE_MESSAGE = 'Could not apply variable split changes.';
+export const VARIABLE_SPLIT_MULTIPLE_SUCCESS_MESSAGE = 'Split into multiple declarations.';
+export const VARIABLE_SPLIT_DECL_INIT_SUCCESS_MESSAGE = 'Split declaration and initialization.';
+
+// Variable merge
+export const VARIABLE_MERGE_UNSUPPORTED_MESSAGE =
+  'Selected statements cannot be merged (requires single identifier declaration followed by matching assignment).';
+export const VARIABLE_MERGE_APPLY_FAILURE_MESSAGE = 'Could not apply variable merge changes.';
+export const VARIABLE_MERGE_SUCCESS_MESSAGE = 'Merged declaration and initialization.';

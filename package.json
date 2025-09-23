@@ -28,7 +28,10 @@
     "onLanguage:javascript",
     "onLanguage:javascriptreact",
     "onLanguage:typescript",
-    "onLanguage:typescriptreact"
+    "onLanguage:typescriptreact",
+    "onCommand:reactify-tsx.splitIntoMultipleDeclarations",
+    "onCommand:reactify-tsx.splitDeclarationAndInitialization",
+    "onCommand:reactify-tsx.mergeDeclarationAndInitialization"
   ],
   "main": "./dist/extension.js",
   "contributes": {
@@ -68,6 +71,18 @@
       {
         "command": "reactify-tsx.toggleJsxAttributeValue",
         "title": "Reactify TSX: Toggle JSX Attribute Braces"
+      },
+      {
+        "command": "reactify-tsx.splitIntoMultipleDeclarations",
+        "title": "Reactify TSX: Split Into Multiple Declarations"
+      },
+      {
+        "command": "reactify-tsx.splitDeclarationAndInitialization",
+        "title": "Reactify TSX: Split Declaration and Initialization"
+      },
+      {
+        "command": "reactify-tsx.mergeDeclarationAndInitialization",
+        "title": "Reactify TSX: Merge Declaration and Initialization"
       }
     ],
     "menus": {
@@ -106,6 +121,21 @@
           "command": "reactify-tsx.toggleJsxAttributeValue",
           "when": "editorLangId == typescriptreact || editorLangId == javascriptreact || editorLangId == typescript || editorLangId == javascript",
           "group": "navigation@94"
+        },
+        {
+          "command": "reactify-tsx.splitIntoMultipleDeclarations",
+          "when": "editorLangId == typescriptreact || editorLangId == javascriptreact || editorLangId == typescript || editorLangId == javascript",
+          "group": "navigation@94.1"
+        },
+        {
+          "command": "reactify-tsx.splitDeclarationAndInitialization",
+          "when": "editorLangId == typescriptreact || editorLangId == javascriptreact || editorLangId == typescript || editorLangId == javascript",
+          "group": "navigation@94.2"
+        },
+        {
+          "command": "reactify-tsx.mergeDeclarationAndInitialization",
+          "when": "editorLangId == typescriptreact || editorLangId == javascriptreact || editorLangId == typescript || editorLangId == javascript",
+          "group": "navigation@94.3"
         }
       ],
       "editor/codeAction": [
@@ -153,6 +183,21 @@
           "command": "reactify-tsx.moveBlockDown",
           "when": "editorTextFocus && (editorLangId == typescriptreact || editorLangId == javascriptreact || editorLangId == typescript || editorLangId == javascript)",
           "group": "refactor@16"
+        },
+        {
+          "command": "reactify-tsx.splitIntoMultipleDeclarations",
+          "when": "editorTextFocus && (editorLangId == typescriptreact || editorLangId == javascriptreact || editorLangId == typescript || editorLangId == javascript)",
+          "group": "refactor@16.1"
+        },
+        {
+          "command": "reactify-tsx.splitDeclarationAndInitialization",
+          "when": "editorTextFocus && (editorLangId == typescriptreact || editorLangId == javascriptreact || editorLangId == typescript || editorLangId == javascript)",
+          "group": "refactor@16.2"
+        },
+        {
+          "command": "reactify-tsx.mergeDeclarationAndInitialization",
+          "when": "editorTextFocus && (editorLangId == typescriptreact || editorLangId == javascriptreact || editorLangId == typescript || editorLangId == javascript)",
+          "group": "refactor@16.3"
         }
       ]
     },
@@ -209,6 +254,24 @@
         "command": "reactify-tsx.toggleJsxAttributeValue",
         "key": "ctrl+alt+shift+b",
         "mac": "cmd+alt+shift+b",
+        "when": "editorTextFocus && (editorLangId == typescriptreact || editorLangId == javascriptreact || editorLangId == typescript || editorLangId == javascript)"
+      },
+      {
+        "command": "reactify-tsx.splitIntoMultipleDeclarations",
+        "key": "ctrl+alt+shift+m",
+        "mac": "cmd+alt+shift+m",
+        "when": "editorTextFocus && (editorLangId == typescriptreact || editorLangId == javascriptreact || editorLangId == typescript || editorLangId == javascript)"
+      },
+      {
+        "command": "reactify-tsx.splitDeclarationAndInitialization",
+        "key": "ctrl+alt+shift+d",
+        "mac": "cmd+alt+shift+d",
+        "when": "editorTextFocus && (editorLangId == typescriptreact || editorLangId == javascriptreact || editorLangId == typescript || editorLangId == javascript)"
+      },
+      {
+        "command": "reactify-tsx.mergeDeclarationAndInitialization",
+        "key": "ctrl+alt+shift+g",
+        "mac": "cmd+alt+shift+g",
         "when": "editorTextFocus && (editorLangId == typescriptreact || editorLangId == javascriptreact || editorLangId == typescript || editorLangId == javascript)"
       }
     ]

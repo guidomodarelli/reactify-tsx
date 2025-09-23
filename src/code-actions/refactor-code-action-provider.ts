@@ -15,6 +15,8 @@ import { EnumToConstService } from '../services/enumToConstService';
 import { JsxAttributeValueToggleService } from '../services/jsxAttributeValueToggleService';
 import { BlockMovementService, MoveBlockDirection } from '../services/blockMovementService';
 import { VariableKindConversionService } from '../services/variableKindConversionService';
+import { VariableSplitService } from '../services/variableSplitService';
+import { VariableMergeService } from '../services/variableMergeService';
 
 interface RefactorFeatureDefinition {
   readonly commandId: string;
@@ -48,6 +50,8 @@ const enumConversionService = new EnumToConstService();
 const toggleService = new JsxAttributeValueToggleService();
 const blockMovementService = new BlockMovementService();
 const variableKindService = new VariableKindConversionService();
+const variableSplitService = new VariableSplitService();
+const variableMergeService = new VariableMergeService();
 
 export const ALL_REFACTOR_FEATURES: readonly RefactorFeatureDefinition[] = [
   {
@@ -132,6 +136,33 @@ export const ALL_REFACTOR_FEATURES: readonly RefactorFeatureDefinition[] = [
     kind: vscode.CodeActionKind.RefactorMove,
     evaluate: (document, selection) => {
       return canMoveBlock(document, selection, 'down');
+    },
+  },
+  {
+    commandId: 'reactify-tsx.splitIntoMultipleDeclarations',
+    title: 'Reactify TSX: Split Into Multiple Declarations',
+    kind: vscode.CodeActionKind.RefactorRewrite,
+    evaluate: (document, selection) => {
+      const result = variableSplitService.createSplitMultiplePlan(document, selection);
+      return result.success;
+    },
+  },
+  {
+    commandId: 'reactify-tsx.splitDeclarationAndInitialization',
+    title: 'Reactify TSX: Split Declaration and Initialization',
+    kind: vscode.CodeActionKind.RefactorRewrite,
+    evaluate: (document, selection) => {
+      const result = variableSplitService.createSplitDeclarationAndInitializationPlan(document, selection);
+      return result.success;
+    },
+  },
+  {
+    commandId: 'reactify-tsx.mergeDeclarationAndInitialization',
+    title: 'Reactify TSX: Merge Declaration and Initialization',
+    kind: vscode.CodeActionKind.RefactorRewrite,
+    evaluate: (document, selection) => {
+      const result = variableMergeService.createMergeDeclarationAndInitializationPlan(document, selection);
+      return result.success;
     },
   },
 ];
