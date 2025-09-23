@@ -31,6 +31,8 @@ suite('Refactor code action provider', () => {
       'reactify-tsx.transformFunction',
       'reactify-tsx.flipIfElse',
       'reactify-tsx.enumToConst',
+      'reactify-tsx.convertToLet',
+      'reactify-tsx.convertToConst',
       'reactify-tsx.toggleJsxAttributeValue',
       'reactify-tsx.moveBlockUp',
       'reactify-tsx.moveBlockDown',

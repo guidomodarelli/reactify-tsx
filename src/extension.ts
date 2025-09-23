@@ -3,6 +3,8 @@ import { extractArrowFunctionCommand } from './commands/extractArrowFunctionComm
 import { transformFunctionCommand } from './commands/transformFunctionCommand';
 import { flipIfElseCommand } from './commands/flipIfElseCommand';
 import { enumToConstCommand } from './commands/enumToConstCommand';
+import { convertToLetCommand } from './commands/convertToLetCommand';
+import { convertToConstCommand } from './commands/convertToConstCommand';
 import { moveBlockDownCommand, moveBlockUpCommand } from './commands/moveBlockCommand';
 import { toggleJsxAttributeValueCommand } from './commands/toggleJsxAttributeValueCommand';
 import { createRefactorCodeActionsRegistration } from './code-actions';
@@ -19,6 +21,8 @@ export function activate(context: vscode.ExtensionContext): void {
       ['reactify-tsx.transformFunction', () => transformFunctionCommand()],
       ['reactify-tsx.flipIfElse', () => flipIfElseCommand()],
       ['reactify-tsx.enumToConst', () => enumToConstCommand()],
+      ['reactify-tsx.convertToLet', () => convertToLetCommand()],
+      ['reactify-tsx.convertToConst', () => convertToConstCommand()],
       ['reactify-tsx.moveBlockUp', () => moveBlockUpCommand()],
       ['reactify-tsx.moveBlockDown', () => moveBlockDownCommand()],
       ['reactify-tsx.toggleJsxAttributeValue', () => toggleJsxAttributeValueCommand()],

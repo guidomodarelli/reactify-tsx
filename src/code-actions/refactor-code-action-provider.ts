@@ -14,6 +14,7 @@ import { IfElseFlipService } from '../services/ifElseFlipService';
 import { EnumToConstService } from '../services/enumToConstService';
 import { JsxAttributeValueToggleService } from '../services/jsxAttributeValueToggleService';
 import { BlockMovementService, MoveBlockDirection } from '../services/blockMovementService';
+import { VariableKindConversionService } from '../services/variableKindConversionService';
 
 interface RefactorFeatureDefinition {
   readonly commandId: string;
@@ -46,6 +47,7 @@ const flipService = new IfElseFlipService();
 const enumConversionService = new EnumToConstService();
 const toggleService = new JsxAttributeValueToggleService();
 const blockMovementService = new BlockMovementService();
+const variableKindService = new VariableKindConversionService();
 
 export const ALL_REFACTOR_FEATURES: readonly RefactorFeatureDefinition[] = [
   {
@@ -95,6 +97,24 @@ export const ALL_REFACTOR_FEATURES: readonly RefactorFeatureDefinition[] = [
     kind: vscode.CodeActionKind.RefactorRewrite,
     evaluate: (document, selection) => {
       const result = toggleService.createTogglePlan(document, selection);
+      return result.success;
+    },
+  },
+  {
+    commandId: 'reactify-tsx.convertToLet',
+    title: 'Reactify TSX: Convert Declaration to let',
+    kind: vscode.CodeActionKind.RefactorRewrite,
+    evaluate: (document, selection) => {
+      const result = variableKindService.createConversionPlan(document, selection, 'let');
+      return result.success;
+    },
+  },
+  {
+    commandId: 'reactify-tsx.convertToConst',
+    title: 'Reactify TSX: Convert Declaration to const',
+    kind: vscode.CodeActionKind.RefactorRewrite,
+    evaluate: (document, selection) => {
+      const result = variableKindService.createConversionPlan(document, selection, 'const');
       return result.success;
     },
   },

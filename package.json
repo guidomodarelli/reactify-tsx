@@ -17,6 +17,8 @@
   ],
   "activationEvents": [
     "onCommand:reactify-tsx.enumToConst",
+    "onCommand:reactify-tsx.convertToLet",
+    "onCommand:reactify-tsx.convertToConst",
     "onCommand:reactify-tsx.extractArrowFunction",
     "onCommand:reactify-tsx.flipIfElse",
     "onCommand:reactify-tsx.moveBlockDown",
@@ -42,6 +44,14 @@
       {
         "command": "reactify-tsx.flipIfElse",
         "title": "Reactify TSX: Flip If/Else Branches"
+      },
+      {
+        "command": "reactify-tsx.convertToLet",
+        "title": "Reactify TSX: Convert Declaration to let"
+      },
+      {
+        "command": "reactify-tsx.convertToConst",
+        "title": "Reactify TSX: Convert Declaration to const"
       },
       {
         "command": "reactify-tsx.moveBlockUp",
@@ -78,6 +88,16 @@
           "group": "navigation@92"
         },
         {
+          "command": "reactify-tsx.convertToLet",
+          "when": "editorLangId == typescriptreact || editorLangId == javascriptreact || editorLangId == typescript || editorLangId == javascript",
+          "group": "navigation@92.1"
+        },
+        {
+          "command": "reactify-tsx.convertToConst",
+          "when": "editorLangId == typescriptreact || editorLangId == javascriptreact || editorLangId == typescript || editorLangId == javascript",
+          "group": "navigation@92.2"
+        },
+        {
           "command": "reactify-tsx.enumToConst",
           "when": "editorLangId == typescriptreact || editorLangId == javascriptreact || editorLangId == typescript || editorLangId == javascript",
           "group": "navigation@93"
@@ -103,6 +123,16 @@
           "command": "reactify-tsx.flipIfElse",
           "when": "editorTextFocus && editorHasSelection && (editorLangId == typescriptreact || editorLangId == javascriptreact || editorLangId == typescript || editorLangId == javascript)",
           "group": "refactor@12"
+        },
+        {
+          "command": "reactify-tsx.convertToLet",
+          "when": "editorTextFocus && editorHasSelection && (editorLangId == typescriptreact || editorLangId == javascriptreact || editorLangId == typescript || editorLangId == javascript)",
+          "group": "refactor@12.1"
+        },
+        {
+          "command": "reactify-tsx.convertToConst",
+          "when": "editorTextFocus && editorHasSelection && (editorLangId == typescriptreact || editorLangId == javascriptreact || editorLangId == typescript || editorLangId == javascript)",
+          "group": "refactor@12.2"
         },
         {
           "command": "reactify-tsx.enumToConst",
@@ -143,6 +173,18 @@
         "command": "reactify-tsx.flipIfElse",
         "key": "ctrl+alt+shift+i",
         "mac": "cmd+alt+shift+i",
+        "when": "editorTextFocus && (editorLangId == typescriptreact || editorLangId == javascriptreact || editorLangId == typescript || editorLangId == javascript)"
+      },
+      {
+        "command": "reactify-tsx.convertToLet",
+        "key": "ctrl+alt+shift+l",
+        "mac": "cmd+alt+shift+l",
+        "when": "editorTextFocus && (editorLangId == typescriptreact || editorLangId == javascriptreact || editorLangId == typescript || editorLangId == javascript)"
+      },
+      {
+        "command": "reactify-tsx.convertToConst",
+        "key": "ctrl+alt+shift+o",
+        "mac": "cmd+alt+shift+o",
         "when": "editorTextFocus && (editorLangId == typescriptreact || editorLangId == javascriptreact || editorLangId == typescript || editorLangId == javascript)"
       },
       {

@@ -40,6 +40,8 @@ suite("Quick fix menu contributions", () => {
       "reactify-tsx.transformFunction",
       "reactify-tsx.flipIfElse",
       "reactify-tsx.enumToConst",
+      "reactify-tsx.convertToLet",
+      "reactify-tsx.convertToConst",
       "reactify-tsx.moveBlockUp",
       "reactify-tsx.moveBlockDown",
       "reactify-tsx.toggleJsxAttributeValue",

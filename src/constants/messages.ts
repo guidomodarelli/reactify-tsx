@@ -64,3 +64,11 @@ export const JSX_ATTRIBUTE_TOGGLE_UNSUPPORTED_MESSAGE = 'Only string literal JSX
 export const JSX_ATTRIBUTE_TOGGLE_APPLY_FAILURE_MESSAGE = 'Could not apply JSX attribute toggle.';
 export const JSX_ATTRIBUTE_TOGGLE_WRAP_SUCCESS_MESSAGE = 'Wrapped JSX attribute value with braces.';
 export const JSX_ATTRIBUTE_TOGGLE_UNWRAP_SUCCESS_MESSAGE = 'Removed braces from JSX attribute value.';
+
+// Variable kind conversion
+export const NO_VARIABLE_DECLARATION_IN_SELECTION_MESSAGE = 'No variable declaration found at the current selection.';
+export const VARIABLE_CONVERSION_UNSUPPORTED_MESSAGE =
+  'Selected declaration cannot be converted (missing initializer or subsequent writes detected).';
+export const VARIABLE_CONVERSION_APPLY_FAILURE_MESSAGE = 'Could not apply variable kind conversion.';
+export const VARIABLE_CONVERSION_TO_LET_SUCCESS_MESSAGE = 'Converted declaration to let.';
+export const VARIABLE_CONVERSION_TO_CONST_SUCCESS_MESSAGE = 'Converted declaration to const.';
