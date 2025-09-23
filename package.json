@@ -26,6 +26,7 @@
     "onCommand:reactify-tsx.transformFunction",
     "onCommand:reactify-tsx.toggleJsxAttributeValue",
     "onCommand:reactify-tsx.toggleStringTemplate",
+    "onCommand:reactify-tsx.toggleArrowBody",
     "onLanguage:javascript",
     "onLanguage:javascriptreact",
     "onLanguage:typescript",
@@ -89,6 +90,10 @@
       {
         "command": "reactify-tsx.mergeDeclarationAndInitialization",
         "title": "Reactify TSX: Merge Declaration and Initialization"
+      },
+      {
+        "command": "reactify-tsx.toggleArrowBody",
+        "title": "Reactify TSX: Toggle Arrow Body (Expression -> Block)"
       },
       {
         "command": "reactify-tsx.splitOrMergeString",
@@ -270,6 +275,12 @@
         "command": "reactify-tsx.toggleStringTemplate",
         "key": "ctrl+alt+shift+q",
         "mac": "cmd+alt+shift+q",
+        "when": "editorTextFocus && (editorLangId == typescriptreact || editorLangId == javascriptreact || editorLangId == typescript || editorLangId == javascript)"
+      },
+      {
+        "command": "reactify-tsx.toggleArrowBody",
+        "key": "ctrl+alt+shift+a",
+        "mac": "cmd+alt+shift+a",
         "when": "editorTextFocus && (editorLangId == typescriptreact || editorLangId == javascriptreact || editorLangId == typescript || editorLangId == javascript)"
       },
       {

@@ -8,6 +8,7 @@ import { convertToConstCommand } from './commands/convertToConstCommand';
 import { moveBlockDownCommand, moveBlockUpCommand } from './commands/moveBlockCommand';
 import { toggleJsxAttributeValueCommand } from './commands/toggleJsxAttributeValueCommand';
 import { toggleStringTemplateCommand } from './commands/toggleStringTemplateCommand';
+import { toggleArrowBodyCommand } from './commands/toggleArrowBodyCommand';
 import { splitIntoMultipleDeclarationsCommand } from './commands/splitIntoMultipleDeclarationsCommand';
 import { splitDeclarationAndInitializationCommand } from './commands/splitDeclarationAndInitializationCommand';
 import { createRefactorCodeActionsRegistration } from './code-actions';
@@ -32,6 +33,7 @@ export function activate(context: vscode.ExtensionContext): void {
       ['reactify-tsx.moveBlockDown', () => moveBlockDownCommand()],
       ['reactify-tsx.toggleJsxAttributeValue', () => toggleJsxAttributeValueCommand()],
       ['reactify-tsx.toggleStringTemplate', () => toggleStringTemplateCommand()],
+      ['reactify-tsx.toggleArrowBody', () => toggleArrowBodyCommand()],
       ['reactify-tsx.splitIntoMultipleDeclarations', () => splitIntoMultipleDeclarationsCommand()],
       ['reactify-tsx.splitDeclarationAndInitialization', () => splitDeclarationAndInitializationCommand()],
       ['reactify-tsx.mergeDeclarationAndInitialization', () => mergeDeclarationAndInitializationCommand()],

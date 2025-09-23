@@ -74,6 +74,15 @@ export const STRING_TEMPLATE_TOGGLE_APPLY_FAILURE_MESSAGE = 'Could not apply str
 export const STRING_TO_TEMPLATE_SUCCESS_MESSAGE = 'Converted string literal to template literal.';
 export const TEMPLATE_TO_STRING_SUCCESS_MESSAGE = 'Converted template literal to string literal.';
 
+// Arrow body toggle
+export const NO_ARROW_FUNCTION_IN_SELECTION_MESSAGE =
+  'Place the caret inside an arrow function to toggle its body.';
+export const ARROW_BODY_TOGGLE_UNSUPPORTED_MESSAGE =
+  'Only expression-bodied arrows or single-return block arrows can toggle.';
+export const ARROW_BODY_TOGGLE_APPLY_FAILURE_MESSAGE = 'Could not apply arrow body toggle.';
+export const ARROW_TO_BLOCK_SUCCESS_MESSAGE = 'Converted shorthand arrow to block with return.';
+export const ARROW_TO_EXPRESSION_SUCCESS_MESSAGE = 'Converted block-bodied arrow to shorthand expression.';
+
 // String split/merge
 export const NO_STRING_FOR_SPLIT_OR_MERGE_MESSAGE =
   'Place the caret inside a string to split, or select a + chain of string literals to merge.';
