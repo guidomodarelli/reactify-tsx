@@ -24,6 +24,8 @@ suite('Command Registration', () => {
     assert.ok(commands.includes('reactify-tsx.transformFunction'));
     assert.ok(commands.includes('reactify-tsx.flipIfElse'));
     assert.ok(commands.includes('reactify-tsx.enumToConst'));
+    assert.ok(commands.includes('reactify-tsx.convertToLet'));
+    assert.ok(commands.includes('reactify-tsx.convertToConst'));
     assert.ok(commands.includes('reactify-tsx.moveBlockUp'));
     assert.ok(commands.includes('reactify-tsx.moveBlockDown'));
     assert.ok(commands.includes('reactify-tsx.toggleJsxAttributeValue'));
