@@ -17,6 +17,7 @@ import { BlockMovementService, MoveBlockDirection } from '../services/blockMovem
 import { VariableKindConversionService } from '../services/variableKindConversionService';
 import { VariableSplitService } from '../services/variableSplitService';
 import { VariableMergeService } from '../services/variableMergeService';
+import { ArrowParameterParensService } from '../services/arrowParameterParensService';
 
 interface RefactorFeatureDefinition {
   readonly commandId: string;
@@ -52,6 +53,7 @@ const blockMovementService = new BlockMovementService();
 const variableKindService = new VariableKindConversionService();
 const variableSplitService = new VariableSplitService();
 const variableMergeService = new VariableMergeService();
+const arrowParamParensService = new ArrowParameterParensService();
 
 export const ALL_REFACTOR_FEATURES: readonly RefactorFeatureDefinition[] = [
   {
@@ -60,6 +62,15 @@ export const ALL_REFACTOR_FEATURES: readonly RefactorFeatureDefinition[] = [
     kind: vscode.CodeActionKind.RefactorExtract,
     evaluate: (document, selection) => {
       const result = extractionService.createExtractionPlan(document, selection, resolveEditorOptions(document));
+      return result.success;
+    },
+  },
+  {
+    commandId: 'reactify-tsx.addParensToSingleArrowParam',
+    title: 'Reactify TSX: Add Parens to Single Arrow Parameter',
+    kind: vscode.CodeActionKind.RefactorRewrite,
+    evaluate: (document, selection) => {
+      const result = arrowParamParensService.createAddParensPlan(document, selection);
       return result.success;
     },
   },
