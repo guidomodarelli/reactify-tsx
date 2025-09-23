@@ -15,6 +15,7 @@ import { splitDeclarationAndInitializationCommand } from './commands/splitDeclar
 import { createRefactorCodeActionsRegistration } from './code-actions';
 import { splitOrMergeStringCommand } from './commands/splitOrMergeStringCommand';
 import { mergeDeclarationAndInitializationCommand } from './commands/mergeDeclarationAndInitializationCommand';
+import { removeRedundantElseCommand } from './commands/removeRedundantElseCommand';
 
 const commandRegistrations: vscode.Disposable[] = [];
 let commandsInitialized = false;
@@ -40,6 +41,7 @@ export function activate(context: vscode.ExtensionContext): void {
       ['reactify-tsx.splitDeclarationAndInitialization', () => splitDeclarationAndInitializationCommand()],
       ['reactify-tsx.mergeDeclarationAndInitialization', () => mergeDeclarationAndInitializationCommand()],
       ['reactify-tsx.splitOrMergeString', () => splitOrMergeStringCommand()],
+      ['reactify-tsx.removeRedundantElse', () => removeRedundantElseCommand()],
     ];
 
     for (const [commandId, handler] of definitions) {

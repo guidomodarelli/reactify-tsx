@@ -30,6 +30,7 @@ suite('Refactor code action provider', () => {
       'reactify-tsx.extractArrowFunction',
       'reactify-tsx.transformFunction',
       'reactify-tsx.flipIfElse',
+      'reactify-tsx.removeRedundantElse',
       'reactify-tsx.enumToConst',
       'reactify-tsx.convertToLet',
       'reactify-tsx.convertToConst',
@@ -192,6 +193,44 @@ suite('Refactor code action provider', () => {
     assert.ok(
       !commands.includes('reactify-tsx.flipIfElse'),
       'Flip if/else refactor must not appear for caret inside if blocks without else or ternary',
+    );
+  });
+
+  test('should offer redundant else removal when then branch returns', async () => {
+    const content = [
+      'if (isReady) {',
+      '  return prepare();',
+      '} else {',
+      '  finalize();',
+      '}',
+    ].join('\n');
+    const document = await createDocument('typescript', content);
+    const caretRange = caretAt(document, 'if (isReady)');
+
+    const commands = await collectRefactorCommands(document, caretRange, vscode.CodeActionKind.RefactorRewrite);
+
+    assert.ok(
+      commands.includes('reactify-tsx.removeRedundantElse'),
+      'Redundant else removal should surface when then branch returns control flow',
+    );
+  });
+
+  test('should hide redundant else removal when then branch continues execution', async () => {
+    const content = [
+      'if (isReady) {',
+      '  notify();',
+      '} else {',
+      '  finalize();',
+      '}',
+    ].join('\n');
+    const document = await createDocument('typescript', content);
+    const caretRange = caretAt(document, 'if (isReady)');
+
+    const commands = await collectRefactorCommands(document, caretRange, vscode.CodeActionKind.RefactorRewrite);
+
+    assert.ok(
+      !commands.includes('reactify-tsx.removeRedundantElse'),
+      'Redundant else removal must not appear when guard does not terminate control flow',
     );
   });
 

@@ -51,6 +51,13 @@ export const IF_STATEMENT_REQUIRES_ELSE_MESSAGE = 'Selected if statement must in
 export const IF_ELSE_FLIP_UNSUPPORTED_MESSAGE = 'Selected if statement is not supported for flipping.';
 export const IF_ELSE_FLIP_APPLY_FAILURE_MESSAGE = 'Could not apply flip changes.';
 export const IF_ELSE_FLIP_SUCCESS_MESSAGE = 'If/else logic flipped successfully.';
+export const REDUNDANT_ELSE_NO_BRANCH_MESSAGE =
+  'Selected if statement must include an else branch to remove.';
+export const REDUNDANT_ELSE_NOT_REDUNDANT_MESSAGE =
+  'Else branch cannot be removed because the then branch does not exit control flow.';
+export const REDUNDANT_ELSE_UNSUPPORTED_MESSAGE = 'Else-if chains are not supported for redundant else removal.';
+export const REDUNDANT_ELSE_APPLY_FAILURE_MESSAGE = 'Could not apply redundant else removal.';
+export const REDUNDANT_ELSE_SUCCESS_MESSAGE = 'Removed redundant else branch.';
 export const NO_MOVABLE_BLOCK_MESSAGE = 'No movable block found at the current selection.';
 export const BLOCK_MOVE_AT_TOP_MESSAGE = 'Block is already at the top of its scope.';
 export const BLOCK_MOVE_AT_BOTTOM_MESSAGE = 'Block is already at the bottom of its scope.';

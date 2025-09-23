@@ -7,6 +7,7 @@ Reactify TSX is a VS Code extension that streamlines common React and TypeScript
 - [Extract Arrow Function to Handler](docs/feature/ExtractArrowFunction/README.md) - Lift inline JSX arrow functions into named handlers and keep wiring intact.
 - [Function Transformation](docs/feature/TransformFunction/README.md) - Convert between arrow functions, function expressions, and declarations with guardrails.
 - [Flip If/Else Branches](docs/feature/FlipIfElse/README.md) - Negate the condition and swap `if`/`else` bodies while keeping control-flow intact.
+- [Remove Redundant Else](docs/feature/RemoveRedundantElse/README.md) - Drop `else` branches when the guarded path already exits.
 - [Enum To Const](docs/feature/EnumToConst/README.md) - Convert enums into immutable const objects plus union types for safer tree-shaken builds.
 - [Variable Kind Conversion](docs/feature/VariableKindConversion/README.md) - Convert `var`/`const` to `let` or `var`/`let` to `const` when safe.
 - [Scoped Block Movement](docs/feature/ScopedBlockMovement/README.md) - Move compound statements within their parent scope without crossing boundaries.
@@ -26,6 +27,7 @@ Reactify TSX is a VS Code extension that streamlines common React and TypeScript
 | `reactify-tsx.extractArrowFunction` | Reactify TSX: Extract Arrow Function to Handler | `Ctrl+Alt+Shift+E` (`Cmd+Alt+Shift+E` on macOS) |
 | `reactify-tsx.transformFunction` | Reactify TSX: Transform Function | `Ctrl+Alt+Shift+T` (`Cmd+Alt+Shift+T` on macOS) |
 | `reactify-tsx.flipIfElse` | Reactify TSX: Flip If/Else Branches | `Ctrl+Alt+Shift+I` (`Cmd+Alt+Shift+I` on macOS) |
+| `reactify-tsx.removeRedundantElse` | Reactify TSX: Remove Redundant Else | `Ctrl+Alt+Shift+R` (`Cmd+Alt+Shift+R` on macOS) |
 | `reactify-tsx.convertToLet` | Reactify TSX: Convert Declaration to let | `Ctrl+Alt+Shift+L` (`Cmd+Alt+Shift+L` on macOS) |
 | `reactify-tsx.convertToConst` | Reactify TSX: Convert Declaration to const | `Ctrl+Alt+Shift+O` (`Cmd+Alt+Shift+O` on macOS) |
 | `reactify-tsx.moveBlockUp` | Reactify TSX: Move Block Up | `Ctrl+Up` (`Cmd+Ctrl+Up` on macOS) |
