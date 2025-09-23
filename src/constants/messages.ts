@@ -65,6 +65,15 @@ export const JSX_ATTRIBUTE_TOGGLE_APPLY_FAILURE_MESSAGE = 'Could not apply JSX a
 export const JSX_ATTRIBUTE_TOGGLE_WRAP_SUCCESS_MESSAGE = 'Wrapped JSX attribute value with braces.';
 export const JSX_ATTRIBUTE_TOGGLE_UNWRAP_SUCCESS_MESSAGE = 'Removed braces from JSX attribute value.';
 
+// String/template toggle
+export const NO_STRING_OR_TEMPLATE_IN_SELECTION_MESSAGE =
+  'Place the caret inside a string or template literal to toggle.';
+export const STRING_TEMPLATE_TOGGLE_UNSUPPORTED_MESSAGE =
+  'Only simple strings and templates without expressions can toggle.';
+export const STRING_TEMPLATE_TOGGLE_APPLY_FAILURE_MESSAGE = 'Could not apply string/template toggle.';
+export const STRING_TO_TEMPLATE_SUCCESS_MESSAGE = 'Converted string literal to template literal.';
+export const TEMPLATE_TO_STRING_SUCCESS_MESSAGE = 'Converted template literal to string literal.';
+
 // Variable kind conversion
 export const NO_VARIABLE_DECLARATION_IN_SELECTION_MESSAGE = 'No variable declaration found at the current selection.';
 export const VARIABLE_CONVERSION_UNSUPPORTED_MESSAGE =
