@@ -18,6 +18,7 @@ import { VariableKindConversionService } from '../services/variableKindConversio
 import { VariableSplitService } from '../services/variableSplitService';
 import { VariableMergeService } from '../services/variableMergeService';
 import { ArrowParameterParensService } from '../services/arrowParameterParensService';
+import { RedundantElseRemovalService } from '../services/redundantElseRemovalService';
 
 interface RefactorFeatureDefinition {
   readonly commandId: string;
@@ -54,6 +55,7 @@ const variableKindService = new VariableKindConversionService();
 const variableSplitService = new VariableSplitService();
 const variableMergeService = new VariableMergeService();
 const arrowParamParensService = new ArrowParameterParensService();
+const redundantElseService = new RedundantElseRemovalService();
 
 export const ALL_REFACTOR_FEATURES: readonly RefactorFeatureDefinition[] = [
   {
@@ -94,6 +96,15 @@ export const ALL_REFACTOR_FEATURES: readonly RefactorFeatureDefinition[] = [
     kind: vscode.CodeActionKind.RefactorRewrite,
     evaluate: (document, selection) => {
       const result = flipService.createFlipPlan(document, selection);
+      return result.success;
+    },
+  },
+  {
+    commandId: 'reactify-tsx.removeRedundantElse',
+    title: 'Reactify TSX: Remove Redundant Else',
+    kind: vscode.CodeActionKind.RefactorRewrite,
+    evaluate: (document, selection) => {
+      const result = redundantElseService.createRemovalPlan(document, selection);
       return result.success;
     },
   },

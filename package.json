@@ -21,6 +21,7 @@
     "onCommand:reactify-tsx.convertToConst",
     "onCommand:reactify-tsx.extractArrowFunction",
     "onCommand:reactify-tsx.flipIfElse",
+    "onCommand:reactify-tsx.removeRedundantElse",
     "onCommand:reactify-tsx.moveBlockDown",
     "onCommand:reactify-tsx.moveBlockUp",
     "onCommand:reactify-tsx.transformFunction",
@@ -51,6 +52,10 @@
       {
         "command": "reactify-tsx.flipIfElse",
         "title": "Reactify TSX: Flip If/Else Branches"
+      },
+      {
+        "command": "reactify-tsx.removeRedundantElse",
+        "title": "Reactify TSX: Remove Redundant Else"
       },
       {
         "command": "reactify-tsx.convertToLet",
@@ -123,6 +128,11 @@
           "group": "navigation@92"
         },
         {
+          "command": "reactify-tsx.removeRedundantElse",
+          "when": "editorLangId == typescriptreact || editorLangId == javascriptreact || editorLangId == typescript || editorLangId == javascript",
+          "group": "navigation@92.05"
+        },
+        {
           "command": "reactify-tsx.convertToLet",
           "when": "editorLangId == typescriptreact || editorLangId == javascriptreact || editorLangId == typescript || editorLangId == javascript",
           "group": "navigation@92.1"
@@ -178,6 +188,11 @@
           "command": "reactify-tsx.flipIfElse",
           "when": "editorTextFocus && editorHasSelection && (editorLangId == typescriptreact || editorLangId == javascriptreact || editorLangId == typescript || editorLangId == javascript)",
           "group": "refactor@12"
+        },
+        {
+          "command": "reactify-tsx.removeRedundantElse",
+          "when": "editorTextFocus && editorHasSelection && (editorLangId == typescriptreact || editorLangId == javascriptreact || editorLangId == typescript || editorLangId == javascript)",
+          "group": "refactor@12.05"
         },
         {
           "command": "reactify-tsx.convertToLet",
@@ -248,6 +263,12 @@
         "command": "reactify-tsx.flipIfElse",
         "key": "ctrl+alt+shift+i",
         "mac": "cmd+alt+shift+i",
+        "when": "editorTextFocus && (editorLangId == typescriptreact || editorLangId == javascriptreact || editorLangId == typescript || editorLangId == javascript)"
+      },
+      {
+        "command": "reactify-tsx.removeRedundantElse",
+        "key": "ctrl+alt+shift+r",
+        "mac": "cmd+alt+shift+r",
         "when": "editorTextFocus && (editorLangId == typescriptreact || editorLangId == javascriptreact || editorLangId == typescript || editorLangId == javascript)"
       },
       {

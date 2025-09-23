@@ -30,6 +30,7 @@ suite('Command Registration', () => {
     assert.ok(commands.includes('reactify-tsx.moveBlockDown'));
     assert.ok(commands.includes('reactify-tsx.toggleJsxAttributeValue'));
     assert.ok(commands.includes('reactify-tsx.toggleStringTemplate'));
+    assert.ok(commands.includes('reactify-tsx.removeRedundantElse'));
   });
 
   test('allows repeated activation without duplicate registration', () => {
