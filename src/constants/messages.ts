@@ -128,3 +128,10 @@ export const VARIABLE_MERGE_UNSUPPORTED_MESSAGE =
   'Selected statements cannot be merged (requires single identifier declaration followed by matching assignment).';
 export const VARIABLE_MERGE_APPLY_FAILURE_MESSAGE = 'Could not apply variable merge changes.';
 export const VARIABLE_MERGE_SUCCESS_MESSAGE = 'Merged declaration and initialization.';
+
+// Parallel await
+export const NO_AWAIT_SEQUENCE_IN_SELECTION_MESSAGE = 'Select consecutive await declarations to parallelize.';
+export const PARALLEL_AWAIT_UNSUPPORTED_MESSAGE = 'Only single-variable await declarations with matching kind can be parallelized.';
+export const PARALLEL_AWAIT_APPLY_FAILURE_MESSAGE = 'Could not apply Promise.all parallelization.';
+export const PARALLEL_AWAIT_SUCCESS_MESSAGE = 'Parallelized await declarations with Promise.all.';
+

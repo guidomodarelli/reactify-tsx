@@ -8,6 +8,7 @@ Reactify TSX is a VS Code extension that streamlines common React and TypeScript
 - [Function Transformation](docs/feature/TransformFunction/README.md) - Convert between arrow functions, function expressions, and declarations with guardrails.
 - [Flip If/Else Branches](docs/feature/FlipIfElse/README.md) - Negate the condition and swap `if`/`else` bodies while keeping control-flow intact.
 - [Remove Redundant Else](docs/feature/RemoveRedundantElse/README.md) - Drop `else` branches when the guarded path already exits.
+- [Parallelize Await Selection](docs/feature/ParallelizeAwaitSelection/README.md) - Combine sequential await declarations into a single `Promise.all` for parallel execution.
 - [Enum To Const](docs/feature/EnumToConst/README.md) - Convert enums into immutable const objects plus union types for safer tree-shaken builds.
 - [Variable Kind Conversion](docs/feature/VariableKindConversion/README.md) - Convert `var`/`const` to `let` or `var`/`let` to `const` when safe.
 - [Scoped Block Movement](docs/feature/ScopedBlockMovement/README.md) - Move compound statements within their parent scope without crossing boundaries.
@@ -28,6 +29,7 @@ Reactify TSX is a VS Code extension that streamlines common React and TypeScript
 | `reactify-tsx.transformFunction` | Reactify TSX: Transform Function | `Ctrl+Alt+Shift+T` (`Cmd+Alt+Shift+T` on macOS) |
 | `reactify-tsx.flipIfElse` | Reactify TSX: Flip If/Else Branches | `Ctrl+Alt+Shift+I` (`Cmd+Alt+Shift+I` on macOS) |
 | `reactify-tsx.removeRedundantElse` | Reactify TSX: Remove Redundant Else | `Ctrl+Alt+Shift+R` (`Cmd+Alt+Shift+R` on macOS) |
+| `reactify-tsx.parallelizeAwaitSelection` | Reactify TSX: Parallelize Await Selection | `Ctrl+Alt+Shift+W` (`Cmd+Alt+Shift+W` on macOS) |
 | `reactify-tsx.convertToLet` | Reactify TSX: Convert Declaration to let | `Ctrl+Alt+Shift+L` (`Cmd+Alt+Shift+L` on macOS) |
 | `reactify-tsx.convertToConst` | Reactify TSX: Convert Declaration to const | `Ctrl+Alt+Shift+O` (`Cmd+Alt+Shift+O` on macOS) |
 | `reactify-tsx.moveBlockUp` | Reactify TSX: Move Block Up | `Ctrl+Up` (`Cmd+Ctrl+Up` on macOS) |
@@ -50,8 +52,8 @@ When you invoke **Transform Function** the extension analyses the selection and 
 
 ## Warnings & Annotations
 
-- **Binding changes** – Converting between `function` and arrow syntax can change how `this`, `arguments`, or `super` behave. The extension displays a confirmation dialog whenever the target function references any of those.
-- **Type review** – If a variable declaration loses an explicit function type during conversion, the generated declaration receives `// FIXME: review types` and the command surfaces a follow-up warning.
+- **Binding changes** - Converting between `function` and arrow syntax can change how `this`, `arguments`, or `super` behave. The extension displays a confirmation dialog whenever the target function references any of those.
+- **Type review** - If a variable declaration loses an explicit function type during conversion, the generated declaration receives `// FIXME: review types` and the command surfaces a follow-up warning.
 
 ## Development
 
@@ -81,5 +83,3 @@ The automated tests cover the transformation planner and verify that extension c
 ---
 
 Enjoy using Reactify TSX! Feel free to file issues or feature requests to help shape future iterations.
-
-
