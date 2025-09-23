@@ -11,6 +11,7 @@ import { toggleStringTemplateCommand } from './commands/toggleStringTemplateComm
 import { splitIntoMultipleDeclarationsCommand } from './commands/splitIntoMultipleDeclarationsCommand';
 import { splitDeclarationAndInitializationCommand } from './commands/splitDeclarationAndInitializationCommand';
 import { createRefactorCodeActionsRegistration } from './code-actions';
+import { splitOrMergeStringCommand } from './commands/splitOrMergeStringCommand';
 import { mergeDeclarationAndInitializationCommand } from './commands/mergeDeclarationAndInitializationCommand';
 
 const commandRegistrations: vscode.Disposable[] = [];
@@ -34,6 +35,7 @@ export function activate(context: vscode.ExtensionContext): void {
       ['reactify-tsx.splitIntoMultipleDeclarations', () => splitIntoMultipleDeclarationsCommand()],
       ['reactify-tsx.splitDeclarationAndInitialization', () => splitDeclarationAndInitializationCommand()],
       ['reactify-tsx.mergeDeclarationAndInitialization', () => mergeDeclarationAndInitializationCommand()],
+      ['reactify-tsx.splitOrMergeString', () => splitOrMergeStringCommand()],
     ];
 
     for (const [commandId, handler] of definitions) {

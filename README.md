@@ -15,6 +15,7 @@ Reactify TSX is a VS Code extension that streamlines common React and TypeScript
 - [Split Into Multiple Declarations](docs/feature/SplitIntoMultipleDeclarations/README.md) - Expand multi-declarator statements into one declaration per line.
 - [Split Declaration and Initialization](docs/feature/SplitDeclarationAndInitialization/README.md) - Separate a declaration with initializer into a declaration and a following assignment.
 - [Merge Declaration and Initialization](docs/feature/MergeDeclarationAndInitialization/README.md) - Combine a standalone declaration and the immediately following assignment into a single initialized declaration.
+- [Split or Merge String](docs/feature/SplitOrMergeString/README.md) - Split a quoted string at the caret or merge a + chain of adjacent string literals.
 
 ## Commands & Keybindings
 
@@ -33,6 +34,7 @@ Reactify TSX is a VS Code extension that streamlines common React and TypeScript
 | `reactify-tsx.splitIntoMultipleDeclarations` | Reactify TSX: Split Into Multiple Declarations | `Ctrl+Alt+Shift+M` (`Cmd+Alt+Shift+M` on macOS) |
 | `reactify-tsx.splitDeclarationAndInitialization` | Reactify TSX: Split Declaration and Initialization | `Ctrl+Alt+Shift+D` (`Cmd+Alt+Shift+D` on macOS) |
 | `reactify-tsx.mergeDeclarationAndInitialization` | Reactify TSX: Merge Declaration and Initialization | `Ctrl+Alt+Shift+G` (`Cmd+Alt+Shift+G` on macOS) |
+| `reactify-tsx.splitOrMergeString` | Reactify TSX: Split String at Caret / Merge String Literals | `Ctrl+Alt+Shift+S` (`Cmd+Alt+Shift+S` on macOS) |
 
 All commands are available from the editor context menu, the Quick Fix (Ctrl+.) panel, and the refactor sub-menu when editing JavaScript or TypeScript (including React variants). Commands that operate on selections still require you to highlight the target code before invoking Quick Fix.
 
