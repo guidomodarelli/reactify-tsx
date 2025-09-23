@@ -36,6 +36,9 @@ suite('Refactor code action provider', () => {
       'reactify-tsx.toggleJsxAttributeValue',
       'reactify-tsx.moveBlockUp',
       'reactify-tsx.moveBlockDown',
+      'reactify-tsx.splitIntoMultipleDeclarations',
+      'reactify-tsx.splitDeclarationAndInitialization',
+      'reactify-tsx.mergeDeclarationAndInitialization',
     ];
 
     assert.deepStrictEqual(

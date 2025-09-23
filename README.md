@@ -11,6 +11,9 @@ Reactify TSX is a VS Code extension that streamlines common React and TypeScript
 - [Variable Kind Conversion](docs/feature/VariableKindConversion/README.md) - Convert `var`/`const` to `let` or `var`/`let` to `const` when safe.
 - [Scoped Block Movement](docs/feature/ScopedBlockMovement/README.md) - Move compound statements within their parent scope without crossing boundaries.
 - [Toggle JSX Attribute Braces](docs/feature/ToggleJsxAttributeBraces/README.md) - Toggle string literal attribute values between bare literals and brace expressions.
+- [Split Into Multiple Declarations](docs/feature/SplitIntoMultipleDeclarations/README.md) - Expand multi-declarator statements into one declaration per line.
+- [Split Declaration and Initialization](docs/feature/SplitDeclarationAndInitialization/README.md) - Separate a declaration with initializer into a declaration and a following assignment.
+- [Merge Declaration and Initialization](docs/feature/MergeDeclarationAndInitialization/README.md) - Combine a standalone declaration and the immediately following assignment into a single initialized declaration.
 
 ## Commands & Keybindings
 
@@ -25,6 +28,9 @@ Reactify TSX is a VS Code extension that streamlines common React and TypeScript
 | `reactify-tsx.moveBlockDown` | Reactify TSX: Move Block Down | `Ctrl+Down` (`Cmd+Ctrl+Down` on macOS) |
 | `reactify-tsx.enumToConst` | Reactify TSX: Convert Enum to Const | `Ctrl+Alt+Shift+C` (`Cmd+Alt+Shift+C` on macOS) |
 | `reactify-tsx.toggleJsxAttributeValue` | Reactify TSX: Toggle JSX Attribute Braces | `Ctrl+Alt+Shift+B` (`Cmd+Alt+Shift+B` on macOS) |
+| `reactify-tsx.splitIntoMultipleDeclarations` | Reactify TSX: Split Into Multiple Declarations | `Ctrl+Alt+Shift+M` (`Cmd+Alt+Shift+M` on macOS) |
+| `reactify-tsx.splitDeclarationAndInitialization` | Reactify TSX: Split Declaration and Initialization | `Ctrl+Alt+Shift+D` (`Cmd+Alt+Shift+D` on macOS) |
+| `reactify-tsx.mergeDeclarationAndInitialization` | Reactify TSX: Merge Declaration and Initialization | `Ctrl+Alt+Shift+G` (`Cmd+Alt+Shift+G` on macOS) |
 
 All commands are available from the editor context menu, the Quick Fix (Ctrl+.) panel, and the refactor sub-menu when editing JavaScript or TypeScript (including React variants). Commands that operate on selections still require you to highlight the target code before invoking Quick Fix.
 
