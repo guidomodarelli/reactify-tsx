@@ -39,6 +39,7 @@ suite('Refactor code action provider', () => {
       'reactify-tsx.splitIntoMultipleDeclarations',
       'reactify-tsx.splitDeclarationAndInitialization',
       'reactify-tsx.mergeDeclarationAndInitialization',
+      'reactify-tsx.addParensToSingleArrowParam',
     ];
 
     assert.deepStrictEqual(
@@ -59,6 +60,36 @@ suite('Refactor code action provider', () => {
         : `Found non-refactor code action kinds for: ${nonRefactorKinds
             .map((feature) => feature.commandId)
             .join(', ')}`,
+    );
+  });
+
+  test('should offer add-parens refactor when caret is inside single-param arrow without parens', async () => {
+    const content = [
+      'const inc = x => x + 1;',
+    ].join('\n');
+    const document = await createDocument('typescript', content);
+    const caretRange = caretAt(document, 'x => x + 1');
+
+    const commands = await collectRefactorCommands(document, caretRange, vscode.CodeActionKind.RefactorRewrite);
+
+    assert.ok(
+      commands.includes('reactify-tsx.addParensToSingleArrowParam'),
+      'Add-parens refactor should appear for single identifier parameter without parentheses',
+    );
+  });
+
+  test('should hide add-parens refactor when arrow already has parentheses', async () => {
+    const content = [
+      'const inc = (x) => x + 1;',
+    ].join('\n');
+    const document = await createDocument('typescript', content);
+    const caretRange = caretAt(document, '(x) => x + 1');
+
+    const commands = await collectRefactorCommands(document, caretRange, vscode.CodeActionKind.RefactorRewrite);
+
+    assert.ok(
+      !commands.includes('reactify-tsx.addParensToSingleArrowParam'),
+      'Add-parens refactor must not appear when parameter is already parenthesized',
     );
   });
 
