@@ -32,7 +32,8 @@
     "onLanguage:typescriptreact",
     "onCommand:reactify-tsx.splitIntoMultipleDeclarations",
     "onCommand:reactify-tsx.splitDeclarationAndInitialization",
-    "onCommand:reactify-tsx.mergeDeclarationAndInitialization"
+    "onCommand:reactify-tsx.mergeDeclarationAndInitialization",
+    "onCommand:reactify-tsx.splitOrMergeString"
   ],
   "main": "./dist/extension.js",
   "contributes": {
@@ -88,6 +89,10 @@
       {
         "command": "reactify-tsx.mergeDeclarationAndInitialization",
         "title": "Reactify TSX: Merge Declaration and Initialization"
+      },
+      {
+        "command": "reactify-tsx.splitOrMergeString",
+        "title": "Reactify TSX: Split String at Caret / Merge String Literals"
       }
     ],
     "menus": {
@@ -283,6 +288,12 @@
         "command": "reactify-tsx.mergeDeclarationAndInitialization",
         "key": "ctrl+alt+shift+g",
         "mac": "cmd+alt+shift+g",
+        "when": "editorTextFocus && (editorLangId == typescriptreact || editorLangId == javascriptreact || editorLangId == typescript || editorLangId == javascript)"
+      },
+      {
+        "command": "reactify-tsx.splitOrMergeString",
+        "key": "ctrl+alt+shift+s",
+        "mac": "cmd+alt+shift+s",
         "when": "editorTextFocus && (editorLangId == typescriptreact || editorLangId == javascriptreact || editorLangId == typescript || editorLangId == javascript)"
       }
     ]

@@ -74,6 +74,15 @@ export const STRING_TEMPLATE_TOGGLE_APPLY_FAILURE_MESSAGE = 'Could not apply str
 export const STRING_TO_TEMPLATE_SUCCESS_MESSAGE = 'Converted string literal to template literal.';
 export const TEMPLATE_TO_STRING_SUCCESS_MESSAGE = 'Converted template literal to string literal.';
 
+// String split/merge
+export const NO_STRING_FOR_SPLIT_OR_MERGE_MESSAGE =
+  'Place the caret inside a string to split, or select a + chain of string literals to merge.';
+export const STRING_SPLIT_MERGE_UNSUPPORTED_MESSAGE =
+  'Only simple quoted strings can be split; merge supports + chains of same-quote string literals.';
+export const STRING_SPLIT_MERGE_APPLY_FAILURE_MESSAGE = 'Could not apply string split/merge change.';
+export const STRING_SPLIT_SUCCESS_MESSAGE = 'Split string literal at caret.';
+export const STRING_MERGE_SUCCESS_MESSAGE = 'Merged adjacent string literals.';
+
 // Variable kind conversion
 export const NO_VARIABLE_DECLARATION_IN_SELECTION_MESSAGE = 'No variable declaration found at the current selection.';
 export const VARIABLE_CONVERSION_UNSUPPORTED_MESSAGE =
