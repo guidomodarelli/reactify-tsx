@@ -32,6 +32,7 @@ suite('Command Registration', () => {
     assert.ok(commands.includes('reactify-tsx.toggleStringTemplate'));
     assert.ok(commands.includes('reactify-tsx.removeRedundantElse'));
     assert.ok(commands.includes('reactify-tsx.parallelizeAwaitSelection'));
+    assert.ok(commands.includes('reactify-tsx.wrapWithUseCallback'));
   });
 
   test('allows repeated activation without duplicate registration', () => {
@@ -49,3 +50,4 @@ suite('Command Registration', () => {
     return { subscriptions: [] as vscode.Disposable[] } as unknown as vscode.ExtensionContext;
   }
 });
+

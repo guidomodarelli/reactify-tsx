@@ -20,6 +20,7 @@ Reactify TSX is a VS Code extension that streamlines common React and TypeScript
 - [Split or Merge String](docs/feature/SplitOrMergeString/README.md) - Split a quoted string at the caret or merge a + chain of adjacent string literals.
 - [Toggle Arrow Body](docs/feature/ToggleArrowBody/README.md) - Convert between shorthand expression and block bodies for arrow functions.
 - [Add Parens to Single Arrow Parameter](docs/feature/AddParensToSingleArrowParam/README.md) - Wrap single arrow parameter identifiers with parentheses.
+- [Wrap Function with useCallback](docs/feature/WrapWithUseCallback/README.md) - Memoise function initializers by wrapping them in React's useCallback hook.
 
 ## Commands & Keybindings
 
@@ -43,6 +44,7 @@ Reactify TSX is a VS Code extension that streamlines common React and TypeScript
 | `reactify-tsx.splitDeclarationAndInitialization` | Reactify TSX: Split Declaration and Initialization | `Ctrl+Alt+Shift+D` (`Cmd+Alt+Shift+D` on macOS) |
 | `reactify-tsx.mergeDeclarationAndInitialization` | Reactify TSX: Merge Declaration and Initialization | `Ctrl+Alt+Shift+G` (`Cmd+Alt+Shift+G` on macOS) |
 | `reactify-tsx.splitOrMergeString` | Reactify TSX: Split String at Caret / Merge String Literals | `Ctrl+Alt+Shift+S` (`Cmd+Alt+Shift+S` on macOS) |
+| `reactify-tsx.wrapWithUseCallback` | Reactify TSX: Wrap Function with useCallback | `Ctrl+Alt+Shift+U` (`Cmd+Alt+Shift+U` on macOS) |
 
 All commands are available from the editor context menu, the Quick Fix (Ctrl+.) panel, and the refactor sub-menu when editing JavaScript or TypeScript (including React variants). Commands that operate on selections still require you to highlight the target code before invoking Quick Fix.
 

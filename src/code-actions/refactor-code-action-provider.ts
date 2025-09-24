@@ -19,6 +19,7 @@ import { VariableSplitService } from '../services/variableSplitService';
 import { VariableMergeService } from '../services/variableMergeService';
 import { ArrowParameterParensService } from '../services/arrowParameterParensService';
 import { RedundantElseRemovalService } from '../services/redundantElseRemovalService';
+import { UseCallbackWrapService } from '../services/useCallbackWrapService';
 
 interface RefactorFeatureDefinition {
   readonly commandId: string;
@@ -56,6 +57,7 @@ const variableSplitService = new VariableSplitService();
 const variableMergeService = new VariableMergeService();
 const arrowParamParensService = new ArrowParameterParensService();
 const redundantElseService = new RedundantElseRemovalService();
+const useCallbackWrapService = new UseCallbackWrapService();
 
 export const ALL_REFACTOR_FEATURES: readonly RefactorFeatureDefinition[] = [
   {
@@ -74,6 +76,18 @@ export const ALL_REFACTOR_FEATURES: readonly RefactorFeatureDefinition[] = [
     evaluate: (document, selection) => {
       const result = arrowParamParensService.createAddParensPlan(document, selection);
       return result.success;
+    },
+  },
+  {
+    commandId: 'reactify-tsx.wrapWithUseCallback',
+    title: 'Reactify TSX: Wrap Function with useCallback',
+    kind: vscode.CodeActionKind.RefactorRewrite,
+    evaluate: (document, selection) => {
+      const plan = useCallbackWrapService.createPlan(document, selection);
+      if (!plan.success) {
+        console.log('wrapWithUseCallback unavailable', plan.reason);
+      }
+      return plan.success;
     },
   },
   {

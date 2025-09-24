@@ -129,6 +129,13 @@ export const VARIABLE_MERGE_UNSUPPORTED_MESSAGE =
 export const VARIABLE_MERGE_APPLY_FAILURE_MESSAGE = 'Could not apply variable merge changes.';
 export const VARIABLE_MERGE_SUCCESS_MESSAGE = 'Merged declaration and initialization.';
 
+
+// useCallback wrap
+export const USE_CALLBACK_WRAP_NOT_FOUND_MESSAGE = 'Select a function initializer to wrap with useCallback.';
+export const USE_CALLBACK_WRAP_ALREADY_WRAPPED_MESSAGE = 'Selected initializer is already wrapped with useCallback.';
+export const USE_CALLBACK_WRAP_UNSUPPORTED_MESSAGE = 'Wrap with useCallback supports arrow or function expressions assigned to identifiers.';
+export const USE_CALLBACK_WRAP_APPLY_FAILURE_MESSAGE = 'Could not apply useCallback wrapping.';
+export const USE_CALLBACK_WRAP_SUCCESS_MESSAGE = 'Wrapped function with useCallback. Update the dependency array as needed.';
 // Parallel await
 export const NO_AWAIT_SEQUENCE_IN_SELECTION_MESSAGE = 'Select consecutive await declarations to parallelize.';
 export const PARALLEL_AWAIT_UNSUPPORTED_MESSAGE = 'Only single-variable await declarations with matching kind can be parallelized.';

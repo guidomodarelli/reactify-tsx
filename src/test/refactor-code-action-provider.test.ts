@@ -41,6 +41,7 @@ suite('Refactor code action provider', () => {
       'reactify-tsx.splitDeclarationAndInitialization',
       'reactify-tsx.mergeDeclarationAndInitialization',
       'reactify-tsx.addParensToSingleArrowParam',
+      'reactify-tsx.wrapWithUseCallback',
     ];
 
     assert.deepStrictEqual(
@@ -91,6 +92,41 @@ suite('Refactor code action provider', () => {
     assert.ok(
       !commands.includes('reactify-tsx.addParensToSingleArrowParam'),
       'Add-parens refactor must not appear when parameter is already parenthesized',
+    );
+  });
+
+  test('should expose wrap-with-useCallback refactor for arrow initializer', async () => {
+    const content = [
+      "import { useState } from 'react';",
+      '',
+      'const handleClick = () => {',
+      '  useState(0);',
+      '};',
+      '',
+    ].join('\n');
+    const document = await createDocument('typescriptreact', content);
+    const caretRange = caretAt(document, 'handleClick = () =>');
+
+    const commands = await collectRefactorCommands(document, caretRange, vscode.CodeActionKind.RefactorRewrite);
+
+    assert.ok(
+      commands.includes('reactify-tsx.wrapWithUseCallback'),
+      'Wrap-with-useCallback refactor should appear for arrow initializer selection',
+    );
+  });
+
+  test('should hide wrap-with-useCallback refactor when initializer is not a function', async () => {
+    const content = [
+      'const value = 42;',
+    ].join('\n');
+    const document = await createDocument('typescript', content);
+    const caretRange = caretAt(document, '42');
+
+    const commands = await collectRefactorCommands(document, caretRange, vscode.CodeActionKind.RefactorRewrite);
+
+    assert.ok(
+      !commands.includes('reactify-tsx.wrapWithUseCallback'),
+      'Wrap-with-useCallback refactor must not appear when selection is not a function initializer',
     );
   });
 
