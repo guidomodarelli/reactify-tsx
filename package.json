@@ -37,7 +37,8 @@
     "onCommand:reactify-tsx.splitIntoMultipleDeclarations",
     "onCommand:reactify-tsx.splitDeclarationAndInitialization",
     "onCommand:reactify-tsx.mergeDeclarationAndInitialization",
-    "onCommand:reactify-tsx.splitOrMergeString"
+    "onCommand:reactify-tsx.splitOrMergeString",
+    "onCommand:reactify-tsx.wrapWithUseCallback"
   ],
   "main": "./dist/extension.js",
   "contributes": {
@@ -113,6 +114,10 @@
       {
         "command": "reactify-tsx.splitOrMergeString",
         "title": "Reactify TSX: Split String at Caret / Merge String Literals"
+      },
+      {
+        "command": "reactify-tsx.wrapWithUseCallback",
+        "title": "Reactify TSX: Wrap Function with useCallback"
       }
     ],
     "menus": {
@@ -181,6 +186,11 @@
           "command": "reactify-tsx.addParensToSingleArrowParam",
           "when": "editorLangId == typescriptreact || editorLangId == javascriptreact || editorLangId == typescript || editorLangId == javascript",
           "group": "navigation@94.4"
+        },
+        {
+          "command": "reactify-tsx.wrapWithUseCallback",
+          "when": "editorLangId == typescriptreact || editorLangId == javascriptreact || editorLangId == typescript || editorLangId == javascript",
+          "group": "navigation@92.08"
         }
       ],
       "editor/codeAction": [
@@ -258,6 +268,11 @@
           "command": "reactify-tsx.addParensToSingleArrowParam",
           "when": "editorTextFocus && editorHasSelection && (editorLangId == typescriptreact || editorLangId == javascriptreact || editorLangId == typescript || editorLangId == javascript)",
           "group": "refactor@16.4"
+        },
+        {
+          "command": "reactify-tsx.wrapWithUseCallback",
+          "when": "editorTextFocus && editorHasSelection && (editorLangId == typescriptreact || editorLangId == javascriptreact || editorLangId == typescript || editorLangId == javascript)",
+          "group": "refactor@11.5"
         }
       ]
     },
@@ -368,6 +383,12 @@
         "command": "reactify-tsx.addParensToSingleArrowParam",
         "key": "ctrl+alt+shift+p",
         "mac": "cmd+alt+shift+p",
+        "when": "editorTextFocus && (editorLangId == typescriptreact || editorLangId == javascriptreact || editorLangId == typescript || editorLangId == javascript)"
+      },
+      {
+        "command": "reactify-tsx.wrapWithUseCallback",
+        "key": "ctrl+alt+shift+u",
+        "mac": "cmd+alt+shift+u",
         "when": "editorTextFocus && (editorLangId == typescriptreact || editorLangId == javascriptreact || editorLangId == typescript || editorLangId == javascript)"
       }
     ]

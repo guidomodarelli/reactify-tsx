@@ -49,6 +49,7 @@ suite("Quick fix menu contributions", () => {
       "reactify-tsx.splitIntoMultipleDeclarations",
       "reactify-tsx.splitDeclarationAndInitialization",
       "reactify-tsx.mergeDeclarationAndInitialization",
+      "reactify-tsx.wrapWithUseCallback",
     ];
 
     const missingCommands = expectedCommands.filter(
