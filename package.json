@@ -38,7 +38,8 @@
     "onCommand:reactify-tsx.splitDeclarationAndInitialization",
     "onCommand:reactify-tsx.mergeDeclarationAndInitialization",
     "onCommand:reactify-tsx.splitOrMergeString",
-    "onCommand:reactify-tsx.wrapWithUseCallback"
+    "onCommand:reactify-tsx.wrapWithUseCallback",
+    "onCommand:reactify-tsx.replaceIfElseWithTernary"
   ],
   "main": "./dist/extension.js",
   "contributes": {
@@ -118,6 +119,10 @@
       {
         "command": "reactify-tsx.wrapWithUseCallback",
         "title": "Reactify TSX: Wrap Function with useCallback"
+      },
+      {
+        "command": "reactify-tsx.replaceIfElseWithTernary",
+        "title": "Reactify TSX: Replace If/Else with Ternary"
       }
     ],
     "menus": {
@@ -191,6 +196,11 @@
           "command": "reactify-tsx.wrapWithUseCallback",
           "when": "editorLangId == typescriptreact || editorLangId == javascriptreact || editorLangId == typescript || editorLangId == javascript",
           "group": "navigation@92.08"
+        },
+        {
+          "command": "reactify-tsx.replaceIfElseWithTernary",
+          "when": "editorLangId == typescriptreact || editorLangId == javascriptreact || editorLangId == typescript || editorLangId == javascript",
+          "group": "navigation@92.07"
         }
       ],
       "editor/codeAction": [
@@ -273,6 +283,11 @@
           "command": "reactify-tsx.wrapWithUseCallback",
           "when": "editorTextFocus && editorHasSelection && (editorLangId == typescriptreact || editorLangId == javascriptreact || editorLangId == typescript || editorLangId == javascript)",
           "group": "refactor@11.5"
+        },
+        {
+          "command": "reactify-tsx.replaceIfElseWithTernary",
+          "when": "editorTextFocus && editorHasSelection && (editorLangId == typescriptreact || editorLangId == javascriptreact || editorLangId == typescript || editorLangId == javascript)",
+          "group": "refactor@12.07"
         }
       ]
     },
@@ -389,6 +404,12 @@
         "command": "reactify-tsx.wrapWithUseCallback",
         "key": "ctrl+alt+shift+u",
         "mac": "cmd+alt+shift+u",
+        "when": "editorTextFocus && (editorLangId == typescriptreact || editorLangId == javascriptreact || editorLangId == typescript || editorLangId == javascript)"
+      },
+      {
+        "command": "reactify-tsx.replaceIfElseWithTernary",
+        "key": "ctrl+alt+shift+y",
+        "mac": "cmd+alt+shift+y",
         "when": "editorTextFocus && (editorLangId == typescriptreact || editorLangId == javascriptreact || editorLangId == typescript || editorLangId == javascript)"
       }
     ]

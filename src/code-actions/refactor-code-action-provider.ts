@@ -20,6 +20,7 @@ import { VariableMergeService } from '../services/variableMergeService';
 import { ArrowParameterParensService } from '../services/arrowParameterParensService';
 import { RedundantElseRemovalService } from '../services/redundantElseRemovalService';
 import { UseCallbackWrapService } from '../services/useCallbackWrapService';
+import { IfElseToConditionalService } from '../services/ifElseToConditionalService';
 
 interface RefactorFeatureDefinition {
   readonly commandId: string;
@@ -58,6 +59,7 @@ const variableMergeService = new VariableMergeService();
 const arrowParamParensService = new ArrowParameterParensService();
 const redundantElseService = new RedundantElseRemovalService();
 const useCallbackWrapService = new UseCallbackWrapService();
+const ifElseToConditionalService = new IfElseToConditionalService();
 
 export const ALL_REFACTOR_FEATURES: readonly RefactorFeatureDefinition[] = [
   {
@@ -102,6 +104,15 @@ export const ALL_REFACTOR_FEATURES: readonly RefactorFeatureDefinition[] = [
 
       const choices = transformationService.listAvailableTransformations(analysis.context);
       return choices.length > 0;
+    },
+  },
+  {
+    commandId: 'reactify-tsx.replaceIfElseWithTernary',
+    title: 'Reactify TSX: Replace If/Else with Ternary',
+    kind: vscode.CodeActionKind.RefactorRewrite,
+    evaluate: (document, selection) => {
+      const result = ifElseToConditionalService.createReplacePlan(document, selection);
+      return result.success;
     },
   },
   {

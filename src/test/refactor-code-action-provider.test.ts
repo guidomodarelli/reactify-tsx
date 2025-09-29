@@ -30,6 +30,7 @@ suite('Refactor code action provider', () => {
       'reactify-tsx.extractArrowFunction',
       'reactify-tsx.transformFunction',
       'reactify-tsx.flipIfElse',
+      'reactify-tsx.replaceIfElseWithTernary',
       'reactify-tsx.removeRedundantElse',
       'reactify-tsx.enumToConst',
       'reactify-tsx.convertToLet',
@@ -127,6 +128,27 @@ suite('Refactor code action provider', () => {
     assert.ok(
       !commands.includes('reactify-tsx.wrapWithUseCallback'),
       'Wrap-with-useCallback refactor must not appear when selection is not a function initializer',
+    );
+  });
+
+  test('should offer replace-if-else-with-ternary for return branches', async () => {
+    const content = [
+      'function f(flag: boolean) {',
+      '  if (flag) {',
+      '    return 1;',
+      '  } else {',
+      '    return 2;',
+      '  }',
+      '}',
+    ].join('\n');
+    const document = await createDocument('typescript', content);
+    const caretRange = caretAt(document, 'if (flag)');
+
+    const commands = await collectRefactorCommands(document, caretRange, vscode.CodeActionKind.RefactorRewrite);
+
+    assert.ok(
+      commands.includes('reactify-tsx.replaceIfElseWithTernary'),
+      'Replace if/else with ternary should appear for simple return branches',
     );
   });
 
