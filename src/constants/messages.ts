@@ -58,6 +58,13 @@ export const REDUNDANT_ELSE_NOT_REDUNDANT_MESSAGE =
 export const REDUNDANT_ELSE_UNSUPPORTED_MESSAGE = 'Else-if chains are not supported for redundant else removal.';
 export const REDUNDANT_ELSE_APPLY_FAILURE_MESSAGE = 'Could not apply redundant else removal.';
 export const REDUNDANT_ELSE_SUCCESS_MESSAGE = 'Removed redundant else branch.';
+// Replace if/else with ternary
+export const REPLACE_IF_ELSE_TERNARY_NO_BRANCH_MESSAGE =
+  'Selected if statement must include an else branch to replace with a ternary expression.';
+export const REPLACE_IF_ELSE_TERNARY_UNSUPPORTED_MESSAGE =
+  'Only simple return/return or assignment/assignment branches are supported for ternary conversion.';
+export const REPLACE_IF_ELSE_TERNARY_APPLY_FAILURE_MESSAGE = 'Could not apply ternary conversion.';
+export const REPLACE_IF_ELSE_TERNARY_SUCCESS_MESSAGE = 'Replaced if/else with ternary expression.';
 export const NO_MOVABLE_BLOCK_MESSAGE = 'No movable block found at the current selection.';
 export const BLOCK_MOVE_AT_TOP_MESSAGE = 'Block is already at the top of its scope.';
 export const BLOCK_MOVE_AT_BOTTOM_MESSAGE = 'Block is already at the bottom of its scope.';

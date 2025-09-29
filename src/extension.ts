@@ -18,6 +18,7 @@ import { mergeDeclarationAndInitializationCommand } from './commands/mergeDeclar
 import { removeRedundantElseCommand } from './commands/removeRedundantElseCommand';
 import { parallelizeAwaitSelectionCommand } from './commands/parallelizeAwaitSelectionCommand';
 import { wrapWithUseCallbackCommand } from './commands/wrapWithUseCallbackCommand';
+import { replaceIfElseWithTernaryCommand } from './commands/replaceIfElseWithTernaryCommand';
 
 const commandRegistrations: vscode.Disposable[] = [];
 let commandsInitialized = false;
@@ -45,6 +46,7 @@ export function activate(context: vscode.ExtensionContext): void {
       ['reactify-tsx.splitOrMergeString', () => splitOrMergeStringCommand()],
       ['reactify-tsx.parallelizeAwaitSelection', () => parallelizeAwaitSelectionCommand()],
       ['reactify-tsx.removeRedundantElse', () => removeRedundantElseCommand()],
+      ['reactify-tsx.replaceIfElseWithTernary', () => replaceIfElseWithTernaryCommand()],
       ['reactify-tsx.wrapWithUseCallback', () => wrapWithUseCallbackCommand()],
     ];
 
