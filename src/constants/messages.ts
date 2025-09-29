@@ -149,3 +149,11 @@ export const PARALLEL_AWAIT_UNSUPPORTED_MESSAGE = 'Only single-variable await de
 export const PARALLEL_AWAIT_APPLY_FAILURE_MESSAGE = 'Could not apply Promise.all parallelization.';
 export const PARALLEL_AWAIT_SUCCESS_MESSAGE = 'Parallelized await declarations with Promise.all.';
 
+// Simplify if/else
+export const SIMPLIFY_IF_ELSE_NO_BRANCH_MESSAGE =
+  'Selected if statement must include an else branch to simplify.';
+export const SIMPLIFY_IF_ELSE_UNSUPPORTED_MESSAGE =
+  'Only boolean return/return or assignment/assignment branches are supported for simplification.';
+export const SIMPLIFY_IF_ELSE_APPLY_FAILURE_MESSAGE = 'Could not apply if/else simplification.';
+export const SIMPLIFY_IF_ELSE_SUCCESS_MESSAGE = 'Simplified if/else to a direct boolean expression.';
+
