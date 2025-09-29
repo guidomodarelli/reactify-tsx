@@ -31,6 +31,7 @@ suite('Refactor code action provider', () => {
       'reactify-tsx.transformFunction',
       'reactify-tsx.flipIfElse',
       'reactify-tsx.simplifyIfElse',
+      'reactify-tsx.simplifyTernary',
       'reactify-tsx.replaceIfElseWithTernary',
       'reactify-tsx.removeRedundantElse',
       'reactify-tsx.enumToConst',

@@ -9,6 +9,7 @@ Reactify TSX is a VS Code extension that streamlines common React and TypeScript
 - [Flip If/Else Branches](docs/feature/FlipIfElse/README.md) - Negate the condition and swap `if`/`else` bodies while keeping control-flow intact.
 - [Simplify If/Else](docs/feature/SimplifyIfElse/README.md) - Collapse boolean return/assignment branches into a direct boolean expression.
 - [Replace If/Else with Ternary](docs/feature/ReplaceIfElseWithTernary/README.md) - Convert simple return/assignment branches to a conditional `?:`.
+- [Simplify Ternary](docs/feature/SimplifyTernary/README.md) - Collapse `cond ? true : false`, `cond ? false : true`, or identical branches.
 - [Remove Redundant Else](docs/feature/RemoveRedundantElse/README.md) - Drop `else` branches when the guarded path already exits.
 - [Parallelize Await Selection](docs/feature/ParallelizeAwaitSelection/README.md) - Combine sequential await declarations into a single `Promise.all` for parallel execution.
 - [Enum To Const](docs/feature/EnumToConst/README.md) - Convert enums into immutable const objects plus union types for safer tree-shaken builds.
@@ -33,6 +34,7 @@ Reactify TSX is a VS Code extension that streamlines common React and TypeScript
 | `reactify-tsx.flipIfElse` | Reactify TSX: Flip If/Else Branches | `Ctrl+Alt+Shift+I` (`Cmd+Alt+Shift+I` on macOS) |
 | `reactify-tsx.simplifyIfElse` | Reactify TSX: Simplify If/Else | `Ctrl+Alt+Shift+F` (`Cmd+Alt+Shift+F` on macOS) |
 | `reactify-tsx.replaceIfElseWithTernary` | Reactify TSX: Replace If/Else with Ternary | `Ctrl+Alt+Shift+Y` (`Cmd+Alt+Shift+Y` on macOS) |
+| `reactify-tsx.simplifyTernary` | Reactify TSX: Simplify Ternary Expression | `Ctrl+Alt+Shift+X` (`Cmd+Alt+Shift+X` on macOS) |
 | `reactify-tsx.removeRedundantElse` | Reactify TSX: Remove Redundant Else | `Ctrl+Alt+Shift+R` (`Cmd+Alt+Shift+R` on macOS) |
 | `reactify-tsx.parallelizeAwaitSelection` | Reactify TSX: Parallelize Await Selection | `Ctrl+Alt+Shift+W` (`Cmd+Alt+Shift+W` on macOS) |
 | `reactify-tsx.convertToLet` | Reactify TSX: Convert Declaration to let | `Ctrl+Alt+Shift+L` (`Cmd+Alt+Shift+L` on macOS) |
