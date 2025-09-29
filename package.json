@@ -39,7 +39,8 @@
     "onCommand:reactify-tsx.mergeDeclarationAndInitialization",
     "onCommand:reactify-tsx.splitOrMergeString",
     "onCommand:reactify-tsx.wrapWithUseCallback",
-    "onCommand:reactify-tsx.replaceIfElseWithTernary"
+    "onCommand:reactify-tsx.replaceIfElseWithTernary",
+    "onCommand:reactify-tsx.simplifyIfElse"
   ],
   "main": "./dist/extension.js",
   "contributes": {
@@ -123,6 +124,10 @@
       {
         "command": "reactify-tsx.replaceIfElseWithTernary",
         "title": "Reactify TSX: Replace If/Else with Ternary"
+      },
+      {
+        "command": "reactify-tsx.simplifyIfElse",
+        "title": "Reactify TSX: Simplify If/Else"
       }
     ],
     "menus": {
@@ -201,6 +206,11 @@
           "command": "reactify-tsx.replaceIfElseWithTernary",
           "when": "editorLangId == typescriptreact || editorLangId == javascriptreact || editorLangId == typescript || editorLangId == javascript",
           "group": "navigation@92.07"
+        },
+        {
+          "command": "reactify-tsx.simplifyIfElse",
+          "when": "editorLangId == typescriptreact || editorLangId == javascriptreact || editorLangId == typescript || editorLangId == javascript",
+          "group": "navigation@92.065"
         }
       ],
       "editor/codeAction": [
@@ -288,6 +298,11 @@
           "command": "reactify-tsx.replaceIfElseWithTernary",
           "when": "editorTextFocus && editorHasSelection && (editorLangId == typescriptreact || editorLangId == javascriptreact || editorLangId == typescript || editorLangId == javascript)",
           "group": "refactor@12.07"
+        },
+        {
+          "command": "reactify-tsx.simplifyIfElse",
+          "when": "editorTextFocus && editorHasSelection && (editorLangId == typescriptreact || editorLangId == javascriptreact || editorLangId == typescript || editorLangId == javascript)",
+          "group": "refactor@12.065"
         }
       ]
     },
@@ -410,6 +425,12 @@
         "command": "reactify-tsx.replaceIfElseWithTernary",
         "key": "ctrl+alt+shift+y",
         "mac": "cmd+alt+shift+y",
+        "when": "editorTextFocus && (editorLangId == typescriptreact || editorLangId == javascriptreact || editorLangId == typescript || editorLangId == javascript)"
+      },
+      {
+        "command": "reactify-tsx.simplifyIfElse",
+        "key": "ctrl+alt+shift+f",
+        "mac": "cmd+alt+shift+f",
         "when": "editorTextFocus && (editorLangId == typescriptreact || editorLangId == javascriptreact || editorLangId == typescript || editorLangId == javascript)"
       }
     ]

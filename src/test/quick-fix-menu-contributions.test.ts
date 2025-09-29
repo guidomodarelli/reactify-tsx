@@ -39,6 +39,7 @@ suite("Quick fix menu contributions", () => {
       "reactify-tsx.extractArrowFunction",
       "reactify-tsx.transformFunction",
       "reactify-tsx.flipIfElse",
+      "reactify-tsx.simplifyIfElse",
       "reactify-tsx.enumToConst",
       "reactify-tsx.convertToLet",
       "reactify-tsx.convertToConst",
@@ -50,6 +51,7 @@ suite("Quick fix menu contributions", () => {
       "reactify-tsx.splitDeclarationAndInitialization",
       "reactify-tsx.mergeDeclarationAndInitialization",
       "reactify-tsx.wrapWithUseCallback",
+      "reactify-tsx.replaceIfElseWithTernary",
     ];
 
     const missingCommands = expectedCommands.filter(

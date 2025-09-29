@@ -30,6 +30,7 @@ suite('Refactor code action provider', () => {
       'reactify-tsx.extractArrowFunction',
       'reactify-tsx.transformFunction',
       'reactify-tsx.flipIfElse',
+      'reactify-tsx.simplifyIfElse',
       'reactify-tsx.replaceIfElseWithTernary',
       'reactify-tsx.removeRedundantElse',
       'reactify-tsx.enumToConst',
@@ -149,6 +150,27 @@ suite('Refactor code action provider', () => {
     assert.ok(
       commands.includes('reactify-tsx.replaceIfElseWithTernary'),
       'Replace if/else with ternary should appear for simple return branches',
+    );
+  });
+
+  test('should offer simplify-if-else for boolean return branches', async () => {
+    const content = [
+      'function f(flag: boolean) {',
+      '  if (flag) {',
+      '    return true;',
+      '  } else {',
+      '    return false;',
+      '  }',
+      '}',
+    ].join('\n');
+    const document = await createDocument('typescript', content);
+    const caretRange = caretAt(document, 'if (flag)');
+
+    const commands = await collectRefactorCommands(document, caretRange, vscode.CodeActionKind.RefactorRewrite);
+
+    assert.ok(
+      commands.includes('reactify-tsx.simplifyIfElse'),
+      'Simplify if/else should appear for boolean return branches',
     );
   });
 

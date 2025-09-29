@@ -19,6 +19,7 @@ import { removeRedundantElseCommand } from './commands/removeRedundantElseComman
 import { parallelizeAwaitSelectionCommand } from './commands/parallelizeAwaitSelectionCommand';
 import { wrapWithUseCallbackCommand } from './commands/wrapWithUseCallbackCommand';
 import { replaceIfElseWithTernaryCommand } from './commands/replaceIfElseWithTernaryCommand';
+import { simplifyIfElseCommand } from './commands/simplifyIfElseCommand';
 
 const commandRegistrations: vscode.Disposable[] = [];
 let commandsInitialized = false;
@@ -47,6 +48,7 @@ export function activate(context: vscode.ExtensionContext): void {
       ['reactify-tsx.parallelizeAwaitSelection', () => parallelizeAwaitSelectionCommand()],
       ['reactify-tsx.removeRedundantElse', () => removeRedundantElseCommand()],
       ['reactify-tsx.replaceIfElseWithTernary', () => replaceIfElseWithTernaryCommand()],
+      ['reactify-tsx.simplifyIfElse', () => simplifyIfElseCommand()],
       ['reactify-tsx.wrapWithUseCallback', () => wrapWithUseCallbackCommand()],
     ];
 

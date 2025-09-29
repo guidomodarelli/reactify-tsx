@@ -7,6 +7,7 @@ Reactify TSX is a VS Code extension that streamlines common React and TypeScript
 - [Extract Arrow Function to Handler](docs/feature/ExtractArrowFunction/README.md) - Lift inline JSX arrow functions into named handlers and keep wiring intact.
 - [Function Transformation](docs/feature/TransformFunction/README.md) - Convert between arrow functions, function expressions, and declarations with guardrails.
 - [Flip If/Else Branches](docs/feature/FlipIfElse/README.md) - Negate the condition and swap `if`/`else` bodies while keeping control-flow intact.
+- [Simplify If/Else](docs/feature/SimplifyIfElse/README.md) - Collapse boolean return/assignment branches into a direct boolean expression.
 - [Replace If/Else with Ternary](docs/feature/ReplaceIfElseWithTernary/README.md) - Convert simple return/assignment branches to a conditional `?:`.
 - [Remove Redundant Else](docs/feature/RemoveRedundantElse/README.md) - Drop `else` branches when the guarded path already exits.
 - [Parallelize Await Selection](docs/feature/ParallelizeAwaitSelection/README.md) - Combine sequential await declarations into a single `Promise.all` for parallel execution.
@@ -30,6 +31,7 @@ Reactify TSX is a VS Code extension that streamlines common React and TypeScript
 | `reactify-tsx.extractArrowFunction` | Reactify TSX: Extract Arrow Function to Handler | `Ctrl+Alt+Shift+E` (`Cmd+Alt+Shift+E` on macOS) |
 | `reactify-tsx.transformFunction` | Reactify TSX: Transform Function | `Ctrl+Alt+Shift+T` (`Cmd+Alt+Shift+T` on macOS) |
 | `reactify-tsx.flipIfElse` | Reactify TSX: Flip If/Else Branches | `Ctrl+Alt+Shift+I` (`Cmd+Alt+Shift+I` on macOS) |
+| `reactify-tsx.simplifyIfElse` | Reactify TSX: Simplify If/Else | `Ctrl+Alt+Shift+F` (`Cmd+Alt+Shift+F` on macOS) |
 | `reactify-tsx.replaceIfElseWithTernary` | Reactify TSX: Replace If/Else with Ternary | `Ctrl+Alt+Shift+Y` (`Cmd+Alt+Shift+Y` on macOS) |
 | `reactify-tsx.removeRedundantElse` | Reactify TSX: Remove Redundant Else | `Ctrl+Alt+Shift+R` (`Cmd+Alt+Shift+R` on macOS) |
 | `reactify-tsx.parallelizeAwaitSelection` | Reactify TSX: Parallelize Await Selection | `Ctrl+Alt+Shift+W` (`Cmd+Alt+Shift+W` on macOS) |
