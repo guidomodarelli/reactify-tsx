@@ -39,6 +39,7 @@ suite("Quick fix menu contributions", () => {
       "reactify-tsx.extractArrowFunction",
       "reactify-tsx.transformFunction",
       "reactify-tsx.flipIfElse",
+      "reactify-tsx.mergeNestedIf",
       "reactify-tsx.simplifyIfElse",
       "reactify-tsx.simplifyTernary",
       "reactify-tsx.enumToConst",

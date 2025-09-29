@@ -23,6 +23,7 @@ import { UseCallbackWrapService } from '../services/useCallbackWrapService';
 import { IfElseToConditionalService } from '../services/ifElseToConditionalService';
 import { IfElseSimplifyService } from '../services/ifElseSimplifyService';
 import { ConditionalSimplifyService } from '../services/conditionalSimplifyService';
+import { NestedIfMergeService } from '../services/nestedIfMergeService';
 
 interface RefactorFeatureDefinition {
   readonly commandId: string;
@@ -64,8 +65,18 @@ const useCallbackWrapService = new UseCallbackWrapService();
 const ifElseToConditionalService = new IfElseToConditionalService();
 const ifElseSimplifyService = new IfElseSimplifyService();
 const conditionalSimplifyService = new ConditionalSimplifyService();
+const nestedIfMergeService = new NestedIfMergeService();
 
 export const ALL_REFACTOR_FEATURES: readonly RefactorFeatureDefinition[] = [
+  {
+    commandId: 'reactify-tsx.mergeNestedIf',
+    title: 'Reactify TSX: Merge Nested If Statements',
+    kind: vscode.CodeActionKind.RefactorRewrite,
+    evaluate: (document, selection) => {
+      const result = nestedIfMergeService.createMergePlan(document, selection);
+      return result.success;
+    },
+  },
   {
     commandId: 'reactify-tsx.extractArrowFunction',
     title: 'Reactify TSX: Extract Arrow Function to Handler',
