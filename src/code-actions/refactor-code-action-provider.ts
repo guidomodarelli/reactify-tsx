@@ -22,6 +22,7 @@ import { RedundantElseRemovalService } from '../services/redundantElseRemovalSer
 import { UseCallbackWrapService } from '../services/useCallbackWrapService';
 import { IfElseToConditionalService } from '../services/ifElseToConditionalService';
 import { IfElseSimplifyService } from '../services/ifElseSimplifyService';
+import { ConditionalSimplifyService } from '../services/conditionalSimplifyService';
 
 interface RefactorFeatureDefinition {
   readonly commandId: string;
@@ -62,6 +63,7 @@ const redundantElseService = new RedundantElseRemovalService();
 const useCallbackWrapService = new UseCallbackWrapService();
 const ifElseToConditionalService = new IfElseToConditionalService();
 const ifElseSimplifyService = new IfElseSimplifyService();
+const conditionalSimplifyService = new ConditionalSimplifyService();
 
 export const ALL_REFACTOR_FEATURES: readonly RefactorFeatureDefinition[] = [
   {
@@ -123,6 +125,15 @@ export const ALL_REFACTOR_FEATURES: readonly RefactorFeatureDefinition[] = [
     kind: vscode.CodeActionKind.RefactorRewrite,
     evaluate: (document, selection) => {
       const result = ifElseToConditionalService.createReplacePlan(document, selection);
+      return result.success;
+    },
+  },
+  {
+    commandId: 'reactify-tsx.simplifyTernary',
+    title: 'Reactify TSX: Simplify Ternary Expression',
+    kind: vscode.CodeActionKind.RefactorRewrite,
+    evaluate: (document, selection) => {
+      const result = conditionalSimplifyService.createSimplifyPlan(document, selection);
       return result.success;
     },
   },

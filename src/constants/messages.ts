@@ -157,3 +157,11 @@ export const SIMPLIFY_IF_ELSE_UNSUPPORTED_MESSAGE =
 export const SIMPLIFY_IF_ELSE_APPLY_FAILURE_MESSAGE = 'Could not apply if/else simplification.';
 export const SIMPLIFY_IF_ELSE_SUCCESS_MESSAGE = 'Simplified if/else to a direct boolean expression.';
 
+// Simplify ternary (conditional expression)
+export const NO_CONDITIONAL_IN_SELECTION_MESSAGE =
+  'No conditional (ternary) expression found at the current selection.';
+export const SIMPLIFY_TERNARY_UNSUPPORTED_MESSAGE =
+  'Only ternaries with boolean literal branches or identical branches are supported for simplification.';
+export const SIMPLIFY_TERNARY_APPLY_FAILURE_MESSAGE = 'Could not apply ternary simplification.';
+export const SIMPLIFY_TERNARY_SUCCESS_MESSAGE = 'Simplified ternary expression.';
+
