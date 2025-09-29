@@ -8,6 +8,7 @@ Reactify TSX is a VS Code extension that streamlines common React and TypeScript
 - [Function Transformation](docs/feature/TransformFunction/README.md) - Convert between arrow functions, function expressions, and declarations with guardrails.
 - [Flip If/Else Branches](docs/feature/FlipIfElse/README.md) - Negate the condition and swap `if`/`else` bodies while keeping control-flow intact.
 - [Simplify If/Else](docs/feature/SimplifyIfElse/README.md) - Collapse boolean return/assignment branches into a direct boolean expression.
+- [Merge Nested If](docs/feature/MergeNestedIf/README.md) - Merge `if` nested directly inside another `if` (no else) into a single guard with `&&`.
 - [Replace If/Else with Ternary](docs/feature/ReplaceIfElseWithTernary/README.md) - Convert simple return/assignment branches to a conditional `?:`.
 - [Simplify Ternary](docs/feature/SimplifyTernary/README.md) - Collapse `cond ? true : false`, `cond ? false : true`, or identical branches.
 - [Remove Redundant Else](docs/feature/RemoveRedundantElse/README.md) - Drop `else` branches when the guarded path already exits.
@@ -51,6 +52,7 @@ Reactify TSX is a VS Code extension that streamlines common React and TypeScript
 | `reactify-tsx.mergeDeclarationAndInitialization` | Reactify TSX: Merge Declaration and Initialization | `Ctrl+Alt+Shift+G` (`Cmd+Alt+Shift+G` on macOS) |
 | `reactify-tsx.splitOrMergeString` | Reactify TSX: Split String at Caret / Merge String Literals | `Ctrl+Alt+Shift+S` (`Cmd+Alt+Shift+S` on macOS) |
 | `reactify-tsx.wrapWithUseCallback` | Reactify TSX: Wrap Function with useCallback | `Ctrl+Alt+Shift+U` (`Cmd+Alt+Shift+U` on macOS) |
+| `reactify-tsx.mergeNestedIf` | Reactify TSX: Merge Nested If Statements | `Ctrl+Alt+Shift+N` (`Cmd+Alt+Shift+N` on macOS) |
 
 All commands are available from the editor context menu, the Quick Fix (Ctrl+.) panel, and the refactor sub-menu when editing JavaScript or TypeScript (including React variants). Commands that operate on selections still require you to highlight the target code before invoking Quick Fix.
 

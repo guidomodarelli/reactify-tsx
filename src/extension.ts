@@ -21,6 +21,7 @@ import { wrapWithUseCallbackCommand } from './commands/wrapWithUseCallbackComman
 import { replaceIfElseWithTernaryCommand } from './commands/replaceIfElseWithTernaryCommand';
 import { simplifyIfElseCommand } from './commands/simplifyIfElseCommand';
 import { simplifyTernaryCommand } from './commands/simplifyTernaryCommand';
+import { mergeNestedIfCommand } from './commands/mergeNestedIfCommand';
 
 const commandRegistrations: vscode.Disposable[] = [];
 let commandsInitialized = false;
@@ -51,6 +52,7 @@ export function activate(context: vscode.ExtensionContext): void {
       ['reactify-tsx.replaceIfElseWithTernary', () => replaceIfElseWithTernaryCommand()],
       ['reactify-tsx.simplifyIfElse', () => simplifyIfElseCommand()],
       ['reactify-tsx.simplifyTernary', () => simplifyTernaryCommand()],
+      ['reactify-tsx.mergeNestedIf', () => mergeNestedIfCommand()],
       ['reactify-tsx.wrapWithUseCallback', () => wrapWithUseCallbackCommand()],
     ];
 

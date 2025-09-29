@@ -41,7 +41,8 @@
     "onCommand:reactify-tsx.wrapWithUseCallback",
     "onCommand:reactify-tsx.replaceIfElseWithTernary",
     "onCommand:reactify-tsx.simplifyIfElse",
-    "onCommand:reactify-tsx.simplifyTernary"
+    "onCommand:reactify-tsx.simplifyTernary",
+    "onCommand:reactify-tsx.mergeNestedIf"
   ],
   "main": "./dist/extension.js",
   "contributes": {
@@ -134,6 +135,11 @@
         "command": "reactify-tsx.simplifyTernary",
         "title": "Reactify TSX: Simplify Ternary Expression"
       }
+      ,
+      {
+        "command": "reactify-tsx.mergeNestedIf",
+        "title": "Reactify TSX: Merge Nested If Statements"
+      }
     ],
     "menus": {
       "editor/context": [
@@ -216,6 +222,12 @@
           "command": "reactify-tsx.simplifyIfElse",
           "when": "editorLangId == typescriptreact || editorLangId == javascriptreact || editorLangId == typescript || editorLangId == javascript",
           "group": "navigation@92.065"
+        }
+        ,
+        {
+          "command": "reactify-tsx.mergeNestedIf",
+          "when": "editorLangId == typescriptreact || editorLangId == javascriptreact || editorLangId == typescript || editorLangId == javascript",
+          "group": "navigation@92.067"
         }
       ],
       "editor/codeAction": [
@@ -308,6 +320,11 @@
           "command": "reactify-tsx.simplifyIfElse",
           "when": "editorTextFocus && editorHasSelection && (editorLangId == typescriptreact || editorLangId == javascriptreact || editorLangId == typescript || editorLangId == javascript)",
           "group": "refactor@12.065"
+        },
+        {
+          "command": "reactify-tsx.mergeNestedIf",
+          "when": "editorTextFocus && editorHasSelection && (editorLangId == typescriptreact || editorLangId == javascriptreact || editorLangId == typescript || editorLangId == javascript)",
+          "group": "refactor@12.067"
         },
         {
           "command": "reactify-tsx.simplifyTernary",
@@ -447,6 +464,12 @@
         "command": "reactify-tsx.simplifyTernary",
         "key": "ctrl+alt+shift+x",
         "mac": "cmd+alt+shift+x",
+        "when": "editorTextFocus && (editorLangId == typescriptreact || editorLangId == javascriptreact || editorLangId == typescript || editorLangId == javascript)"
+      },
+      {
+        "command": "reactify-tsx.mergeNestedIf",
+        "key": "ctrl+alt+shift+n",
+        "mac": "cmd+alt+shift+n",
         "when": "editorTextFocus && (editorLangId == typescriptreact || editorLangId == javascriptreact || editorLangId == typescript || editorLangId == javascript)"
       }
     ]

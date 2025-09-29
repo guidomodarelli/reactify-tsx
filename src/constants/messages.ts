@@ -165,3 +165,10 @@ export const SIMPLIFY_TERNARY_UNSUPPORTED_MESSAGE =
 export const SIMPLIFY_TERNARY_APPLY_FAILURE_MESSAGE = 'Could not apply ternary simplification.';
 export const SIMPLIFY_TERNARY_SUCCESS_MESSAGE = 'Simplified ternary expression.';
 
+// Merge nested if
+export const MERGE_NESTED_IF_NO_IF_MESSAGE = 'No if statement found at the current selection.';
+export const MERGE_NESTED_IF_UNSUPPORTED_MESSAGE =
+  'Merge supports an if whose then branch directly nests a single if, with no else branches.';
+export const MERGE_NESTED_IF_APPLY_FAILURE_MESSAGE = 'Could not apply nested if merge changes.';
+export const MERGE_NESTED_IF_SUCCESS_MESSAGE = 'Merged nested if statements.';
+

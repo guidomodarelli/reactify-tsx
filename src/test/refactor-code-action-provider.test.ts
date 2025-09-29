@@ -30,6 +30,7 @@ suite('Refactor code action provider', () => {
       'reactify-tsx.extractArrowFunction',
       'reactify-tsx.transformFunction',
       'reactify-tsx.flipIfElse',
+      'reactify-tsx.mergeNestedIf',
       'reactify-tsx.simplifyIfElse',
       'reactify-tsx.simplifyTernary',
       'reactify-tsx.replaceIfElseWithTernary',
@@ -151,6 +152,27 @@ suite('Refactor code action provider', () => {
     assert.ok(
       commands.includes('reactify-tsx.replaceIfElseWithTernary'),
       'Replace if/else with ternary should appear for simple return branches',
+    );
+  });
+
+  test('should offer merge-nested-if when caret is inside nested if structure', async () => {
+    const content = [
+      'function demo(a: boolean, b: boolean) {',
+      '  if (a) {',
+      '    if (b) {',
+      '      run();',
+      '    }',
+      '  }',
+      '}',
+    ].join('\n');
+    const document = await createDocument('typescript', content);
+    const caretRange = caretAt(document, 'if (a)');
+
+    const commands = await collectRefactorCommands(document, caretRange, vscode.CodeActionKind.RefactorRewrite);
+
+    assert.ok(
+      commands.includes('reactify-tsx.mergeNestedIf'),
+      'Merge nested if should be available for nested if blocks without else branches',
     );
   });
 
