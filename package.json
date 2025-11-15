@@ -140,92 +140,106 @@
         "title": "Reactify TSX: Merge Nested If Statements"
       }
     ],
+    "submenus": [
+      {
+        "id": "reactify-tsx.contextActions",
+        "label": "Reactify TSX",
+        "when": "editorLangId == typescriptreact || editorLangId == javascriptreact || editorLangId == typescript || editorLangId == javascript"
+      }
+    ],
     "menus": {
       "editor/context": [
         {
+          "submenu": "reactify-tsx.contextActions",
+          "when": "editorLangId == typescriptreact || editorLangId == javascriptreact || editorLangId == typescript || editorLangId == javascript",
+          "group": "1_modification"
+        }
+      ],
+      "reactify-tsx.contextActions": [
+        {
           "command": "reactify-tsx.extractArrowFunction",
           "when": "editorLangId == typescriptreact || editorLangId == javascriptreact || editorLangId == typescript || editorLangId == javascript",
-          "group": "navigation@90"
+          "group": "1_modification@90"
         },
         {
           "command": "reactify-tsx.transformFunction",
           "when": "editorLangId == typescriptreact || editorLangId == javascriptreact || editorLangId == typescript || editorLangId == javascript",
-          "group": "navigation@91"
+          "group": "1_modification@91"
         },
         {
           "command": "reactify-tsx.flipIfElse",
           "when": "editorLangId == typescriptreact || editorLangId == javascriptreact || editorLangId == typescript || editorLangId == javascript",
-          "group": "navigation@92"
+          "group": "1_modification@92"
         },
         {
           "command": "reactify-tsx.removeRedundantElse",
           "when": "editorLangId == typescriptreact || editorLangId == javascriptreact || editorLangId == typescript || editorLangId == javascript",
-          "group": "navigation@92.05"
+          "group": "1_modification@93"
         },
         {
           "command": "reactify-tsx.parallelizeAwaitSelection",
           "when": "editorLangId == typescriptreact || editorLangId == javascriptreact || editorLangId == typescript || editorLangId == javascript",
-          "group": "navigation@92.06"
+          "group": "1_modification@94"
         },
         {
           "command": "reactify-tsx.convertToLet",
           "when": "editorLangId == typescriptreact || editorLangId == javascriptreact || editorLangId == typescript || editorLangId == javascript",
-          "group": "navigation@92.1"
+          "group": "1_modification@95"
         },
         {
           "command": "reactify-tsx.convertToConst",
           "when": "editorLangId == typescriptreact || editorLangId == javascriptreact || editorLangId == typescript || editorLangId == javascript",
-          "group": "navigation@92.2"
+          "group": "1_modification@96"
         },
         {
           "command": "reactify-tsx.enumToConst",
           "when": "editorLangId == typescriptreact || editorLangId == javascriptreact || editorLangId == typescript || editorLangId == javascript",
-          "group": "navigation@93"
+          "group": "1_modification@97"
         },
         {
           "command": "reactify-tsx.toggleJsxAttributeValue",
           "when": "editorLangId == typescriptreact || editorLangId == javascriptreact || editorLangId == typescript || editorLangId == javascript",
-          "group": "navigation@94"
+          "group": "1_modification@98"
         },
         {
           "command": "reactify-tsx.splitIntoMultipleDeclarations",
           "when": "editorLangId == typescriptreact || editorLangId == javascriptreact || editorLangId == typescript || editorLangId == javascript",
-          "group": "navigation@94.1"
+          "group": "1_modification@99"
         },
         {
           "command": "reactify-tsx.splitDeclarationAndInitialization",
           "when": "editorLangId == typescriptreact || editorLangId == javascriptreact || editorLangId == typescript || editorLangId == javascript",
-          "group": "navigation@94.2"
+          "group": "1_modification@100"
         },
         {
           "command": "reactify-tsx.mergeDeclarationAndInitialization",
           "when": "editorLangId == typescriptreact || editorLangId == javascriptreact || editorLangId == typescript || editorLangId == javascript",
-          "group": "navigation@94.3"
+          "group": "1_modification@101"
         },
         {
           "command": "reactify-tsx.addParensToSingleArrowParam",
           "when": "editorLangId == typescriptreact || editorLangId == javascriptreact || editorLangId == typescript || editorLangId == javascript",
-          "group": "navigation@94.4"
+          "group": "1_modification@102"
         },
         {
           "command": "reactify-tsx.wrapWithUseCallback",
           "when": "editorLangId == typescriptreact || editorLangId == javascriptreact || editorLangId == typescript || editorLangId == javascript",
-          "group": "navigation@92.08"
+          "group": "1_modification@103"
         },
         {
           "command": "reactify-tsx.replaceIfElseWithTernary",
           "when": "editorLangId == typescriptreact || editorLangId == javascriptreact || editorLangId == typescript || editorLangId == javascript",
-          "group": "navigation@92.07"
+          "group": "1_modification@104"
         },
         {
           "command": "reactify-tsx.simplifyIfElse",
           "when": "editorLangId == typescriptreact || editorLangId == javascriptreact || editorLangId == typescript || editorLangId == javascript",
-          "group": "navigation@92.065"
+          "group": "1_modification@105"
         },
         {
           "command": "reactify-tsx.mergeNestedIf",
           "when": "editorLangId == typescriptreact || editorLangId == javascriptreact || editorLangId == typescript || editorLangId == javascript",
-          "group": "navigation@92.067"
+          "group": "1_modification@106"
         }
       ],
       "editor/codeAction": [

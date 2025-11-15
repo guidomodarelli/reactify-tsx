@@ -54,7 +54,7 @@ Reactify TSX is a VS Code extension that streamlines common React and TypeScript
 | `reactify-tsx.wrapWithUseCallback` | Reactify TSX: Wrap Function with useCallback | `Ctrl+Alt+Shift+U` (`Cmd+Alt+Shift+U` on macOS) |
 | `reactify-tsx.mergeNestedIf` | Reactify TSX: Merge Nested If Statements | `Ctrl+Alt+Shift+N` (`Cmd+Alt+Shift+N` on macOS) |
 
-All commands are available from the editor context menu, the Quick Fix (Ctrl+.) panel, and the refactor sub-menu when editing JavaScript or TypeScript (including React variants). Commands that operate on selections still require you to highlight the target code before invoking Quick Fix.
+All commands are available from the editor context menu under the **Reactify TSX** submenu (separated by dividers for quicker scanning), the Quick Fix (Ctrl+.) panel, and the refactor sub-menu when editing JavaScript or TypeScript (including React variants). Commands that operate on selections still require you to highlight the target code before invoking Quick Fix.
 
 ## Function Transformation Options
 
