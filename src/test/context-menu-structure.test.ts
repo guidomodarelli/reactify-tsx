@@ -105,7 +105,7 @@ suite("Context menu hierarchy", () => {
 
   test("should include every context command under the submenu location", () => {
     const submenuEntries =
-      manifest.contributes?.menus?.[`submenu/${CONTEXT_SUBMENU_ID}`] ?? [];
+      manifest.contributes?.menus?.[`${CONTEXT_SUBMENU_ID}`] ?? [];
     const submenuCommands = submenuEntries.map((entry) => entry.command).filter(Boolean) as string[];
 
     const missingCommands = EXPECTED_CONTEXT_COMMANDS.filter(
