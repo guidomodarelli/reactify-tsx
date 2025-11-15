@@ -49,95 +49,95 @@
     "commands": [
       {
         "command": "reactify-tsx.extractArrowFunction",
-        "title": "Reactify TSX: Extract Arrow Function to Handler"
+        "title": "Extract Arrow Function to Handler"
       },
       {
         "command": "reactify-tsx.transformFunction",
-        "title": "Reactify TSX: Transform Function"
+        "title": "Transform Function"
       },
       {
         "command": "reactify-tsx.flipIfElse",
-        "title": "Reactify TSX: Flip If/Else Branches"
+        "title": "Flip If/Else Branches"
       },
       {
         "command": "reactify-tsx.removeRedundantElse",
-        "title": "Reactify TSX: Remove Redundant Else"
+        "title": "Remove Redundant Else"
       },
       {
         "command": "reactify-tsx.convertToLet",
-        "title": "Reactify TSX: Convert Declaration to let"
+        "title": "Convert Declaration to let"
       },
       {
         "command": "reactify-tsx.convertToConst",
-        "title": "Reactify TSX: Convert Declaration to const"
+        "title": "Convert Declaration to const"
       },
       {
         "command": "reactify-tsx.moveBlockUp",
-        "title": "Reactify TSX: Move Block Up"
+        "title": "Move Block Up"
       },
       {
         "command": "reactify-tsx.moveBlockDown",
-        "title": "Reactify TSX: Move Block Down"
+        "title": "Move Block Down"
       },
       {
         "command": "reactify-tsx.enumToConst",
-        "title": "Reactify TSX: Convert Enum to Const"
+        "title": "Convert Enum to Const"
       },
       {
         "command": "reactify-tsx.parallelizeAwaitSelection",
-        "title": "Reactify TSX: Parallelize Await Selection"
+        "title": "Parallelize Await Selection"
       },
       {
         "command": "reactify-tsx.toggleJsxAttributeValue",
-        "title": "Reactify TSX: Toggle JSX Attribute Braces"
+        "title": "Toggle JSX Attribute Braces"
       },
       {
         "command": "reactify-tsx.toggleStringTemplate",
-        "title": "Reactify TSX: Toggle String ⇄ Template Literal"
+        "title": "Toggle String ⇄ Template Literal"
       },
       {
         "command": "reactify-tsx.splitIntoMultipleDeclarations",
-        "title": "Reactify TSX: Split Into Multiple Declarations"
+        "title": "Split Into Multiple Declarations"
       },
       {
         "command": "reactify-tsx.splitDeclarationAndInitialization",
-        "title": "Reactify TSX: Split Declaration and Initialization"
+        "title": "Split Declaration and Initialization"
       },
       {
         "command": "reactify-tsx.mergeDeclarationAndInitialization",
-        "title": "Reactify TSX: Merge Declaration and Initialization"
+        "title": "Merge Declaration and Initialization"
       },
       {
         "command": "reactify-tsx.toggleArrowBody",
-        "title": "Reactify TSX: Toggle Arrow Body (Expression -> Block)"
+        "title": "Toggle Arrow Body (Expression -> Block)"
       },
       {
         "command": "reactify-tsx.addParensToSingleArrowParam",
-        "title": "Reactify TSX: Add Parens to Single Arrow Parameter"
+        "title": "Add Parens to Single Arrow Parameter"
       },
       {
         "command": "reactify-tsx.splitOrMergeString",
-        "title": "Reactify TSX: Split String at Caret / Merge String Literals"
+        "title": "Split String at Caret / Merge String Literals"
       },
       {
         "command": "reactify-tsx.wrapWithUseCallback",
-        "title": "Reactify TSX: Wrap Function with useCallback"
+        "title": "Wrap Function with useCallback"
       },
       {
         "command": "reactify-tsx.replaceIfElseWithTernary",
-        "title": "Reactify TSX: Replace If/Else with Ternary"
+        "title": "Replace If/Else with Ternary"
       },
       {
         "command": "reactify-tsx.simplifyIfElse",
-        "title": "Reactify TSX: Simplify If/Else"
+        "title": "Simplify If/Else"
       },
       {
         "command": "reactify-tsx.simplifyTernary",
-        "title": "Reactify TSX: Simplify Ternary Expression"
+        "title": "Simplify Ternary Expression"
       },
       {
         "command": "reactify-tsx.mergeNestedIf",
-        "title": "Reactify TSX: Merge Nested If Statements"
+        "title": "Merge Nested If Statements"
       }
     ],
     "submenus": [
