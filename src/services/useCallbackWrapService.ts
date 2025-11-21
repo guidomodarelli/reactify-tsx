@@ -20,6 +20,15 @@ type LocateResult =
   | { readonly kind: 'already-wrapped' }
   | undefined;
 
+interface SelectionSpan {
+  readonly start: number;
+  readonly end: number;
+}
+
+type LocateCandidate =
+  | { readonly kind: 'success'; readonly context: LocatedInitializerContext; readonly span: SelectionSpan }
+  | { readonly kind: 'already-wrapped'; readonly span: SelectionSpan };
+
 const printer = ts.createPrinter({ newLine: ts.NewLineKind.LineFeed });
 
 export class UseCallbackWrapService {
@@ -81,18 +90,14 @@ export class UseCallbackWrapService {
     selectionStart: number,
     selectionEnd: number,
   ): LocateResult {
-    let result: LocateResult;
+    let bestCandidate: LocateCandidate | undefined;
+    const selectionAnchor = (selectionStart + selectionEnd) / 2;
 
     const visit = (node: ts.Node) => {
-      if (result) {
-        return;
-      }
-
       if (ts.isVariableDeclaration(node) && node.initializer) {
         const outcome = this.evaluateVariableDeclaration(node, selectionStart, selectionEnd, sourceFile);
         if (outcome) {
-          result = outcome;
-          return;
+          bestCandidate = this.pickCloserCandidate(bestCandidate, outcome, selectionAnchor);
         }
       }
 
@@ -100,7 +105,18 @@ export class UseCallbackWrapService {
     };
 
     visit(sourceFile);
-    return result;
+    if (!bestCandidate) {
+      return undefined;
+    }
+
+    if (bestCandidate.kind === 'already-wrapped') {
+      return { kind: 'already-wrapped' };
+    }
+
+    return {
+      kind: 'success',
+      context: bestCandidate.context,
+    };
   }
 
   private evaluateVariableDeclaration(
@@ -108,7 +124,7 @@ export class UseCallbackWrapService {
     selectionStart: number,
     selectionEnd: number,
     sourceFile: ts.SourceFile,
-  ): LocateResult {
+  ): LocateCandidate | undefined {
     const initializer = declaration.initializer;
     if (!initializer) {
       return undefined;
@@ -126,11 +142,17 @@ export class UseCallbackWrapService {
         const functionEnd = firstArg.getEnd();
         const intersectsFunction = selectionEnd >= functionStart && selectionStart < functionEnd;
         if (intersectsFunction) {
-          return { kind: 'already-wrapped' };
+          return {
+            kind: 'already-wrapped',
+            span: { start: functionStart, end: functionEnd },
+          };
         }
       }
 
-      return { kind: 'already-wrapped' };
+      return {
+        kind: 'already-wrapped',
+        span: { start: initializerStart, end: initializerEnd },
+      };
     }
 
     if (!ts.isArrowFunction(strippedInitializer) && !ts.isFunctionExpression(strippedInitializer)) {
@@ -170,6 +192,7 @@ export class UseCallbackWrapService {
 
         functionExpression: strippedInitializer,
       },
+      span: { start: functionStart, end: functionEnd },
     };
   }
 
@@ -316,6 +339,39 @@ export class UseCallbackWrapService {
     return ts.factory.createImportSpecifier(false, undefined, ts.factory.createIdentifier('useCallback'));
   }
 
+  private pickCloserCandidate(
+    current: LocateCandidate | undefined,
+    candidate: LocateCandidate,
+    selectionAnchor: number,
+  ): LocateCandidate {
+    if (!current) {
+      return candidate;
+    }
+
+    const candidateDistance = this.distanceToSpan(candidate.span, selectionAnchor);
+    const currentDistance = this.distanceToSpan(current.span, selectionAnchor);
+    if (candidateDistance !== currentDistance) {
+      return candidateDistance < currentDistance ? candidate : current;
+    }
+
+    const candidateWidth = candidate.span.end - candidate.span.start;
+    const currentWidth = current.span.end - current.span.start;
+    if (candidateWidth !== currentWidth) {
+      return candidateWidth < currentWidth ? candidate : current;
+    }
+
+    return candidate.span.start > current.span.start ? candidate : current;
+  }
+
+  private distanceToSpan(span: SelectionSpan, selectionAnchor: number): number {
+    if (selectionAnchor < span.start) {
+      return span.start - selectionAnchor;
+    }
+    if (selectionAnchor > span.end) {
+      return selectionAnchor - span.end;
+    }
+    return 0;
+  }
 
   private detectLineEnding(document: vscode.TextDocument): string {
     return document.eol === vscode.EndOfLine.CRLF ? '\r\n' : '\n';

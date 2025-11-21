@@ -12,7 +12,6 @@ import { UseCallbackWrapService, type UseCallbackWrapPlanSuccess } from '../serv
 suite('UseCallbackWrapService', () => {
   const service = new UseCallbackWrapService();
 
-  test('should wrap arrow function initializer with useCallback and extend existing named import', async () => {
   test('should wrap when caret rests on variable name', async () => {
     const content = [
       "import { useState } from 'react';",
@@ -44,6 +43,7 @@ suite('UseCallbackWrapService', () => {
     );
   });
 
+  test('should wrap arrow function initializer with useCallback and extend existing named import', async () => {
     const content = [
       "import { useState } from 'react';",
       '',
@@ -69,6 +69,50 @@ suite('UseCallbackWrapService', () => {
         'const handleClick = useCallback(() => {',
         "    console.log('clicked');",
         '}, []);',
+        '',
+      ].join('\n'),
+    );
+  });
+
+  test('should wrap innermost initializer when selection overlaps nested functions', async () => {
+    // Preparation checklist for nested selection:
+    // - Build nested arrow functions so the caret sits within both outer and inner initializer ranges.
+    // - Position the caret inside the inner function body to express priority for the nearest scope.
+    // - Confirm import merging still extends existing React named imports.
+    // - Verify only the inner initializer is wrapped, leaving ancestors untouched.
+    const content = [
+      "import { useState } from 'react';",
+      '',
+      'const outer = () => {',
+      '  const inner = () => {',
+      "    console.log('cursor');",
+      '  };',
+      '',
+      '  return inner();',
+      '};',
+      '',
+    ].join('\n');
+    const document = await createDocument(content);
+    const selection = caretAt(document, "console.log('cursor');");
+
+    const result = service.createPlan(document, selection);
+    assert.ok(result.success, 'Expected innermost initializer to be selected for wrapping');
+
+    const plan = result as UseCallbackWrapPlanSuccess;
+    const updated = applyPlan(document, plan.plan);
+
+    assert.strictEqual(
+      updated,
+      [
+        "import { useState, useCallback } from 'react';",
+        '',
+        'const outer = () => {',
+        '  const inner = useCallback(() => {',
+        "    console.log('cursor');",
+        '  }, []);',
+        '',
+        '  return inner();',
+        '};',
         '',
       ].join('\n'),
     );
@@ -210,6 +254,6 @@ function applyPlan(document: vscode.TextDocument, plan: UseCallbackWrapPlanSucce
   return updated;
 }
 
-// Coverage commentary: Exercises wrapping for arrow and function expressions, React import augmentation, import synthesis, and failure modes.
+// Coverage commentary: Exercises wrapping for arrow and function expressions, React import augmentation, import synthesis, nested selection prioritization, and failure modes.
 // Future enhancements: Detect dependency array contents automatically and support property assignment initializers.
 // Validation: Fully automated via in-memory documents; no manual intervention required.
